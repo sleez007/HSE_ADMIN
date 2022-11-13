@@ -8,6 +8,9 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoadingIndicatorComponent } from './core/component/loading-indicator/loading-indicator.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { LoadingIndicatorComponent } from './core/component/loading-indicator/lo
     NgProgressRouterModule,
     NgProgressHttpModule,
     HttpClientModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
