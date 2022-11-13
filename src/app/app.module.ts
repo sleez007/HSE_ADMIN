@@ -7,11 +7,13 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoadingIndicatorComponent } from './core/component/loading-indicator/loading-indicator.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoadingIndicatorComponent
   ],
   imports: [
     BrowserModule,
