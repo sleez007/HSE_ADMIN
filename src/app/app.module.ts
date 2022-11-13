@@ -11,6 +11,7 @@ import { LoadingIndicatorComponent } from './core/component/loading-indicator/lo
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer, rootReducers } from './core/store';
 
 
 @NgModule({
@@ -25,9 +26,11 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     NgProgressRouterModule,
     NgProgressHttpModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(rootReducers, {}),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
