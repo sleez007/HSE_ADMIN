@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    APP_NAME: "angular-cicd-pipeline-demo"
+    APP_NAME: "hse_admin"
 phases:
   install:
     runtime-versions:
