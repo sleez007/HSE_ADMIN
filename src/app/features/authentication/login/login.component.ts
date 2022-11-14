@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loginActions } from '../core/store';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(loginActions.login({email: "user@bonitasict.com", password: "password"}));
   }
 
 }

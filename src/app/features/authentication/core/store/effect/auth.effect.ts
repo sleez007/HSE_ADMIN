@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
+import { authEndpoints } from "../../constants";
 import { Auth, AuthResponse } from "../../model";
 import { loginActions, loginEffectActions } from "../action/auth.action";
 
@@ -12,7 +13,7 @@ export class AuthEffect {
 
     loginUser$ = createEffect(() => this.action$.pipe(
         ofType(loginActions.login),
-        exhaustMap(({email, password}) => this.networkHelper.post<AuthResponse, Auth>("/login", {email, password}).pipe(
+        exhaustMap(({email, password}) => this.networkHelper.post<AuthResponse, Auth>(authEndpoints.login, {email, password}).pipe(
             map(response => loginEffectActions.loginSuccess(response)),
             catchError((error) => of(loginEffectActions.loginError({message: error['message'], statusCode: 401 })))
         ) )

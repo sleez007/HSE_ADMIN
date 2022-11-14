@@ -1,27 +1,42 @@
-# HseAdmin
+# HSE Admin end Repository
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
+Hi! welcome to the **HSE** admin end. This repository contains code for the admin end project built with Angular JS. This readme file serves as a guide to enable project collaborators to know how to set up projects and also get a detailed overview of project architectures and libs used.
 
-## Development server
+## Pulling project into an already existing folder with files
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+If you already have generated a project before synchronizing this repository, then you may want to fetch this repository using git rather than cloning. Find the steps below:
 
-## Code scaffolding
+- Remove the existing **.git** folder by running the command ``rm -fr .git`` . This is only necessary if you already have initialized git in the current directory.
+- Initialize git again by running the command ``git init`` in the project directory.
+- Add the remote origin by running the command ``git remote add origin https://github.com/bonitas-ict/hse_admin.git``
+- Sync with the existing online repository by running the command ``git fetch origin`` to pull down the remote repository.
+- Check out the specific branch you want with the command i.e ``git checkout -b branch-name`` where **branch-name** is a placeholder for the specific branch you would want to checkout.
+- At this point, You are good to go 😁
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Cloning the project for the first time
 
-## Build
+If you intend to clone the project freshly to your system then, a simple git clone will suffice i.e ``git clone https://github.com/bonitas-ict/hse_admin.git``. The example above assumes you are using HTTPS and not SSH.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Important Note
 
-## Running unit tests
+Whatever you do, **Make sure** to keep off pushing directly to the production branch as it should be a read-only branch for contributors. You are allowed to use feature branches. After pushing a certain feature branch, you can go ahead and open a pull request on the ``main branch``  as we won't be using this as the master branch
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Project dependency
 
-## Running end-to-end tests
+Please ensure you add all your project dependencies here in the section, for easy tracking
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- ngx progressbar
+- NgRx Store
+- NgRx Effect
+- NgRx Router store
+- NgRx Entity
+- NgRx dev tool
+- PrimeNg
 
-## Further help
+## Feel free to add screenshots
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+You can go ahead and attach your app screenshots if you wish
+
+## Live deployment Url
+
+[Live deployment URL](https://main.d3qc8pj9a55dt1.amplifyapp.com/)
