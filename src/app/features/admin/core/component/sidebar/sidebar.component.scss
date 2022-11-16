@@ -1,0 +1,13 @@
+.side-bar{
+    width: var(--drawer);
+    height: 100%; 
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    background-color: hsla(210, 44%, 22%, 1);
+    z-index: 99;
+    transition: .3s width ease-in;
+    padding: .8em 1.2em;
+}

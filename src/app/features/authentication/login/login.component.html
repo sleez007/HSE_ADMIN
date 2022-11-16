@@ -38,8 +38,7 @@
                     <small *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']" id="password-help" class="p-error block">Please enter your password</small>
                     <small *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.errors?.['required'] && loginForm.controls.password.errors?.['invalidPassword']" id="password-help" class="p-error block">Password should contain a minimum of 8 characters, 1 uppercase, 1 lowercase and a number</small>
                 </div>
-
-                <button class="btn" pButton type="button" label="Login" [loading]="false" ></button>
+                <button class="btn" pButton type="submit" label="Login" [loading]="(isLoading$ | async) ?? false" ></button>
             </form>
         </div>
     </div>

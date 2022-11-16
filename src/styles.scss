@@ -37,12 +37,17 @@ html, body {
     --regular-font-weight: 400;
     --bold-font-weight: 500;
 
+    --drawer: 260px;
+    --rail: 76px;
+    --mobile:0;
+
     @media(min-width: 50em){
         font-size: 1.125em;
     }
 
     --primary-color: hsla(210, 44%, 22%, 1);
     --primary-light-color: hsla(231, 14%, 20%, 1);
+    --bg: hsla(240, 100%, 99%, 1);
 }
 
 body{

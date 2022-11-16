@@ -22,7 +22,7 @@ import { API_ENDPOINT, REST_ENDPOINT } from './core/service';
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
   ],
   imports: [
     BrowserModule,

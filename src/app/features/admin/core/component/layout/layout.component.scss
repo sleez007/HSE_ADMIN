@@ -1,0 +1,14 @@
+.wrapper{
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg);
+
+    .main-panel{
+        width: calc(100% - var(--drawer));
+        height: 100%;
+        position: relative;
+        left: var(--drawer);
+        top: 0;
+        transition: width .3s ease-in, left .3s ease-in;
+    }
+}
