@@ -40,6 +40,9 @@ html, body {
     @media(min-width: 50em){
         font-size: 1.125em;
     }
+
+    --primary-color: hsla(210, 44%, 22%, 1);
+    --primary-light-color: hsla(231, 14%, 20%, 1);
 }
 
 body{
@@ -61,4 +64,9 @@ body{
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.btn{
+    background-color: var(--primary-color);
+    width: 100%;
 }

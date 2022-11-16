@@ -1,1 +1,23 @@
-<p>login works!</p>
+<section class="login-wrapper">
+    <div class="grid grid--2">
+        <div class="login-wrapper__bg"></div>
+        <div class="login-wrapper__content flex">
+            
+            <form class="form" >
+                <h1>Welcome Back</h1>
+                <div class="field">
+                    <label for="email" class="block">Email Address</label>
+                    <input [style]="{'width':'100%'}"  id="email" type="username" aria-describedby="email-help" class="ng-invalid ng-dirty" pInputText />
+                    <small id="email-help" class="p-error block">Email Address is not valid.</small>
+                </div>
+                <div class="field">
+                    <label for="password" class="block">Password</label>
+                    <p-password aria-describedby="email-help" class="ng-invalid ng-dirty" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" type="password" [feedback]="false" id="password" [toggleMask]="true"></p-password>
+                    <small id="username2-help" class="p-error block">Invalid Password.</small>
+                </div>
+
+                <button class="btn" pButton type="button" label="Login" [loading]="false" ></button>
+            </form>
+        </div>
+    </div>
+</section>

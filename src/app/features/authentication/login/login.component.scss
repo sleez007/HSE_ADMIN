@@ -1,0 +1,35 @@
+.login-wrapper{
+    height: 100%;
+    width: 100%;
+
+    &__bg{
+        background-color: var(--primary-color);
+    }
+    &__content{
+        flex-direction: column;
+
+        .form{
+            width: 60%;
+
+            h1{
+                color: var(--primary-light-color);
+                margin-bottom: 1em;
+            }
+
+            .field{
+                margin-bottom: 1em;
+            }
+
+            .field > * {
+                display: block;
+                margin-bottom: .6em;
+            }
+    
+            label{
+                font-size: .8rem;
+                margin-bottom: 10px;
+                color: #A4A6B3;
+            }
+        }
+    }
+}
