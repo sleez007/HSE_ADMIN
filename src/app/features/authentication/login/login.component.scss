@@ -4,6 +4,70 @@
 
     &__bg{
         background-color: var(--primary-color);
+        position: relative;
+        overflow: hidden;
+        
+
+        .design{
+            position: absolute;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 59.37%);
+            transform: rotate(-45deg);
+            width: 136px;
+            height: 267px;
+
+            &-1{
+                left:15em;
+                top:10em;
+            }
+            &-2{
+                left:6em;
+                top: 20em;
+            }
+            &-3{
+                left:33em;
+                top: 8em;
+            }
+            &-4{
+                left:22em;
+                top: 22em;
+            }
+            &-5{
+                left:10em;
+                top: 35em;
+            }
+
+            &-6{
+                right:-4em;
+                top: 25em;
+            }
+
+            &-7{
+                right:5em;
+                top: 36em;
+            }
+
+            &-8{
+                right:15em;
+                bottom: -8em;
+            }
+            &-9{
+                left:-1em;
+                top: -2em;
+            }
+        }
+
+        .hex{
+            position: relative;
+            p{
+                color: white;
+                position: absolute;
+                font-size: 2rem;
+                justify-content: center;
+                text-align: center;
+                line-height: 1.6;
+            }
+        }
+        
     }
     &__content{
         flex-direction: column;
@@ -14,10 +78,13 @@
             h1{
                 color: var(--primary-light-color);
                 margin-bottom: 1em;
+                font-size: 2rem;
+                font-weight: var(--regular-font-weight);
             }
 
             .field{
                 margin-bottom: 1em;
+                min-height: 100px;
             }
 
             .field > * {

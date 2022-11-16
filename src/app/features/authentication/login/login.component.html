@@ -1,19 +1,42 @@
 <section class="login-wrapper">
     <div class="grid grid--2">
-        <div class="login-wrapper__bg"></div>
-        <div class="login-wrapper__content flex">
+        <div class="login-wrapper__bg">
+            <div class="design design-1"></div>
+            <div class="design design-2"></div>
+            <div class="design design-3"></div>
+            <div class="design design-4"></div>
+            <div class="design design-5"></div>
+            <div class="design design-6"></div>
+            <div class="design design-7"></div>
+            <div class="design design-8"></div>
+            <div class="design design-9"></div>
+            <div class="hex flex">
+                <svg width="500" height="577" viewBox="0 0 500 577" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 147.137L249.848 5.7735L494.697 147.137L494.697 429.863L249.848 571.227L5 429.863L5 147.137Z" stroke="#FAA919" stroke-width="10"/>
+                </svg>
+                <p>
+                    Think Safely <br> 
+                    Act Safely <br>
+                    Be Safe
+                </p>
+            </div>
             
-            <form class="form" >
-                <h1>Welcome Back</h1>
+                
+        </div>
+        <div class="login-wrapper__content flex">
+            <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+                <h1>Welcome Back!</h1>
                 <div class="field">
                     <label for="email" class="block">Email Address</label>
-                    <input [style]="{'width':'100%'}"  id="email" type="username" aria-describedby="email-help" class="ng-invalid ng-dirty" pInputText />
-                    <small id="email-help" class="p-error block">Email Address is not valid.</small>
+                    <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" [ngClass]="loginForm.controls.email.touched && loginForm.controls.email.invalid ? 'ng-invalid ng-dirty' : ''"  pInputText />
+                    <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                    <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small>
                 </div>
                 <div class="field">
                     <label for="password" class="block">Password</label>
-                    <p-password aria-describedby="email-help" class="ng-invalid ng-dirty" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" type="password" [feedback]="false" id="password" [toggleMask]="true"></p-password>
-                    <small id="username2-help" class="p-error block">Invalid Password.</small>
+                    <p-password  aria-describedby="password-help" formControlName="password" [ngClass]="loginForm.controls.password.touched && loginForm.controls.password.invalid ? 'ng-invalid ng-dirty' : ''" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" type="password" [feedback]="false" id="password" [toggleMask]="true"></p-password>
+                    <small *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']" id="password-help" class="p-error block">Please enter your password</small>
+                    <small *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.errors?.['required'] && loginForm.controls.password.errors?.['invalidPassword']" id="password-help" class="p-error block">Password should contain a minimum of 8 characters, 1 uppercase, 1 lowercase and a number</small>
                 </div>
 
                 <button class="btn" pButton type="button" label="Login" [loading]="false" ></button>
