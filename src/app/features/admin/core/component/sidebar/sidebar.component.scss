@@ -40,21 +40,49 @@
             a{
                 display: flex;
                 align-items: center;
-                // justify-content: center;
+                cursor: pointer;
 
-                span + span {
+                span {
                     margin-left: .6em;
+                    &+i{
+                        margin-left: .6em;
+                    }
                 }
+
+
             }
 
+        }
+
+        .bnk{
+            position: relative;
+            overflow: hidden;
         }
 
         .side-dropdown{
-            padding-left: 1.5em;
+            padding-left: 1.1em;
+            transition: 200ms height ease-in, 200ms margin-top ease-in;
             a {
                 font-size: .8rem;
             }
+
         }
+    }
+
+    .pi-angle-right{
+        transition: 200ms transform ease-in;
+    }
+
+    .open{
+       height: auto;
+       margin-top: .8em;
+    }
+    .tilt{
+        transform: rotate(90deg);
+    }
+    .close{
+        height: 0;
+        margin-top: 0;
     }
 }
 
