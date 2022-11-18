@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
-import {PasswordModule} from 'primeng/password';
-import {ButtonModule} from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [],
@@ -10,8 +11,9 @@ import {ButtonModule} from 'primeng/button';
     CommonModule,
     InputTextModule,
     PasswordModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule
   ],
-  exports: [InputTextModule, PasswordModule, ButtonModule]
+  exports: [InputTextModule, PasswordModule, ButtonModule, CalendarModule]
 })
 export class PrimeUiModule { }

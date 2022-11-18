@@ -1,0 +1,36 @@
+.nav{
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+
+    &__option{
+        ul{
+            li + li {
+                margin-left: 1.5em;
+            }
+
+            .bell-bg{
+                position: relative;
+                background-color: hsla(210, 44%, 22%, 0.1);
+                padding: .4em .6em;
+                border-radius: .3em;
+
+                &::before{
+                    position: absolute;
+                    content: '';
+                    height: 100%;
+                    width: 1px;
+                    background-color: hsla(223, 4%, 50%, 1);
+                    top: 0;
+                    right: -1em;
+                }
+            }
+
+            .user{
+                span{
+                    margin-left: .5em;
+                }
+            }
+        }
+    }
+}

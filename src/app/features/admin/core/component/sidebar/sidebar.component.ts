@@ -14,7 +14,7 @@ const menuLinks = [
     icon: 'pi pi-users',
     hasSubMenu: true,
     link: null,
-    isOpen: true,
+    isOpen: false,
     subMenu :[
       {
         name: 'All Staff',

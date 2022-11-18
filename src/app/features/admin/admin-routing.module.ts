@@ -4,6 +4,7 @@ import { LayoutComponent } from './core/component/layout/layout.component';
 const routes: Routes = [
   { 
     path: '', component: LayoutComponent ,
+    title: 'Mad o',
     children:[
       { path: 'project', loadChildren: () => import('./project/create/create.module').then(m => m.CreateModule) },
       { path: 'projects', loadChildren: () => import('./project/manage/manage.module').then(m => m.ManageModule) },

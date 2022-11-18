@@ -1,0 +1,10 @@
+.menu {
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    .menu__controls{
+        .btn--outline  + .btn--outline{
+            margin-left: 2em;
+        }
+    }
+}

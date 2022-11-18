@@ -48,6 +48,7 @@ html, body {
     --primary-color: hsla(210, 44%, 22%, 1);
     --primary-light-color: hsla(231, 14%, 20%, 1);
     --bg: hsla(240, 100%, 99%, 1);
+    --white: #FFFFFF;
 }
 
 body{
@@ -74,4 +75,26 @@ body{
 .btn{
     background-color: var(--primary-color);
     width: 100%;
+    cursor: pointer;
+}
+
+.btn--outline{
+    background-color: var(--white);
+    display: inline-block;
+    border: 2px solid var(--primary-color);
+    padding: .8em 1.5em;
+    border-radius: .6em;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.card-bg{
+    background-color: hsla(0, 0%, 100%, 1);
+    padding: 2em;
+    margin: 3em 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 32px rgba(32, 57, 82, 0.05);
+    border-radius: .6em;
+    min-height: 20em;
+
 }
