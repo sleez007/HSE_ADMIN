@@ -2,9 +2,14 @@
     position: relative;
     width: 100%;
     justify-content: space-between;
-    .menu__controls{
+    &__controls{
         .btn--outline  + .btn--outline{
             margin-left: 2em;
+        }
+    }
+    &__filter{
+        & > * + * {
+            margin-left: .8em;
         }
     }
 }
