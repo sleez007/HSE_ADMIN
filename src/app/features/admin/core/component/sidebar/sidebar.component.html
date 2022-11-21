@@ -6,7 +6,7 @@
         <nav class="nav_menu">
             <ul class="nav_links">
                 <li *ngFor="let m of menu$ | async; let i = index" class="bnk">
-                    <a [routerLink]="!m.hasSubMenu ? m.link : null"  (click)="toggleMenu(i, $event)">
+                    <a [routerLink]="!m.hasSubMenu ? m.link : null"  (click)="toggleMenu(i)">
                         <i [class]="m.icon"></i>
                         <span>{{m.name}}</span>
                         <i *ngIf="m.hasSubMenu" class="pi pi-angle-right" [ngClass]="m.isOpen ? 'tilt': ''"></i>
