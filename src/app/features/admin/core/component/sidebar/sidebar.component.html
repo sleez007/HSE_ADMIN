@@ -5,15 +5,15 @@
         </div>
         <nav class="nav_menu">
             <ul class="nav_links">
-                <li *ngFor="let m of menu; let i = index" class="bnk">
-                    <a  (click)="toggleMenu(i)">
+                <li *ngFor="let m of menu$ | async; let i = index" class="bnk">
+                    <a [routerLink]="!m.hasSubMenu ? m.link : null"  (click)="toggleMenu(i, $event)">
                         <i [class]="m.icon"></i>
                         <span>{{m.name}}</span>
                         <i *ngIf="m.hasSubMenu" class="pi pi-angle-right" [ngClass]="m.isOpen ? 'tilt': ''"></i>
                     </a>
                     <ul *ngIf="m.hasSubMenu" class="side-dropdown" [ngClass]="m.isOpen ? 'open': 'close'">
                         <li *ngFor="let sub of m.subMenu">
-                            <a href="#"><span>{{sub.name}}</span></a>
+                            <a [routerLink]="sub.link"><span>{{sub.name}}</span></a>
                         </li>
                     </ul>
                 </li>
