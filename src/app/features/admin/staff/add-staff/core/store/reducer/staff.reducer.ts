@@ -12,7 +12,7 @@ export  interface StaffCreationState {
 export const staffInitialState: StaffCreationState = {
     stepper : [
         {label: 'Basic Information', routerLink: './'},
-        {label: 'Medical Information', routerLink: '/medicals'}
+        {label: 'Medical Information', routerLink: './medical'}
     ],
     staffData: {
         firstName: '',

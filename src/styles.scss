@@ -89,6 +89,12 @@ body, .p-component{
     background-color: var(--primary-color);
     width: 100%;
     cursor: pointer;
+    padding:.8em 1.5em;
+    font-size: .9rem;
+    display: inline-block;
+    border-radius: .8em;
+    border:none;
+    color: var(--white);
 }
 .btn--outline{
     background-color: var(--white);
@@ -113,5 +119,23 @@ body, .p-component{
     box-shadow: 0px 0px 32px rgba(32, 57, 82, 0.05);
     border-radius: .6em;
     min-height: 20em;
+}
 
+.form{
+
+    .field{
+        // margin-bottom: 1em;
+        // min-height: 100px;
+    }
+
+    .field > * {
+        display: block;
+        margin-bottom: .6em;
+    }
+
+    label{
+        font-size: .8rem;
+        margin-bottom: 10px;
+        color: #A4A6B3;
+    }
 }

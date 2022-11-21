@@ -1,0 +1,65 @@
+<div>
+    <p>User Information</p>
+    <form class="form" [formGroup]="staffForm" (ngSubmit)="onSubmit()" >
+        <div class="grid grid--2">
+            <div class="field">
+                <label for="firstName" class="block">First Name</label>
+                <input [style]="{'width':'100%'}" formControlName="firstName"  id="firstName" type="text" aria-describedby="firstName-help"   pInputText />
+                <small *ngIf="staffForm.controls.firstName.touched && staffForm.controls.email.errors?.['required']" id="firstName-help" class="p-error block">First Name is required.</small>
+            </div>
+            <div class="field">
+                <label for="lastName" class="block">Last Name</label>
+                <input [style]="{'width':'100%'}" formControlName="lastName"  id="lastName" type="text" aria-describedby="lastName-help" pInputText />
+                <small *ngIf="staffForm.controls.lastName.touched && staffForm.controls.lastName.errors?.['required']" id="lastName-help" class="p-error block">Last Name is required.</small>
+            </div>
+            <div class="field">
+                <label for="email" class="block">Email Address</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <small *ngIf="staffForm.controls.email.touched && staffForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="staffForm.controls.email.touched && staffForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small>
+            </div>
+            <div class="field">
+                <label for="phoneNumber" class="block">Phone Number</label>
+                <input [style]="{'width':'100%'}" formControlName="phoneNumber"  id="phoneNumber" type="tel" aria-describedby="phoneNumber-help" pInputText />
+                <small *ngIf="staffForm.controls.phoneNumber.touched && staffForm.controls.phoneNumber.errors?.['required']" id="phoneNumber-help" class="p-error block">Phone Number is required.</small>
+            </div>
+            <div class="field">
+                <label for="email" class="block">Gender</label>
+                <p-dropdown [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="gender" aria-describedby="gender-help"  optionLabel="name"></p-dropdown>
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+            <div class="field">
+                <label for="email" class="block">Position</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+            <div class="field">
+                <label for="email" class="block">Entity</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+            <div class="field">
+                <label for="email" class="block">Location</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+            <div class="field">
+                <label for="email" class="block">Assigned Role</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+            <div class="field">
+                <label for="email" class="block">Assign Supervisor</label>
+                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
+                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
+                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+            </div>
+        </div>
+        <button type="submit" class="btn">Next</button>
+    </form>
+</div>

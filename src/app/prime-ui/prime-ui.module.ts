@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import {TableModule} from 'primeng/table';
 import {StepsModule} from 'primeng/steps';
+import {DropdownModule} from 'primeng/dropdown';
+
 
 @NgModule({
   declarations: [],
@@ -17,6 +19,6 @@ import {StepsModule} from 'primeng/steps';
     CalendarModule,
     TableModule
   ],
-  exports: [InputTextModule, PasswordModule, ButtonModule, CalendarModule, TableModule, StepsModule]
+  exports: [InputTextModule, PasswordModule, ButtonModule, CalendarModule, TableModule, StepsModule, DropdownModule]
 })
 export class PrimeUiModule { }

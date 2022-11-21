@@ -6,16 +6,22 @@ import { AddStaffComponent } from './add-staff.component';
 import { PrimeUiModule } from 'src/app/prime-ui/prime-ui.module';
 import { StoreModule } from '@ngrx/store';
 import { staffFeature } from './core/store';
+import { UserDataFormComponent } from './core/component/user-data-form/user-data-form.component';
+import { UserMedicalFormComponent } from './core/component/user-medical-form/user-medical-form.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    AddStaffComponent
+    AddStaffComponent,
+    UserDataFormComponent,
+    UserMedicalFormComponent
   ],
   imports: [
     CommonModule,
     AddStaffRoutingModule,
     StoreModule.forFeature(staffFeature),
+    SharedModule,
     PrimeUiModule
   ]
 })
