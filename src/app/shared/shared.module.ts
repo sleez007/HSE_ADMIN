@@ -8,7 +8,7 @@ import { PrimeUiModule } from '../prime-ui/prime-ui.module';
 
 @NgModule({
   declarations: [
-    ProjectFilterComponent
+    ProjectFilterComponent,
   ],
   imports: [
     CommonModule,

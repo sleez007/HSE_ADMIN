@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from "@ngrx/store"
-import { ParentNodeModel } from "../../component/model"
+import { ParentNodeModel } from "../../model"
 import { adminActions } from "../action/admin.action"
 
 export  interface AdminState {
@@ -25,11 +25,11 @@ export const adminInitialState: AdminState = {
           subMenu :[
             {
               name: 'All Staff',
-              link: '/staffs'
+              link: './all-staffs'
             },
             {
               name: 'Add New Staffs',
-              link: '/add-staff'
+              link: './create-staff'
             },
           ]
         },
@@ -42,11 +42,11 @@ export const adminInitialState: AdminState = {
           subMenu :[
             {
               name: 'HSE Incidents',
-              link: '/hse-incidents'
+              link: './hse-incident'
             },
             {
               name: 'CPA Incidents',
-              link: '/cpa-incidents'
+              link: './cpa-incident'
             },
           ]
         },
@@ -59,11 +59,11 @@ export const adminInitialState: AdminState = {
           subMenu :[
             {
               name: 'Add New Project',
-              link: '/project'
+              link: './project'
             },
             {
               name: 'All Projects',
-              link: '/projects'
+              link: './projects'
             },
           ]
         }

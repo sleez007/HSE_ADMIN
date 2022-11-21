@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { adminActions, adminFeature } from '../../store';
-import { ParentNodeModel } from '../model';
+import { ParentNodeModel } from '../../model';
 
 const menuLinks = [
   {
