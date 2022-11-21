@@ -9,6 +9,10 @@
     box-sizing: inherit;
 }
 
+.p-component{
+    box-sizing: border-box;
+}
+
 ul{
     list-style: none;
 }
@@ -33,7 +37,7 @@ html, body {
     font-size: calc(.5em + 1vw);
     box-sizing: border-box;
 
-    --font-family: 'Mulish', sans-serif;;
+    --font-family: 'Mulish', sans-serif;
     --light-font-weight: 300;
     --regular-font-weight: 400;
     --bold-font-weight: 500;
@@ -52,8 +56,10 @@ html, body {
     --white: #FFFFFF;
 }
 
-body{
-    font-family: var(--font-family); 
+
+body, .p-component{
+    font-family: var(--font-family) !important; 
+    font-size: .8rem;
 }
 
 // Utility

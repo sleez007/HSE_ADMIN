@@ -1,3 +1,27 @@
 <div class="card-bg">
     <app-project-filter></app-project-filter>
+    <div class="tb-wrap">
+        <p-table [value]="incidents" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Category</th>
+                    <th>Target</th>
+                    <th>Port Harcourt</th>
+                    <th>Awka</th>
+                    <th>Project</th>
+                    <th>Total</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-incident>
+                <tr>
+                    <td>{{incident.category}}</td>
+                    <td>{{incident.target}}</td>
+                    <td>{{incident.ph}}</td>
+                    <td>{{incident.awka}}</td>
+                    <td>{{incident.project}}</td>
+                    <td>{{incident.total}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
