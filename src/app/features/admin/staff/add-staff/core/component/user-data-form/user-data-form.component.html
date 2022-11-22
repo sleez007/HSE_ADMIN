@@ -5,7 +5,7 @@
             <div class="field">
                 <label for="firstName" class="block">First Name</label>
                 <input [style]="{'width':'100%'}" formControlName="firstName"  id="firstName" type="text" aria-describedby="firstName-help"   pInputText />
-                <small *ngIf="staffForm.controls.firstName.touched && staffForm.controls.email.errors?.['required']" id="firstName-help" class="p-error block">First Name is required.</small>
+                <small *ngIf="staffForm.controls.firstName.touched && staffForm.controls.firstName.errors?.['required']" id="firstName-help" class="p-error block">First Name is required.</small>
             </div>
             <div class="field">
                 <label for="lastName" class="block">Last Name</label>
@@ -24,42 +24,36 @@
                 <small *ngIf="staffForm.controls.phoneNumber.touched && staffForm.controls.phoneNumber.errors?.['required']" id="phoneNumber-help" class="p-error block">Phone Number is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Gender</label>
-                <p-dropdown [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="gender" aria-describedby="gender-help"  optionLabel="name"></p-dropdown>
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="gender" class="block">Gender</label>
+                <p-dropdown [style]="{'width':'100%'}" id="gender" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="gender" aria-describedby="gender-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="staffForm.controls.gender.touched && staffForm.controls.gender.errors?.['required']" id="gender-help" class="p-error block">Gender is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Position</label>
-                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="position" class="block">Position</label>
+                <input [style]="{'width':'100%'}" formControlName="position" id="position" type="text" aria-describedby="position-help" pInputText />
+                <small *ngIf="staffForm.controls.position.touched && staffForm.controls.position.errors?.['required']" id="position-help" class="p-error block">Position is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Entity</label>
-                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="entity" class="block">Entity</label>
+                <p-dropdown id="entity" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="entity" aria-describedby="entity-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="staffForm.controls.entity.touched && staffForm.controls.entity.errors?.['required']" id="entity-help" class="p-error block">Entity is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Location</label>
-                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="location" class="block">Location</label>
+                <p-dropdown id="location" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="location" aria-describedby="location-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="staffForm.controls.location.touched && staffForm.controls.location.errors?.['required']" id="location-help" class="p-error block">Location is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Assigned Role</label>
-                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="role" class="block">Assigned Role</label>
+               <p-dropdown id="role" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="role" aria-describedby="role-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="staffForm.controls.role.touched && staffForm.controls.role.errors?.['required']" id="role-help" class="p-error block">Assigned Role is required.</small>
             </div>
             <div class="field">
-                <label for="email" class="block">Assign Supervisor</label>
-                <input [style]="{'width':'100%'}" formControlName="email"  id="email" type="email" aria-describedby="email-help" pInputText />
-                <!-- <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']" id="email-help" class="p-error block">Email Address is required.</small>
-                <small *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']" id="email-help" class="p-error block">Please provide a valid email address.</small> -->
+                <label for="supervisor" class="block">Assign Supervisor</label>
+                <p-dropdown [style]="{'width':'100%'}" id="supervisor" [autoDisplayFirst]="false" [options]="genderOptions" formControlName="supervisor" aria-describedby="supervisor-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="staffForm.controls.supervisor.touched && staffForm.controls.supervisor.errors?.['required']" id="supervisor-help" class="p-error block">Supervisor is required.</small>
             </div>
         </div>
-        <button type="submit" class="btn">Next</button>
+        <button type="submit" [disabled]="staffForm.invalid" class="btn">Next</button>
     </form>
 </div>
