@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from "@ngrx/store"
+import { OptionModel } from "src/app/features/admin/core/model";
 import { StaffData, StaffMedical, StepperModel } from "../../../../core/model"
 
 import { createStaffActions, createStaffMedicalActions } from "../action/staff.action"
@@ -6,7 +7,12 @@ import { createStaffActions, createStaffMedicalActions } from "../action/staff.a
 export  interface StaffCreationState {
     stepper: StepperModel[];
     staffData:StaffData,
-    staffMedicalData: StaffMedical
+    staffMedicalData: StaffMedical,
+    genderOptions: OptionModel[],
+    roleOptions: OptionModel[];
+    entityOptions: OptionModel[];
+    location: OptionModel[];
+    supervisor: OptionModel[]
 };
 
 export const staffInitialState: StaffCreationState = {
@@ -15,16 +21,16 @@ export const staffInitialState: StaffCreationState = {
         {label: 'Medical Information', routerLink: './medical'}
     ],
     staffData: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        gender: '',
-        position: '',
-        entity: '',
-        location: '',
-        role: '',
-        supervisor: ''
+        firstName: 'Kingso',
+        lastName: 'Etoka',
+        email: 'kingsley@ict.com',
+        phoneNumber: '08038070818',
+        gender: 'male',
+        position: 'App Development',
+        entity: 'bms',
+        location: 'ph',
+        role: 'admin',
+        supervisor: 'bede'
     },
     staffMedicalData: {
         dob: '',
@@ -54,7 +60,31 @@ export const staffInitialState: StaffCreationState = {
         testExpirationDate: '',
         scheduleNextMedical: '',
         remindMe:'',
-    }
+    },
+    genderOptions: [
+        {name: 'Male', code: 'male'},
+        {name: 'Female', code: 'female'}
+    ],
+    roleOptions: [
+        {name: 'Employee', code: 'employee'},
+        {name: 'Supervisor', code: 'supervisor'},
+        {name: 'Admin', code: 'admin'},
+        {name: 'Director', code: 'director'},
+    ],
+    entityOptions: [
+        { name: 'BMS', code: 'bms'},
+        { name: 'BICT', code: 'bict'},
+        { name: 'Energy', code: 'energy'}
+    ],
+    location: [
+        {name: 'Port Harcourt', code: 'ph'},
+        {name: 'Awka', code: 'awka'}
+    ],
+    supervisor: [
+        { name: 'Ivan', code: 'ivan'},
+        { name: 'Somto',code: 'somto'},
+        { name: 'Bede', code: 'bede'}
+    ]
 
 }
 

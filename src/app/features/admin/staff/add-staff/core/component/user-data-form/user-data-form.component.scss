@@ -9,3 +9,7 @@
     margin: 0 auto;
     margin-top: 2em;
 }
+.btn:disabled{
+    background-color: hsla(210, 44%, 22%, .6);
+    cursor: not-allowed;
+}

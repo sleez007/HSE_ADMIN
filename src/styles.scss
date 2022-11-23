@@ -63,9 +63,9 @@ html, body {
 }
 
 
-body, .p-component{
+body, .p-component, .p-dropdown, .p-dropdown-label{
     font-family: var(--font-family) !important; 
-    font-size: .8rem;
+    font-size: .8rem ;
 }
 
 // Utility
