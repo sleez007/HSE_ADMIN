@@ -1,0 +1,24 @@
+.grid--2{
+    margin-top: 1em;
+    gap: 2em;
+}
+
+.btn{
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
+.btn:disabled{
+    background-color: hsla(210, 44%, 22%, .6);
+    cursor: not-allowed;
+}
+.pp{
+    margin: 2em 0;
+}
+
+hr{
+    
+    border: 0; border-top: 1px solid #ccc;
+}

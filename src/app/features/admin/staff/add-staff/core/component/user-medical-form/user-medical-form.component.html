@@ -1,4 +1,124 @@
 <div>
-    <p>Basic Medical Information</p>
-
+    <p>BASIC MEDICAL INFORMATION</p>
+    <form class="form" [formGroup]="medicalForm" (ngSubmit)="onSubmit()" >
+        <div class="grid grid--2">
+            <div class="field">
+                <label for="dob" class="block">Date of Birth</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="dob" formControlName="dob"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="dot" class="block">Date of Test</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="dot" formControlName="dot"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="blood" class="block">Blood Group</label>
+               <p-dropdown id="blood" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(bloodOptions$ | async) ?? []" optionValue="code" formControlName="bloodGroup"  optionLabel="name"></p-dropdown>
+            </div>
+            <div class="field">
+                <label for="expiryDate" class="block">Expiry Date</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="expiryDate" formControlName="expiryDate"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="weight" class="block">Weight</label>
+                <input [style]="{'width':'100%'}" formControlName="weight"  id="weight" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="height" class="block">Height</label>
+                <input [style]="{'width':'100%'}" formControlName="height"  id="height" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="genoType" class="block">Genotype</label>
+                <p-dropdown id="genoType" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(genoType$ | async) ?? []" optionValue="code" formControlName="genoType"  optionLabel="name"></p-dropdown>
+            </div>
+            <div class="field">
+                <label for="calculatedBMI" class="block">Calculated BMI</label>
+                <input [style]="{'width':'100%'}" formControlName="calculatedBMI"  id="calculatedBMI" type="text" pInputText />
+            </div>
+        </div>
+        <div class="field pp">
+            <label for="hasUsedTyphoidVaccine" class="block">Typhoid Vaccine?</label>
+           <p-dropdown id="hasUsedTyphoidVaccine" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(bloodOptions$ | async) ?? []" optionValue="code" formControlName="hasUsedTyphoidVaccine"  optionLabel="name"></p-dropdown>
+        </div>
+        <hr>
+        <p class="pp">KEY MEDICAL INFORMATION</p>
+        <div class="grid grid--2">
+            <div class="field">
+                <label for="cns" class="block">CNS</label>
+                <input [style]="{'width':'100%'}" formControlName="cns"  id="cns" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="chest" class="block">Chest</label>
+                <input [style]="{'width':'100%'}" formControlName="chest"  id="chest" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="lipidProfile" class="block">Lipids Profile</label>
+                <input [style]="{'width':'100%'}" formControlName="lipidProfile"  id="lipidProfile" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="fullBloodCount" class="block">Full Blood Count</label>
+                <input [style]="{'width':'100%'}" formControlName="fullBloodCount"  id="fullBloodCount" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="ecg" class="block">ECG</label>
+                <input [style]="{'width':'100%'}" formControlName="ecg"  id="ecg" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="hivScreening" class="block">HIV Screening</label>
+                <p-dropdown id="hivScreening" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(hivStat$ | async) ?? []" optionValue="code" formControlName="hivScreening"  optionLabel="name"></p-dropdown>
+            </div>
+            <div class="field">
+                <label for="audiometry" class="block">Audiometry</label>
+                <input [style]="{'width':'100%'}" formControlName="audiometry"  id="audiometry" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="drugAndAlcoholTest" class="block">Drug & Alcohol Test</label>
+                <input [style]="{'width':'100%'}" formControlName="drugAndAlcoholTest"  id="drugAndAlcoholTest" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="cvs" class="block">CVS</label>
+                <input [style]="{'width':'100%'}" formControlName="cvs"  id="cvs" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="abd" class="block">ABD</label>
+                <input [style]="{'width':'100%'}" formControlName="abd"  id="abd" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="urinalysis" class="block">Urinalysis</label>
+                <input [style]="{'width':'100%'}" formControlName="urinalysis"  id="urinalysis" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="chestXray" class="block">Chest X-ray</label>
+                <input [style]="{'width':'100%'}" formControlName="chestXray"  id="chestXray" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="hepScreening" class="block">Hepatitis Screening</label>
+                <input [style]="{'width':'100%'}" formControlName="hepScreening"  id="hepScreening" type="text" pInputText />
+            </div>
+            <div class="field">
+                <label for="yellowFever" class="block">Yellow Fever</label>
+                <input [style]="{'width':'100%'}" formControlName="yellowFever"  id="yellowFever" type="text" pInputText />
+            </div>
+        </div>
+        <hr class="pp">
+        <p class="pp">PERSONNEL STATUS</p>
+        <div class="grid grid--2">
+            <div class="field">
+                <label for="overallEvaluation" class="block">Overall Evaluation</label>
+                <p-dropdown id="overallEvaluation" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(fitness$ | async) ?? []" optionValue="code" formControlName="overallEvaluation"  optionLabel="name"></p-dropdown>
+            </div>
+            <div class="field">
+                <label for="testExpirationDate" class="block">Test Expiration Date</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="testExpirationDate" formControlName="testExpirationDate"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="scheduleNextMedical" class="block">Schedule Next Medical</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="scheduleNextMedical" formControlName="scheduleNextMedical"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="remindMe" class="block">Remind Me On</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="remindMe" formControlName="remindMe"></p-calendar>
+            </div>
+        </div>
+        <button type="submit" [disabled]="medicalForm.invalid" class="btn">Submit</button>
+    </form>
 </div>

@@ -64,7 +64,6 @@ export class UserDataFormComponent implements OnInit {
 
       }
       this.store.dispatch(createStaffActions.storeStaffData(staffData));
-      
     }
   }
 

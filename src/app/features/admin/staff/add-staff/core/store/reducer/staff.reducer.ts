@@ -12,7 +12,12 @@ export  interface StaffCreationState {
     roleOptions: OptionModel[];
     entityOptions: OptionModel[];
     location: OptionModel[];
-    supervisor: OptionModel[]
+    supervisor: OptionModel[];
+    blood: OptionModel[];
+    genoType: OptionModel[];
+    yesNo: OptionModel[];
+    fitness: OptionModel[];
+    hivScreen: OptionModel[];
 };
 
 export const staffInitialState: StaffCreationState = {
@@ -56,7 +61,7 @@ export const staffInitialState: StaffCreationState = {
         chestXray: '',
         hepScreening: '',
         yellowFever: '',
-        overallEducation: '',
+        overallEvaluation: '',
         testExpirationDate: '',
         scheduleNextMedical: '',
         remindMe:'',
@@ -84,8 +89,36 @@ export const staffInitialState: StaffCreationState = {
         { name: 'Ivan', code: 'ivan'},
         { name: 'Somto',code: 'somto'},
         { name: 'Bede', code: 'bede'}
+    ],
+    blood: [
+        { name: 'A+', code: 'A+'},
+        { name: 'A-',code: 'A-'},
+        { name: 'B+', code: 'B+'},
+        { name: 'B-', code: 'B-'},
+        { name: 'O+', code: 'O+'},
+        { name: 'O-', code: 'O-'},
+        { name: 'AB+', code: 'AB+'},
+        { name: 'AB-', code: 'AB-'},
+    ],
+    genoType: [
+        { name: 'AA', code: 'AA'},
+        { name: 'A-',code: 'A-'},
+        { name: 'B+', code: 'B+'},
+    ],
+    yesNo: [
+        { name: 'Yes', code: 'yes' },
+        { name: 'No', code: 'no'},
+    ],
+    fitness: [
+        { name: 'Fit to work', code: 'Fit to work' },
+        { name: 'Not Fit to work', code: 'Not Fit to work' },
+        { name: 'Not Conducted', code: 'Fit to work' },
+    ],
+    hivScreen: [
+        { name: 'Negative', code: 'negative' },
+        { name: 'Positive', code: 'positive' },
+        { name: 'Nil', code: 'Nil' },
     ]
-
 }
 
 

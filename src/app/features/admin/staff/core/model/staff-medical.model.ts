@@ -22,7 +22,7 @@ export interface StaffMedical {
     chestXray: string;
     hepScreening: string;
     yellowFever: string;
-    overallEducation: string;
+    overallEvaluation: string;
     testExpirationDate: string;
     scheduleNextMedical: string;
     remindMe: string

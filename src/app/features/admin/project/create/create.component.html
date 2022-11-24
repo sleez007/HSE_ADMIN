@@ -1,1 +1,26 @@
-<div class="card-bg">Create Project</div>
+<div class="card-bg">
+    <p>Create Project</p>
+    <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()" >
+        <div class="grid grid--2">
+            <div class="field pp">
+                <label for="projectTitle" class="block">Project Title</label>
+                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+            </div>
+            <div class="field pp">
+                <label for="projectTitle" class="block">Project Status</label>
+                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+            </div>
+            <div class="field pp">
+                <label for="projectTitle" class="block">Start Duration</label>
+                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+            </div>
+            <div class="field pp">
+                <label for="projectTitle" class="block">End Duration</label>
+                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+            </div>
+        </div>
+        <button type="submit" [disabled]="projectForm.invalid" class="btn">Next</button>
+        
+    </form>
+    
+</div>
