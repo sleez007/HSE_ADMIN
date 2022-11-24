@@ -1,26 +1,26 @@
 <div class="card-bg">
-    <p>Create Project</p>
+    <p>Add Project</p>
     <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()" >
         <div class="grid grid--2">
             <div class="field pp">
-                <label for="projectTitle" class="block">Project Title</label>
-                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+                <label for="project" class="block">Project Title</label>
+                <input [style]="{'width':'100%'}" formControlName="project"  id="projectTitle" type="text" aria-describedby="project-help"   pInputText />
             </div>
             <div class="field pp">
-                <label for="projectTitle" class="block">Project Status</label>
-                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+                <label for="status" class="block">Project Status</label>
+                <p-dropdown [style]="{'width':'100%'}" id="status" [autoDisplayFirst]="false" optionValue="code" [options]="(status$ | async) ?? []" formControlName="status" aria-describedby="project-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="projectForm.controls.status.touched && projectForm.controls.status.errors?.['required']" id="project-help" class="p-error block">Project Status is required.</small>
             </div>
             <div class="field pp">
-                <label for="projectTitle" class="block">Start Duration</label>
-                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+                <label for="start" class="block">Start Duration</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="start" formControlName="start"></p-calendar>
             </div>
             <div class="field pp">
-                <label for="projectTitle" class="block">End Duration</label>
-                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+                <label for="end" class="block">End Duration</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="end" formControlName="end"></p-calendar>
             </div>
         </div>
-        <button type="submit" [disabled]="projectForm.invalid" class="btn">Next</button>
-        
+        <button type="submit" [disabled]="projectForm.invalid" class="btn">Save</button>
     </form>
     
 </div>
