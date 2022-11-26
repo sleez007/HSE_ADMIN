@@ -16,7 +16,7 @@ export const projectInitialState: CreateProjectState = {
         { name: 'Ongoing', code: true},
         { name: 'Completed', code: false},
     ]
-}
+} 
 
 
 export const projectFeature = createFeature({
