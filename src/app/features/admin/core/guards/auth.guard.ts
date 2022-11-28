@@ -6,7 +6,9 @@ import { authFeature } from "src/app/features/authentication/core/store";
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard  implements CanActivate, CanLoad, CanActivateChild {
+    
     constructor(private readonly store: Store, private readonly router: Router) {}
+
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.canActivate(childRoute, state);
     }
@@ -30,7 +32,5 @@ export class AuthGuard  implements CanActivate, CanLoad, CanActivateChild {
             }
         }))
     }
-
-    
 
 }
