@@ -1,4 +1,5 @@
 import { createActionGroup, props } from "@ngrx/store";
+import { ErrorResponse } from "src/app/core/model";
 import { ProjectModel } from "../../../../core/model";
 
 export const createProjectActions = createActionGroup({
@@ -13,9 +14,8 @@ export const createProjectApiActions = createActionGroup({
     source: 'Create project effects',
     events: {
         'create project success': props<ProjectModel>(),
-        'create project failure': props<ProjectModel>(),
+        'create project failure': props<ErrorResponse>(),
         'edit project success': props<ProjectModel>(),
-        'edit project failure': props<ProjectModel>(),
+        'edit project failure': props<ErrorResponse>(),
     }
-
 });
