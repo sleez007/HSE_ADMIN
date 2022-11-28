@@ -16,7 +16,7 @@ import { CustomSerializer, rootReducers } from './core/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthEffect } from './features/authentication/core/store';
-import { API_ENDPOINT, REST_ENDPOINT } from './core/service';
+import { API_ENDPOINT, AuthTokenInterceptor, REST_ENDPOINT } from './core/service';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import { API_ENDPOINT, REST_ENDPOINT } from './core/service';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
-    { provide: API_ENDPOINT, useValue: REST_ENDPOINT }
+    { provide: API_ENDPOINT, useValue: REST_ENDPOINT },
+    {provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

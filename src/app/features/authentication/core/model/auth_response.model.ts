@@ -1,19 +1,20 @@
 export interface AuthResponse {
-    message: string;
+    message: string | null;
     user: AuthUser;
-    tokens: AuthToken;
+    jwt: AuthToken;
 
 }
 
 export interface AuthToken {
-    refresh_token: string | null,
-    access_token: string | null,
-    temp_token: string | null,
+    refreshToken: string | null,
+    accessToken: string | null,
+    refreshExpiry: string
 }
 
 export interface AuthUser {
     firstName: string;
     email: string;
+    lastName: string;
 }
 
 export interface AuthenticatedData {

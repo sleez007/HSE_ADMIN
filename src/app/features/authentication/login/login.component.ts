@@ -29,9 +29,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.valid){
+      // this.store.dispatch(loginActions.login({
+      //   email: this.loginForm.value.email!, 
+      //   password: this.loginForm.value.password! 
+      // }));
       this.store.dispatch(loginActions.login({
         email: this.loginForm.value.email!, 
-        password: this.loginForm.value.password! 
+        password: 'password' 
       }));
     }
   }

@@ -18,7 +18,7 @@ export const authFeature = createFeature({
     reducer: createReducer(
         loginInitialState,
         on(loginActions.login, (state) => ({...state, isLoginLoading: true})),
-        on(loginEffectActions.loginSuccess, (state, props)=> ({...state, isLoginLoading: false, user: {user: props.user, tokens: props.tokens}})),
+        on(loginEffectActions.loginSuccess, (state, props)=> ({...state, isLoginLoading: false, user: {user: props.user,tokens: props.jwt }})),
         on(loginEffectActions.loginError, (state) => ({...state, isLoginLoading: false}))
     )
 })

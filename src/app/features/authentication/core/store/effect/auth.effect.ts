@@ -7,14 +7,31 @@ import { authEndpoints } from "../../constants";
 import { Auth, AuthResponse } from "../../model";
 import { loginActions, loginEffectActions } from "../action/auth.action";
 
+interface ApiReply{
+    admin: {
+        first_name: string;
+        last_name: string;
+        email: string;
+    },
+    jwt:{
+        token: string,
+        refreshToken: string,
+    },
+    refresh_expires: string
+}
+
 @Injectable()
 export class AuthEffect {
     constructor(private readonly action$: Actions, private readonly networkHelper: NetworkHelperService, private router: Router) {}
 
     loginUser$ = createEffect(() => this.action$.pipe(
         ofType(loginActions.login),
-        exhaustMap(({email, password}) => this.networkHelper.post<AuthResponse, Auth>(authEndpoints.login, {email, password}).pipe(
-            map(response => loginEffectActions.loginSuccess(response)),
+        exhaustMap(({email, password}) => this.networkHelper.post<ApiReply, Auth>(authEndpoints.login, {email, password}).pipe(
+            map(response => loginEffectActions.loginSuccess({
+                user: {firstName: response.admin.first_name, lastName: response.admin.last_name, email: response.admin.email},
+                jwt: {accessToken: response.jwt.token, refreshToken: response.jwt.refreshToken, refreshExpiry: response.refresh_expires},
+                message: 'Login was successful'
+            })),
             catchError((error) => of(loginEffectActions.loginError({message: error['message'], statusCode: 401 })))
         ) )
     ));
