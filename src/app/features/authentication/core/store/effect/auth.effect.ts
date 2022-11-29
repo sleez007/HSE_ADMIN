@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, of, tap } from "rxjs";
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
+import { ClientSessionService, TokenValidatorService } from "src/app/core/service";
 import { authEndpoints } from "../../constants";
 import { Auth, AuthResponse } from "../../model";
-import { loginActions, loginEffectActions } from "../action/auth.action";
+import { loginActions, loginEffectActions, logoutAction, rehydrateUserAction, rehydrateUserFailureAction, rehydrateUserSuccessAction } from "../action/auth.action";
 
 interface ApiReply{
     admin: {
@@ -22,7 +23,13 @@ interface ApiReply{
 
 @Injectable()
 export class AuthEffect {
-    constructor(private readonly action$: Actions, private readonly networkHelper: NetworkHelperService, private router: Router) {}
+    constructor(
+        private readonly action$: Actions, 
+        private readonly networkHelper: NetworkHelperService, 
+        private readonly router: Router, 
+        private readonly clientSessionService: ClientSessionService,
+        private readonly tokenValidator: TokenValidatorService
+    ) {}
 
     loginUser$ = createEffect(() => this.action$.pipe(
         ofType(loginActions.login),
@@ -39,15 +46,29 @@ export class AuthEffect {
     loginSuccess$ = createEffect(() => this.action$.pipe(
         ofType(loginEffectActions.loginSuccess),
         // Persist user details to localStorage
-        //tap((data) =>  this.authService.addUserToLocalStorage({user: data.user, tokens: data.tokens})),
+        tap((data) =>  this.clientSessionService.addUserToLocalStorage({user: data.user, tokens: data.jwt})),
         tap(() => this.router.navigate(['/dashboard']))
     ),{dispatch: false})
 
     loginError$ = createEffect(() => this.action$.pipe(
         ofType(loginEffectActions.loginError),
         tap((e) => console.log(e))
-    ), {dispatch: false})
+    ), {dispatch: false});
 
+
+    logout$ = createEffect(() => this.action$.pipe(
+        ofType(logoutAction)
+    ))
+
+    rehydrateAuth$ = createEffect(() => this.action$.pipe(
+        ofType(rehydrateUserAction),
+        mergeMap(()=> {
+            const user = this.clientSessionService.getUserFromLocalStorage()
+            return of(rehydrateUserSuccessAction(user))
+        }),
+        catchError(()=> of(rehydrateUserFailureAction()))
+    ))
+    
     // autoLogin$ = createEffect(() => this.action$.pipe(
     //     ofType(autoLoginAction),
     //     mergeMap((action)=> {

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './features/admin/core/guards';
+import { AutoLoginGuard } from './features/authentication/core/guards';
 
 const routes: Routes = [
   { 
+    canActivate: [AutoLoginGuard],
     path: 'login', 
     loadChildren: () => import('./features/authentication/login/login.module').then(m => m.LoginModule) 
   },
@@ -20,10 +22,10 @@ const routes: Routes = [
     canActivateChild: [AuthGuard]
 
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'login'
-  // }
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
 
 @NgModule({

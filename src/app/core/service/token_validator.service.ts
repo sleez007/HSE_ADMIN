@@ -6,7 +6,7 @@ import { ClientSessionService } from "./client_session.service";
 export class TokenValidatorService {
     constructor(private readonly clientSessionService: ClientSessionService) {}
 
-    getTimeStamp(): number {
+    private getTimeStamp(): number {
         return Math.floor(Date.now() / 1000);
     }
 
@@ -37,5 +37,12 @@ export class TokenValidatorService {
         const tokens = this.retrieveTokens();
         if(!tokens) return null;
         return tokens.refreshToken;
+    }
+
+    isValidRefreshToken(refreshExpiry: string): boolean {
+        const dateObj = new Date(refreshExpiry);
+        const dateStamp = Math.floor(dateObj.getTime() / 1000);
+        console.log(dateStamp);
+        return (this.getTimeStamp() <  dateStamp);
     }
 }
