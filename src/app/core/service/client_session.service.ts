@@ -24,4 +24,8 @@ export class ClientSessionService {
         localStorage.setItem(this.userKey, JSON.stringify(user) )
     }
 
+    clearUserData(){
+        localStorage.removeItem(this.userKey);
+    }
+
 }

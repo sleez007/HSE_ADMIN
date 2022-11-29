@@ -6,7 +6,7 @@ import { NetworkHelperService } from "src/app/core/network";
 import { ClientSessionService, TokenValidatorService } from "src/app/core/service";
 import { authEndpoints } from "../../constants";
 import { Auth, AuthResponse } from "../../model";
-import { loginActions, loginEffectActions, logoutAction, rehydrateUserAction, rehydrateUserFailureAction, rehydrateUserSuccessAction } from "../action/auth.action";
+import { loginActions, loginEffectActions, logoutAction, logoutSuccessAction, rehydrateUserAction, rehydrateUserFailureAction, rehydrateUserInterceptorAction, rehydrateUserSuccessAction } from "../action/auth.action";
 
 interface ApiReply{
     admin: {
@@ -57,7 +57,10 @@ export class AuthEffect {
 
 
     logout$ = createEffect(() => this.action$.pipe(
-        ofType(logoutAction)
+        ofType(logoutAction),
+        exhaustMap(() => of(this.clientSessionService.clearUserData()).pipe(
+            map(() => logoutSuccessAction())
+        ))
     ))
 
     rehydrateAuth$ = createEffect(() => this.action$.pipe(
@@ -68,20 +71,14 @@ export class AuthEffect {
         }),
         catchError(()=> of(rehydrateUserFailureAction()))
     ))
-    
-    // autoLogin$ = createEffect(() => this.action$.pipe(
-    //     ofType(autoLoginAction),
-    //     mergeMap((action)=> {
-    //         const user = this.authService.getUserFromLocalStorage();
-    //         const refresh = this.tokenValidator.getRefreshTokenFromStorage();
-    //         if(refresh != null && this.tokenValidator.isValidToken(refresh) ){
-    //             return of(loginApiActions.loginSuccess({message: 'Welcome back',...user}))
-    //         }else{
-    //             return of(loginApiActions.loginError({message: '', statusCode: 401}))
-    //         }
-    //     }),
-    //     catchError(() => of(loginApiActions.loginError({message: '', statusCode: 401})))
-       
-    // ))
+
+    rehydrateInterceptor$ = createEffect(() => this.action$.pipe(
+        ofType(rehydrateUserInterceptorAction),
+        mergeMap(()=> {
+            const user = this.clientSessionService.getUserFromLocalStorage()
+            return of(rehydrateUserSuccessAction(user))
+        }),
+        catchError(()=> of(rehydrateUserFailureAction()))
+    ))
 
 }

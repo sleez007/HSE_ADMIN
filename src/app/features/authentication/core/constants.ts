@@ -1,3 +1,4 @@
 export const authEndpoints = {
-    login: '/login'
+    login: '/login',
+    refresh: '/refresh'
 }
