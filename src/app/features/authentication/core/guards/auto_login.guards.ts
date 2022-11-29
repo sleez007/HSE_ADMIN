@@ -6,7 +6,7 @@ import { TokenValidatorService } from "src/app/core/service";
 import { authFeature } from "src/app/features/authentication/core/store";
 
 @Injectable({providedIn: 'root'})
-export class AutoLoginGuard  implements CanActivate{
+export class AutoLoginGuard implements CanActivate{
     
     constructor(private readonly store: Store, private readonly router: Router, private readonly tokenValidator: TokenValidatorService) {}
 

@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { map, Observable } from "rxjs";
+import { TokenValidatorService } from "src/app/core/service";
 import { authFeature } from "src/app/features/authentication/core/store";
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard  implements CanActivate, CanLoad, CanActivateChild {
-    
-    constructor(private readonly store: Store, private readonly router: Router) {}
+
+    constructor(private readonly store: Store, private readonly router: Router, private readonly tokenValidator: TokenValidatorService) {}
 
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.canActivate(childRoute, state);
@@ -15,22 +16,22 @@ export class AuthGuard  implements CanActivate, CanLoad, CanActivateChild {
 
     canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.store.select(authFeature.selectUser).pipe(map(user => {
-            if(!user){
-                return this.router.createUrlTree(['login'])
-            }else{
+            if(user && this.tokenValidator.isValidRefreshToken(user.tokens.refreshExpiry)){
                 return true;
+            }else{
+                return this.router.createUrlTree(['login'])
             }
-        }))
+        }));
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.store.select(authFeature.selectUser).pipe(map(user => {
-            if(!user){
-                return this.router.createUrlTree(['login'])
-            }else{
+            if(user && this.tokenValidator.isValidRefreshToken(user.tokens.refreshExpiry)){
                 return true;
+            }else{
+                return this.router.createUrlTree(['login'])
             }
-        }))
+        }));
     }
 
 }
