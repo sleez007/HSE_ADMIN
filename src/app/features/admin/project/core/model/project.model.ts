@@ -1,7 +1,7 @@
 export interface ProjectModel {
-    project: string;
-    status: boolean;
-    start: string;
-    end: string
+    projectTitle: string;
+    isCompleted: boolean | string;
+    startDuration: string |  null;
+    endDuration: string | null;
     projectId: number | null | string
 }

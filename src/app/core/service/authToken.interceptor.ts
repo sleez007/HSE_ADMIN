@@ -3,16 +3,23 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, of, switchMap, take } from "rxjs";
 import { authEndpoints } from "src/app/features/authentication/core/constants";
-import { AuthToken } from "src/app/features/authentication/core/model";
 import { authFeature, rehydrateUserInterceptorAction } from "src/app/features/authentication/core/store";
 import { NetworkHelperService } from "../network";
 import { ClientSessionService } from "./client_session.service";
 import { TokenValidatorService } from "./token_validator.service";
 
+interface  RefreshData{
+    token:{
+        token: string,
+        refreshToken: string,
+    },
+    refresh_expires: string
+}
+
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
     private refreshTokenInProgress: boolean = false;
-    private refreshSubject = new BehaviorSubject<AuthToken | null>(null);
+    private refreshSubject = new BehaviorSubject<RefreshData | null>(null);
 
     constructor(private readonly store: Store, private readonly tokenValidator: TokenValidatorService, private networkHelper: NetworkHelperService, private readonly clientSession: ClientSessionService) {}
 
@@ -32,10 +39,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                                 map((result) => result),
                                 take(1),
                                 switchMap((result) =>{
-                                    const person = {...user};
-                                    person.tokens.accessToken = result?.accessToken ?? '';
-                                    person.tokens.refreshExpiry = result?.refreshExpiry ?? '';
-                                    person.tokens.refreshToken = result?.refreshToken ?? '';
+                                    const person = {...user, tokens: {accessToken: result?.token.token ?? '', refreshToken: result?.token.refreshToken ?? '',refreshExpiry:result?.refresh_expires ?? ''  }};
                                     this.clientSession.addUserToLocalStorage(person);
                                     this.store.dispatch(rehydrateUserInterceptorAction());
                                     return next.handle(this.modifyReq(req, person.tokens.accessToken ))
@@ -44,12 +48,9 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                         }else{
                             this.refreshTokenInProgress = true;
                             this.refreshSubject.next(null);
-                            return this.networkHelper.post<AuthToken, {refreshToken: string}>(authEndpoints.refresh, {refreshToken: user.tokens.refreshToken!}).pipe(
+                            return this.networkHelper.post<RefreshData, {refreshToken: string}>(authEndpoints.refresh, {refreshToken: user.tokens.refreshToken!}).pipe(
                                 switchMap((data)=> {
-                                    const person = {...user};
-                                    person.tokens.accessToken = data.accessToken;
-                                    person.tokens.refreshToken = data.refreshExpiry;
-                                    person.tokens.refreshExpiry = data.refreshExpiry
+                                    const person = {...user, tokens: {accessToken: data.token.token, refreshToken:  data.token.refreshToken,refreshExpiry:data.refresh_expires  }};
                                     this.clientSession.addUserToLocalStorage(person);
                                     this.store.dispatch(rehydrateUserInterceptorAction());
                                     this.refreshSubject.next(data);

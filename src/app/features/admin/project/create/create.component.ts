@@ -3,7 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../../core/model';
-import { projectFeature } from './core/store';
+import { ProjectModel } from '../core/model';
+import { createProjectActions, projectFeature } from './core/store';
 
 @Component({
   selector: 'app-create',
@@ -15,10 +16,10 @@ export class CreateComponent implements OnInit {
   isLoading$: Observable<boolean>;
 
   projectForm = this.fb.group({
-    project: ['', [Validators.required]],
-    start: ['', [Validators.required]],
-    end: ['', [Validators.required]],
-    status: ['', [Validators.required]]
+    projectTitle: ['', [Validators.required]],
+    startDuration: ['', [Validators.required]],
+    endDuration: ['', [Validators.required]],
+    isCompleted: ['', [Validators.required]]
   })
 
   constructor(private readonly store: Store, private readonly fb: FormBuilder) { 
@@ -31,6 +32,11 @@ export class CreateComponent implements OnInit {
 
   onSubmit(){
     console.table(this.projectForm.value)
+    if(this.projectForm.valid){
+      const { projectTitle, startDuration,endDuration, isCompleted } = this.projectForm.value;
+      const model: ProjectModel = {projectTitle: projectTitle!, startDuration: startDuration ?? null, endDuration: endDuration ?? null, isCompleted: isCompleted!, projectId: null }
+      this.store.dispatch(createProjectActions.addProject(model))
+    }
   }
 
 }

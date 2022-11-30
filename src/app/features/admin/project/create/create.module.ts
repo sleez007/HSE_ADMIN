@@ -6,7 +6,8 @@ import { CreateComponent } from './create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeUiModule } from 'src/app/prime-ui/prime-ui.module';
 import { StoreModule } from '@ngrx/store';
-import { projectFeature } from './core/store';
+import { ProjectEffect, projectFeature } from './core/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { projectFeature } from './core/store';
     CreateRoutingModule,
     SharedModule,
     PrimeUiModule,
-    StoreModule.forFeature(projectFeature)
+    StoreModule.forFeature(projectFeature),
+    EffectsModule.forFeature([ProjectEffect])
   ]
 })
 export class CreateModule { }

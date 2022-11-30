@@ -3,21 +3,22 @@
     <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()" >
         <div class="grid grid--2">
             <div class="field pp">
-                <label for="project" class="block">Project Title</label>
-                <input [style]="{'width':'100%'}" formControlName="project"  id="projectTitle" type="text" aria-describedby="project-help"   pInputText />
+                <label for="projectTitle" class="block">Project Title</label>
+                <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
+                <small *ngIf="projectForm.controls.projectTitle.touched && projectForm.controls.projectTitle.errors?.['required']" id="isComplete-help" class="p-error block">Project Status is required.</small>
             </div>
             <div class="field pp">
-                <label for="status" class="block">Project Status</label>
-                <p-dropdown [style]="{'width':'100%'}" id="status" [autoDisplayFirst]="false" optionValue="code" [options]="(status$ | async) ?? []" formControlName="status" aria-describedby="project-help"  optionLabel="name"></p-dropdown>
-                <small *ngIf="projectForm.controls.status.touched && projectForm.controls.status.errors?.['required']" id="project-help" class="p-error block">Project Status is required.</small>
+                <label for="isCompleted" class="block">Project Status</label>
+                <p-dropdown [style]="{'width':'100%'}" id="isCompleted" [autoDisplayFirst]="false" optionValue="code" [options]="(status$ | async) ?? []" formControlName="isCompleted" aria-describedby="isCompleted-help"  optionLabel="name"></p-dropdown>
+                <small *ngIf="projectForm.controls.isCompleted.touched && projectForm.controls.isCompleted.errors?.['required']" id="isComplete-help" class="p-error block">Project Status is required.</small>
             </div>
             <div class="field pp">
-                <label for="start" class="block">Start Duration</label>
-                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="start" formControlName="start"></p-calendar>
+                <label for="startDuration" class="block">Start Duration</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="startDuration" formControlName="startDuration"></p-calendar>
             </div>
             <div class="field pp">
-                <label for="end" class="block">End Duration</label>
-                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="end" formControlName="end"></p-calendar>
+                <label for="endDuration" class="block">End Duration</label>
+                <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="endDuration" formControlName="endDuration"></p-calendar>
             </div>
         </div>
         <button type="submit" [disabled]="projectForm.invalid" class="btn">Save</button>
