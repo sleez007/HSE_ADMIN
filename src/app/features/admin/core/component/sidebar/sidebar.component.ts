@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { adminActions, adminFeature } from '../../store';
 import { ParentNodeModel } from '../../model';
+import { logoutAction } from 'src/app/features/authentication/core/store';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,6 +22,10 @@ export class SidebarComponent implements OnInit {
   
   toggleMenu(index: number){
     this.store.dispatch(adminActions.toggleMenu({nodeIndex: index}))
+  }
+
+  logout(){
+    this.store.dispatch(logoutAction())
   }
 
 }

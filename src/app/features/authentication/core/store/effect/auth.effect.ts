@@ -63,6 +63,12 @@ export class AuthEffect {
         ))
     ))
 
+    logoutSuccess$ = createEffect(()=> this.action$.pipe(
+        ofType(logoutSuccessAction),
+        tap(() => this.router.navigate(['/login'])),
+        tap(()=> alert("hi"))
+    ), {dispatch: false})
+
     rehydrateAuth$ = createEffect(() => this.action$.pipe(
         ofType(rehydrateUserAction),
         mergeMap(()=> {

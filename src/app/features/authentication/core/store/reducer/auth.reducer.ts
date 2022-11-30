@@ -22,6 +22,6 @@ export const authFeature = createFeature({
         on(loginEffectActions.loginError, (state) => ({...state, isLoginLoading: false})),
         on(logoutAction, (state) => ({...state, user: null})),
         on(rehydrateUserSuccessAction, (state, props) => ({...state, user: props})),
-        on(logoutSuccessAction, (state) => ({...state, loginInitialState}))
+        on(logoutSuccessAction, (state) => ({...state, ...loginInitialState}))
     )
 })

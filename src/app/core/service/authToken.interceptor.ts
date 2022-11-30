@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, of, switchMap, take } from "rxjs";
 import { authEndpoints } from "src/app/features/authentication/core/constants";
+import { AuthToken } from "src/app/features/authentication/core/model";
 import { authFeature, rehydrateUserInterceptorAction } from "src/app/features/authentication/core/store";
 import { NetworkHelperService } from "../network";
 import { ClientSessionService } from "./client_session.service";
@@ -11,7 +12,7 @@ import { TokenValidatorService } from "./token_validator.service";
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
     private refreshTokenInProgress: boolean = false;
-    private refreshSubject = new BehaviorSubject<string | null>(null);
+    private refreshSubject = new BehaviorSubject<AuthToken | null>(null);
 
     constructor(private readonly store: Store, private readonly tokenValidator: TokenValidatorService, private networkHelper: NetworkHelperService, private readonly clientSession: ClientSessionService) {}
 
@@ -32,23 +33,27 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                                 take(1),
                                 switchMap((result) =>{
                                     const person = {...user};
-                                    person.tokens.accessToken = result;
+                                    person.tokens.accessToken = result?.accessToken ?? '';
+                                    person.tokens.refreshExpiry = result?.refreshExpiry ?? '';
+                                    person.tokens.refreshToken = result?.refreshToken ?? '';
                                     this.clientSession.addUserToLocalStorage(person);
                                     this.store.dispatch(rehydrateUserInterceptorAction());
-                                    return next.handle(this.modifyReq(req, result ?? '' ))
+                                    return next.handle(this.modifyReq(req, person.tokens.accessToken ))
                                 } )
                             )
                         }else{
                             this.refreshTokenInProgress = true;
                             this.refreshSubject.next(null);
-                            return this.networkHelper.post<{accessToken: string}, {refreshToken: string}>(authEndpoints.refresh, {refreshToken: user.tokens.refreshToken!}).pipe(
+                            return this.networkHelper.post<AuthToken, {refreshToken: string}>(authEndpoints.refresh, {refreshToken: user.tokens.refreshToken!}).pipe(
                                 switchMap((data)=> {
                                     const person = {...user};
                                     person.tokens.accessToken = data.accessToken;
+                                    person.tokens.refreshToken = data.refreshExpiry;
+                                    person.tokens.refreshExpiry = data.refreshExpiry
                                     this.clientSession.addUserToLocalStorage(person);
                                     this.store.dispatch(rehydrateUserInterceptorAction());
-                                    this.refreshSubject.next(data.accessToken);
-                                    const modifiedReq = this.modifyReq(req, data.accessToken );
+                                    this.refreshSubject.next(data);
+                                    const modifiedReq = this.modifyReq(req, person.tokens.accessToken ?? '' );
                                     return next.handle(modifiedReq);
                                 }),
                                 finalize(() => (this.refreshTokenInProgress = false))

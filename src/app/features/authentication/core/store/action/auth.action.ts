@@ -19,7 +19,7 @@ export const loginEffectActions = createActionGroup({
 export const autoLoginAction = createAction("[APP COMPONENT] auto login")
 
 export const logoutAction = createAction("[DASHBOARD ] logout")
-export const logoutSuccessAction = createAction("[Effect ] logout")
+export const logoutSuccessAction = createAction("[Effect ] logout success")
 
 export const rehydrateUserAction = createAction("[App Component] rehydrate")
 export const rehydrateUserInterceptorAction = createAction("[JWT Interceptor] rehydrate")
