@@ -1,16 +1,18 @@
 <div class="menu flex">
     <div class="menu__controls flex">
-        <button type="button" class="btn--outline btn--primary">Offices</button>
-        <button type="button" class="btn--outline">Project</button>
+        <button (click)="changeSwitchState(false)" type="button" class="btn--outline" [ngClass]="switchState == 1 ? 'btn--primary': ''">Offices</button>
+        <button (click)="changeSwitchState(true)" type="button" class="btn--outline" [ngClass]="switchState == 0 ? 'btn--primary': ''">Project</button>
     </div>
-    <div class="menu__filter flex">
-        <p>Date: </p>
-        <div class="p-field">
-            <p-calendar appendTo="body"  placeholder="From: Jan 02, 2022" inputId="basic"></p-calendar>
+    <form class="form" [formGroup]="filterForm" (ngSubmit)="submit()">
+        <div class="menu__filter flex">
+            <p>Date: </p>
+            <div class="p-field">
+                <p-calendar appendTo="body" formControlName="start"   placeholder="From: Jan 02, 2022" inputId="basic"></p-calendar>
+            </div>
+            <div class="p-field">
+                <p-calendar appendTo="body" formControlName="end"  placeholder="From: Sept: 13, 2022" inputId="basic"></p-calendar>
+            </div>
+            <button type="submit" class="btn--outline btn--primary">Filter</button>
         </div>
-        <div class="p-field">
-            <p-calendar appendTo="body" placeholder="From: Sept: 13, 2022" inputId="basic"></p-calendar>
-        </div>
-        <button type="button "  class="btn--outline btn--primary">Filter</button>
-    </div>
+    </form>
 </div>

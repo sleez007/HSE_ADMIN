@@ -1,4 +1,3 @@
-import { state } from "@angular/animations";
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { AuthenticatedData } from "../../model";
 import { loginActions, loginEffectActions, logoutAction, logoutSuccessAction, rehydrateUserSuccessAction } from "../action/auth.action";

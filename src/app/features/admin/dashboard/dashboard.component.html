@@ -1,5 +1,5 @@
 <div class="card-bg">
-    <app-project-filter></app-project-filter>
+    <app-project-filter (filter)="onFilterHandler($event)" (toggleSwitch)="onToggleSwitchHandler($event)" [switchState]="(selectedSwitch$ | async) ?? 1" ></app-project-filter>
     <div class="tb-wrap">
         <p-table [value]="incidents" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">

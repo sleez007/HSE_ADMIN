@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router} from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, filter, map, mergeMap, of, switchMap, take, takeLast, tap, withLatestFrom } from "rxjs";
+import { catchError, exhaustMap, map, mergeMap, of, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { staffEndpoints } from "../../../../core/constants";
 import { StaffData, StaffMedical } from "../../../../core/model";
@@ -29,8 +29,9 @@ export class StaffEffect {
         ofType(createStaffMedicalActions.storeStaffData),
         mergeMap((medicals)=> this.store.select(staffFeature.selectStaffData).pipe(map((staffInfo)=> ({...medicals, ...staffInfo})))),
         exhaustMap(staffRecord => this.networkHelper.post<any, StaffData & StaffMedical>(staffEndpoints.create_user, staffRecord).pipe(
-            map((p)=> staffEffectAction.createStaffSuccess(p) ),
+            map((data)=> staffEffectAction.createStaffSuccess(data)),
             catchError(error => of(staffEffectAction.createStaffFailure({message: "", statusCode: 22})))
-        ))
-    ) )
+        ))) 
+    );
+
 }
