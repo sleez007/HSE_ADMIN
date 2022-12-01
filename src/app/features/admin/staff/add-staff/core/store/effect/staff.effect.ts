@@ -27,11 +27,10 @@ export class StaffEffect {
 
     saveUserToServer$ = createEffect(() => this.action$.pipe(
         ofType(createStaffMedicalActions.storeStaffData),
-        mergeMap((d)=> this.store.select(staffFeature.selectStaffData).pipe(map((r)=> ({...d, ...r})))),
-        exhaustMap(x =>this.networkHelper.post<any, StaffData & StaffMedical>(staffEndpoints.create_user, x).pipe(
+        mergeMap((medicals)=> this.store.select(staffFeature.selectStaffData).pipe(map((staffInfo)=> ({...medicals, ...staffInfo})))),
+        exhaustMap(staffRecord => this.networkHelper.post<any, StaffData & StaffMedical>(staffEndpoints.create_user, staffRecord).pipe(
             map((p)=> staffEffectAction.createStaffSuccess(p) ),
             catchError(error => of(staffEffectAction.createStaffFailure({message: "", statusCode: 22})))
         ))
-       
     ) )
 }
