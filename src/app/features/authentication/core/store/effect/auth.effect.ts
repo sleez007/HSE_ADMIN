@@ -30,7 +30,7 @@ export class AuthEffect {
         private readonly clientSessionService: ClientSessionService,
         private readonly tokenValidator: TokenValidatorService
     ) {}
-
+    
     loginUser$ = createEffect(() => this.action$.pipe(
         ofType(loginActions.login),
         exhaustMap(({email, password}) => this.networkHelper.post<ApiReply, Auth>(authEndpoints.login, {email, password}).pipe(
@@ -66,7 +66,6 @@ export class AuthEffect {
     logoutSuccess$ = createEffect(()=> this.action$.pipe(
         ofType(logoutSuccessAction),
         tap(() => this.router.navigate(['/login'])),
-        tap(()=> alert("hi"))
     ), {dispatch: false})
 
     rehydrateAuth$ = createEffect(() => this.action$.pipe(
