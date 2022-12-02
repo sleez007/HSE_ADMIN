@@ -45,6 +45,7 @@ export class UserDataFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(staffFeature.selectStaffData).subscribe((data) => this.staffForm.patchValue(data))
+    this.store.dispatch(createStaffActions.fetchSupervisors());
   }
 
   onSubmit(){

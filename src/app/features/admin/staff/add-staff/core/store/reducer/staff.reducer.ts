@@ -2,7 +2,7 @@ import { createFeature, createReducer, on } from "@ngrx/store"
 import { OptionModel } from "src/app/features/admin/core/model";
 import { StaffData, StaffMedical, StepperModel } from "../../../../core/model"
 
-import { createStaffActions, createStaffMedicalActions } from "../action/staff.action"
+import { createStaffActions, createStaffMedicalActions, staffEffectAction } from "../action/staff.action"
 
 export  interface StaffCreationState {
     stepper: StepperModel[];
@@ -26,16 +26,16 @@ export const staffInitialState: StaffCreationState = {
         {label: 'Medical Information', routerLink: './medical'}
     ],
     staffData: {
-        firstName: 'Kingso',
-        lastName: 'Etoka',
-        email: 'kingsley@ict.com',
-        phoneNumber: '08038070818',
-        gender: 'male',
-        position: 'App Development',
-        entity: 'bms',
-        location: 'ph',
-        role: 'admin',
-        supervisor: 'bede'
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        gender: '',
+        position: '',
+        entity: '',
+        location: '',
+        role: '',
+        supervisor: ''
     },
     staffMedicalData: {
         dob: '',
@@ -85,11 +85,7 @@ export const staffInitialState: StaffCreationState = {
         {name: 'Port Harcourt', code: 'ph'},
         {name: 'Awka', code: 'awka'}
     ],
-    supervisor: [
-        { name: 'Ivan', code: 'ivan'},
-        { name: 'Somto',code: 'somto'},
-        { name: 'Bede', code: 'bede'}
-    ],
+    supervisor: [],
     blood: [
         { name: 'A+', code: 'A+'},
         { name: 'A-',code: 'A-'},
@@ -128,6 +124,7 @@ export const staffFeature = createFeature({
     reducer: createReducer(
         staffInitialState,
         on(createStaffActions.storeStaffData, (state,props ) => ({...state, staffData: {...props}})),
-        on(createStaffMedicalActions.storeStaffData, (state, props) => ({...state, staffMedicalData: props}))
+        on(createStaffMedicalActions.storeStaffData, (state, props) => ({...state, staffMedicalData: props})),
+        on(staffEffectAction.retrievedSupervisorSuccess, (state, props) => ({...state, supervisor: props.data}))
     )
 })

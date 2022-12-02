@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, exhaustMap, map, mergeMap, of, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
+import { OptionModel } from "src/app/features/admin/core/model";
 import { staffEndpoints } from "../../../../core/constants";
 import { StaffData, StaffMedical } from "../../../../core/model";
 import { createStaffActions, createStaffMedicalActions, staffEffectAction } from "../action/staff.action";
@@ -33,5 +34,17 @@ export class StaffEffect {
             catchError(error => of(staffEffectAction.createStaffFailure({message: "", statusCode: 22})))
         ))) 
     );
+
+    getSupervisor$ = createEffect(() => this.action$.pipe(
+        ofType(createStaffActions.fetchSupervisors),
+        mergeMap(() => this.networkHelper.get<{id: number, first_name: string, last_name: string}[]>(staffEndpoints.get_supervisors).pipe(
+            map((resp) => staffEffectAction.retrievedSupervisorSuccess({data: this.filterSupervisors(resp) })),
+            catchError(error => of(staffEffectAction.retrievedSupervisorFailure({message: '', statusCode: 22})))
+        ))
+    ))
+
+    filterSupervisors(data: {id: number, first_name: string, last_name: string}[] ): OptionModel[]{
+        return data.map(s => ({name: s.first_name +' '+ s.last_name, code: s.id}))
+    }
 
 }
