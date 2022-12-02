@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, delay, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
+import { catchError, delay, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { OptionModel } from "src/app/features/admin/core/model";
 import { incidentEndpoints } from "../../constants";
@@ -46,6 +46,7 @@ export class DashboardEffect {
         mergeMap((props) => this.store.select(dashboardFeature.selectDashboardState).pipe(map((staff) => ({
             start: props.start, end: props.end,lastSwitch: staff.selectedSwitch, projectId: staff.selectedProjectOption
         })))),
+        
         exhaustMap(info => this.networkHelper.get<Object>('filter endpoint').pipe(
             map(response => {
                 if(info.lastSwitch == SwitchState.OFFICE){

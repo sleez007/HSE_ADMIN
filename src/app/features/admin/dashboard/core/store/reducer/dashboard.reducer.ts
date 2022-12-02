@@ -38,7 +38,7 @@ export const dashboardFeature = createFeature({
     reducer: createReducer(
         dashboardInitialState,
         on(dashboardActions.switch, (state, props) => ({ ...state, selectedSwitch: props.data })),
-        on(dashboardActions.filter, (state, props) => ({...state, startDate: props.start, endDate: props.end}) ),
+        on(dashboardActions.filter, (state, props) => ({...state, startDate: props.start, endDate: props.end, isLoadingOffice : state.selectedSwitch == SwitchState.OFFICE ? true : state.isLoadingOffice, isLoadingProject: state.selectedSwitch == SwitchState.PROJECT ? true : state.isLoadingProject  }) ),
         on(dashboardActions.fetchOffice,(state) => ({...state, isLoadingOffice: true}) ),
         on(dashboardActions.fetchProject,(state) => ({...state, isLoadingProjectOptions: true}) ),
         on(dashboardActions.toggleProject,(state, prop) => ({...state, isLoadingProject: true, selectedProjectOption: prop.id}) ),
