@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SwitchState } from './core/model';
+import { OptionModel } from '../core/model';
+import { OfficeModel, ProjectModel, SwitchState } from './core/model';
 import { dashboardActions, dashboardFeature } from './core/store';
 
 @Component({
@@ -10,9 +11,16 @@ import { dashboardActions, dashboardFeature } from './core/store';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  isLoading$: Observable<boolean>;
+  isLoadingOffice$: Observable<boolean>;
+  isLoadingProject$: Observable<boolean>;
   isLoadingProjects$: Observable<boolean>;
-  selectedSwitch$: Observable<SwitchState>
+  selectedSwitch$: Observable<SwitchState>;
+  projectValue$: Observable<string | number>;
+  projectOptions$: Observable<OptionModel[]>;
+  officeHead$: Observable<string[]>;
+  projectHead$: Observable<string[]>;
+  officeData$: Observable<OfficeModel[]>;
+  projectData$: Observable<ProjectModel[]>;
 
   incidents : {category: string, target: number, ph: number, awka: number, project: number, total: number}[] = [
     {category: "Unsafe Act", target: 10, ph: 6, awka: 3, project: 4, total: 13},
@@ -24,12 +32,20 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor(private readonly store: Store) { 
-    this.isLoading$ = store.select(dashboardFeature.selectIsLoading);
+    this.isLoadingOffice$ = store.select(dashboardFeature.selectIsLoadingOffice);
+    this.isLoadingProject$ = store.select(dashboardFeature.selectIsLoadingProject);
     this.isLoadingProjects$ = store.select(dashboardFeature.selectIsLoadingProjectOptions);
     this.selectedSwitch$ = store.select(dashboardFeature.selectSelectedSwitch);
+    this.projectValue$ = store.select(dashboardFeature.selectSelectedProjectOption);
+    this.projectOptions$ = store.select(dashboardFeature.selectProjectOptions);
+    this.officeHead$ = store.select(dashboardFeature.selectOfficeHead);
+    this.projectHead$ = store.select(dashboardFeature.selectProjectHead);
+    this.officeData$ = store.select(dashboardFeature.selectOfficeData);
+    this.projectData$ = store.select(dashboardFeature.selectProjectData)
   }
 
   ngOnInit(): void {
+    this.store.dispatch(dashboardActions.fetchOffice());
   }
 
   onFilterHandler(data: {start: string | Date, end: string | Date, }) {
@@ -38,6 +54,10 @@ export class DashboardComponent implements OnInit {
 
   onToggleSwitchHandler(data: SwitchState) {
     this.store.dispatch(dashboardActions.switch({data}));
+  }
+
+  onFilterProject(value: string | number) {
+    this.store.dispatch(dashboardActions.toggleProject({id: value}))
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { OptionModel } from 'src/app/features/admin/core/model';
 import { SwitchState } from 'src/app/features/admin/dashboard/core/model';
 
 @Component({
@@ -9,8 +10,11 @@ import { SwitchState } from 'src/app/features/admin/dashboard/core/model';
 })
 export class ProjectFilterComponent implements OnInit {
   @Input() switchState: SwitchState = SwitchState.OFFICE;
+  @Input() projectValue: string | number = ''
+  @Input() projectOptions: OptionModel[] = []
   @Output() toggleSwitch : EventEmitter<SwitchState> = new EventEmitter();
   @Output() filter : EventEmitter<{start: string | Date , end: string | Date}> = new EventEmitter();
+  @Output() filterDropDown : EventEmitter<string| number> = new EventEmitter();
 
   filterForm = this.fb.group({
     start: ['', [Validators.required]],
@@ -32,6 +36,11 @@ export class ProjectFilterComponent implements OnInit {
 
   changeSwitchState(isProject: boolean){
     this.toggleSwitch.emit(isProject ?  SwitchState.PROJECT : SwitchState.OFFICE)
+  }
+
+  projectChangeListener(value: string | number) {
+    alert(value);
+    this.filterDropDown.emit(value)
   }
 
 }

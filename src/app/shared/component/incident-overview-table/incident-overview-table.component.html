@@ -1,0 +1,19 @@
+<p-table [columns]="headerList" [value]="tableContent" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col == 'Categories' ? 'category': col =='Port Harcourt' ? 'ph' : col == 'Targets' ? 'target' : col.toLowerCase()]}}
+                <div *ngIf="col == 'Categories'" class="up">
+                    <a href="#" class="link">View All</a>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

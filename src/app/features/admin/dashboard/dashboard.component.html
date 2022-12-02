@@ -1,27 +1,16 @@
 <div class="card-bg">
-    <app-project-filter (filter)="onFilterHandler($event)" (toggleSwitch)="onToggleSwitchHandler($event)" [switchState]="(selectedSwitch$ | async) ?? 1" ></app-project-filter>
-    <div class="tb-wrap">
-        <p-table [value]="incidents" [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Category</th>
-                    <th>Target</th>
-                    <th>Port Harcourt</th>
-                    <th>Awka</th>
-                    <th>Project</th>
-                    <th>Total</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-incident>
-                <tr>
-                    <td>{{incident.category}}</td>
-                    <td>{{incident.target}}</td>
-                    <td>{{incident.ph}}</td>
-                    <td>{{incident.awka}}</td>
-                    <td>{{incident.project}}</td>
-                    <td>{{incident.total}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+    <app-project-filter 
+        [projectValue] = "(projectValue$ | async) ?? ''"
+        [projectOptions] = "(projectOptions$ | async) ?? []"
+        (filter)="onFilterHandler($event)" 
+        (toggleSwitch)="onToggleSwitchHandler($event)" 
+        (filterDropDown)="onFilterProject($event)"
+        [switchState]="(selectedSwitch$ | async) ?? 1" >
+    </app-project-filter>
+    <div *ngIf="(selectedSwitch$ | async) == 1" class="tb-wrap">
+        <app-incident-overview-table [headerList]="(officeHead$ | async) ?? []" [tableContent]="(officeData$ | async) ?? []" ></app-incident-overview-table>
+    </div>
+    <div *ngIf="(selectedSwitch$ | async) == 0" class="tb-wrap">
+        <app-incident-overview-table [headerList]="(projectHead$ | async) ?? []"></app-incident-overview-table>
     </div>
 </div>
