@@ -16,6 +16,8 @@ export class ProjectFilterComponent implements OnInit {
   @Output() filter : EventEmitter<{start: string | Date , end: string | Date}> = new EventEmitter();
   @Output() filterDropDown : EventEmitter<string| number> = new EventEmitter();
 
+  maxDate = new Date();
+
   filterForm = this.fb.group({
     start: ['', [Validators.required]],
     end: ['', [Validators.required]],
