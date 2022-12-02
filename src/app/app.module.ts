@@ -8,7 +8,6 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoadingIndicatorComponent } from './core/component/loading-indicator/loading-indicator.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -22,16 +21,15 @@ import { API_ENDPOINT, AuthTokenInterceptor, REST_ENDPOINT } from './core/servic
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingIndicatorComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     NgProgressModule,
     NgProgressRouterModule,
     NgProgressHttpModule,
-    HttpClientModule,
     StoreModule.forRoot(rootReducers, {}),
     EffectsModule.forRoot([AuthEffect]),
     StoreRouterConnectingModule.forRoot({

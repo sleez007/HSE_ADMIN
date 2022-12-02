@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectFilterComponent } from './component/project-filter/project-filter.component';
 import { PrimeUiModule } from '../prime-ui/prime-ui.module';
 import { IncidentOverviewTableComponent } from './component/incident-overview-table/incident-overview-table.component';
+import { LoadingIndicatorComponent } from './component/loading-indicator/loading-indicator.component';
 
 
 
@@ -11,12 +12,13 @@ import { IncidentOverviewTableComponent } from './component/incident-overview-ta
   declarations: [
     ProjectFilterComponent,
     IncidentOverviewTableComponent,
+    LoadingIndicatorComponent
   ],
   imports: [
     CommonModule,
     PrimeUiModule,
     ReactiveFormsModule,
   ],
-  exports: [ReactiveFormsModule, ProjectFilterComponent, IncidentOverviewTableComponent]
+  exports: [ReactiveFormsModule, ProjectFilterComponent, IncidentOverviewTableComponent, LoadingIndicatorComponent]
 })
 export class SharedModule { }
