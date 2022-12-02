@@ -19,6 +19,6 @@
     </div>
 
     <div class="drop-menu" *ngIf="switchState == 0">
-        <p-dropdown onchange="projectChangeListener($event)" [style]="{'width':'16%'}" id="supervisor" [autoDisplayFirst]="false" optionValue="code" [options]="projectOptions" formControlName="supervisor" aria-describedby="supervisor-help"  optionLabel="name"></p-dropdown>
+        <p-dropdown (onChange)="projectChangeListener($event.value)"  [style]="{'width':'16%'}" id="supervisor" [autoDisplayFirst]="false" optionValue="code" [options]="projectOptions"  aria-describedby="supervisor-help"  optionLabel="name"></p-dropdown>
     </div>
 </div>

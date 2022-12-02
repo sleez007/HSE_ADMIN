@@ -1,4 +1,5 @@
 export const incidentEndpoints = {
     office: '/incidents/office',
-    projects: '/incidents/project'
+    project: '/incidents/project',
+    allProjects: '/projects'
 }

@@ -39,7 +39,6 @@ export class ProjectFilterComponent implements OnInit {
   }
 
   projectChangeListener(value: string | number) {
-    alert(value);
     this.filterDropDown.emit(value)
   }
 

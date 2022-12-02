@@ -22,7 +22,7 @@ export class ProjectEffect {
 
     projectCreationSuccess$ = createEffect(() => this.action$.pipe(
         ofType(createProjectApiActions.createProjectSuccess),
-        tap(() => this.router.navigate(['/dashboard']))
+       // tap(() => this.router.navigate(['/dashboard']))
     ),{dispatch: false})
 
     projectCreationError$ = createEffect(() => this.action$.pipe(

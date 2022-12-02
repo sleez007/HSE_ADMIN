@@ -11,6 +11,6 @@
         <app-incident-overview-table [headerList]="(officeHead$ | async) ?? []" [tableContent]="(officeData$ | async) ?? []" ></app-incident-overview-table>
     </div>
     <div *ngIf="(selectedSwitch$ | async) == 0" class="tb-wrap">
-        <app-incident-overview-table [headerList]="(projectHead$ | async) ?? []"></app-incident-overview-table>
+        <app-incident-overview-table [headerList]="(projectHead$ | async) ?? []" [tableContent]="(projectData$ | async ) ?? []"></app-incident-overview-table>
     </div>
 </div>

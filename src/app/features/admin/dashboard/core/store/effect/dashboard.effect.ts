@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { catchError, delay, map, mergeMap, of, switchMap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
+import { OptionModel } from "src/app/features/admin/core/model";
 import { incidentEndpoints } from "../../constants";
 import { OfficeModel, ProjectModel } from "../../model";
-import { dashboardActions, DashboardEffectActions } from "../actions/dashboard.action";
+import { dashboardActions, dashboardEffectActions } from "../actions/dashboard.action";
 
 @Injectable()
 export class DashboardEffect {
@@ -17,14 +18,35 @@ export class DashboardEffect {
 
     getOffice$ = createEffect(() => this.action$.pipe(
         ofType(dashboardActions.fetchOffice),
-        mergeMap(() => this.networkHelper.get<Object>(incidentEndpoints.office).pipe(
+        switchMap(() => this.networkHelper.get<Object>(incidentEndpoints.office).pipe(
             map((response) => {
                 const reformatedArray = this.formatDataForOffice(response)
-                return DashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})
+                return dashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})
             }),
-            catchError((error) => of(DashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
     ))
+
+    getProjectsById$ = createEffect(() => this.action$.pipe(
+        ofType(dashboardActions.toggleProject),
+        switchMap((p) => this.networkHelper.get<Object>(incidentEndpoints.project+'/'+p.id).pipe(
+            map((response) => {
+                const reformatedArray = this.formatDataForProject(response)
+                return dashboardEffectActions.fetchProjectByIdSuccess({data: reformatedArray})
+            }),
+            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+        ))
+    ))
+
+    getProjects$ = createEffect(() => this.action$.pipe(
+        ofType(dashboardActions.fetchProject),
+        delay(3000),
+        map(() => dashboardEffectActions.fetchProjectSuccess({data: this.formatProjects([{title: 'Mopu', id: 1}, {title: 'Lammy', id: 2} ])}))
+    ))
+
+    formatProjects(proj: any[]): OptionModel[]{
+        return proj.map((d)=> ({code: d.id, name: d.title}))
+    }
 
     private formatDataForOffice(obj: any): OfficeModel[] {
         let data: OfficeModel[] = [];

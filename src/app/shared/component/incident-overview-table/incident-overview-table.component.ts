@@ -9,7 +9,7 @@ import { OfficeModel } from 'src/app/features/admin/dashboard/core/model';
 export class IncidentOverviewTableComponent implements OnInit {
 
   @Input() headerList : string[] = []
-  @Input() tableContent: OfficeModel[] = [];
+  @Input() tableContent: any[] = [];
 
   constructor() { }
 

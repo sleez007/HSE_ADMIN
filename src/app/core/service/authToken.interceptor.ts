@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, of, switchMap, take } from "rxjs";
+import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, switchMap, take } from "rxjs";
 import { authEndpoints } from "src/app/features/authentication/core/constants";
 import { authFeature, rehydrateUserInterceptorAction } from "src/app/features/authentication/core/store";
 import { NetworkHelperService } from "../network";
@@ -76,8 +76,8 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                 'Authorization': `Bearer ${token}`,
             }
         })
-        console.log(modifiedReq.headers.has("Authorization"))
-        console.log(modifiedReq.headers.keys())
+        // console.log(modifiedReq.headers.has("Authorization"))
+        // console.log(modifiedReq.headers.keys())
         return modifiedReq;
     }
 }

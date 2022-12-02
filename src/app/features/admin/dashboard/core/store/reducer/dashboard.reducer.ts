@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { OptionModel } from "src/app/features/admin/core/model";
 import { OfficeModel, ProjectModel, SwitchState } from "../../model";
-import { dashboardActions, DashboardEffectActions } from "../actions/dashboard.action";
+import { dashboardActions, dashboardEffectActions } from "../actions/dashboard.action";
 
 export interface DashboardState {
     selectedSwitch: SwitchState;
@@ -40,7 +40,10 @@ export const dashboardFeature = createFeature({
         on(dashboardActions.switch, (state, props) => ({ ...state, selectedSwitch: props.data })),
         on(dashboardActions.filter, (state, props) => ({...state, startDate: props.start, endDate: props.end}) ),
         on(dashboardActions.fetchOffice,(state) => ({...state, isLoadingOffice: true}) ),
-        on(dashboardActions.fetchProject,(state) => ({...state, isLoadingProject: true}) ),
-        on(DashboardEffectActions.fetchOfficeSuccess, (state, props)  => ({...state, isLoadingOffice: false, officeData: props.data}))
+        on(dashboardActions.fetchProject,(state) => ({...state, isLoadingProjectOptions: true}) ),
+        on(dashboardActions.toggleProject,(state, prop) => ({...state, isLoadingProject: true, selectedProjectOption: prop.id}) ),
+        on(dashboardEffectActions.fetchOfficeSuccess, (state, props)  => ({...state, isLoadingOffice: false, officeData: props.data})),
+        on(dashboardEffectActions.fetchProjectSuccess, (state, props) => ({...state, isLoadingProjectOptions: false, projectOptions: props.data })),
+        on(dashboardEffectActions.fetchProjectByIdSuccess, (state, props) => ({...state, isLoadingProject: false, projectData: props.data }))
     )
 })
