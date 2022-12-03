@@ -12,9 +12,11 @@ const routes: Routes = [
       { path: 'staff-detail', title: 'HSE | STAFF DETAIL', loadChildren: () => import('./staff/staff-detail/staff-detail.module').then(m => m.StaffDetailModule) },
       { path: 'hse-incident', title: 'HSE | HSE INCIDENTS', loadChildren: () => import('./incidents/hse-incident/hse-incident.module').then(m => m.HseIncidentModule) },
       { path: 'cpa-incident', title: 'HSE | CPA INCIDENTS', loadChildren: () => import('./incidents/cpa-incident/cpa-incident.module').then(m => m.CpaIncidentModule) },
+      { path: 'detail/:category', loadChildren: () => import('./incidents/detail/detail.module').then(m => m.DetailModule) },
       { path: '', title: 'HSE | ADMIN DASHBOARD', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
     ]
   },
+  
 ];
 
 @NgModule({

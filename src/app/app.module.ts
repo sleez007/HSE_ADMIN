@@ -39,8 +39,8 @@ import { API_ENDPOINT, AuthTokenInterceptor, LoggingInterceptor, REST_ENDPOINT }
   ],
   providers: [
     { provide: API_ENDPOINT, useValue: REST_ENDPOINT },
-    {provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

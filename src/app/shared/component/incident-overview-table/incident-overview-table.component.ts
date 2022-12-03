@@ -16,4 +16,8 @@ export class IncidentOverviewTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  format(cat: String): string{
+    return cat.replace(/ /g,"-");
+  }
+
 }

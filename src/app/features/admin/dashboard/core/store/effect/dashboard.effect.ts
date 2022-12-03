@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, delay, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
+import { DateFormatter } from "src/app/core/util";
 import { OptionModel } from "src/app/features/admin/core/model";
 import { incidentEndpoints } from "../../constants";
 import { OfficeModel, ProjectModel, SwitchState } from "../../model";
@@ -47,7 +48,7 @@ export class DashboardEffect {
             start: props.start, end: props.end,lastSwitch: staff.selectedSwitch, projectId: staff.selectedProjectOption
         })))),
         
-        exhaustMap(info => this.networkHelper.get<Object>('filter endpoint').pipe(
+        exhaustMap(info => this.networkHelper.get<Object>(info.lastSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`: `${incidentEndpoints.project}/${info.projectId}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`).pipe(
             map(response => {
                 if(info.lastSwitch == SwitchState.OFFICE){
                     const reformatedArray = this.formatDataForOffice(response)

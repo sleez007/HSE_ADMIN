@@ -11,7 +11,7 @@
             <td *ngFor="let col of columns">
                 {{rowData[col == 'Categories' ? 'category': col =='Port Harcourt' ? 'ph' : col == 'Targets' ? 'target' : col.toLowerCase()]}}
                 <div *ngIf="col == 'Categories'" class="up">
-                    <a href="#" class="link">View All</a>
+                    <a [routerLink]="['/dashboard/detail', format(rowData['category'])]" class="link">View All</a>
                 </div>
             </td>
         </tr>
