@@ -44,11 +44,11 @@ export class DashboardEffect {
 
     filterSelection$ = createEffect(() => this.action$.pipe(
         ofType(dashboardActions.filter),
-        mergeMap((props) => this.store.select(dashboardFeature.selectDashboardState).pipe(map((staff) => ({
+        switchMap((props) => this.store.select(dashboardFeature.selectDashboardState).pipe(map((staff) => ({
             start: props.start, end: props.end,lastSwitch: staff.selectedSwitch, projectId: staff.selectedProjectOption
         })))),
         
-        exhaustMap(info => this.networkHelper.get<Object>(info.lastSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`: `${incidentEndpoints.project}/${info.projectId}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`).pipe(
+        switchMap(info => this.networkHelper.get<Object>(info.lastSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`: `${incidentEndpoints.project}/${info.projectId}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`).pipe(
             map(response => {
                 if(info.lastSwitch == SwitchState.OFFICE){
                     const reformatedArray = this.formatDataForOffice(response)
@@ -65,7 +65,7 @@ export class DashboardEffect {
 
     getProjects$ = createEffect(() => this.action$.pipe(
         ofType(dashboardActions.fetchProject),
-        mergeMap(info => this.networkHelper.get<{id: number, title: string}[]>(incidentEndpoints.allProjects).pipe(
+        switchMap(info => this.networkHelper.get<{id: number, title: string}[]>(incidentEndpoints.allProjects).pipe(
             map((resp => dashboardEffectActions.fetchProjectSuccess({data: this.formatProjects(resp)}))),
             catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
@@ -100,8 +100,4 @@ export class DashboardEffect {
         console.log(data)
         return data;
     }
-
-    
 }
-
-// {"near miss":{"target":0,"port harcourt":2,"awka":0,"project":0,"total":2},"unsafe conditions":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"first aid case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"fatality":{"target":0,"port harcourt":1,"awka":1,"project":0,"total":2},"road traffic accident":{"target":0,"port harcourt":0,"awka":0,"project":1,"total":1},"spill prevention, control and counted":{"target":0,"port harcourt":3,"awka":0,"project":1,"total":4},"medical treatment case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"unsafe act":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"lost work day case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"lost time injury":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"safe act":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"property/equip damage":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"theft incident":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"enforcement notice":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"stop work authority":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"restricted work case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"service quality":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0}}

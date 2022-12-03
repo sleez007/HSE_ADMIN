@@ -1,19 +1,22 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { OptionModel } from "src/app/features/admin/core/model";
+import { DetailModel } from "../../model";
 import { detailActions, detailEffectActions } from "../action/detail.action";
 
 export interface DetailState {
-    officeData: Object;
+    itemDetail: DetailModel[];
     startDate: string | Date;
     endDate: string | Date;
-    isLoading: boolean
+    isLoading: boolean;
+    isError: boolean,
 };
 
 export const detailInitialState: DetailState = {
-   officeData: {},
+   itemDetail: [],
    startDate: '' ,
    endDate: '',
-   isLoading: false
+   isLoading: false,
+   isError: false,
 }
 
 export const detailFeature = createFeature({
@@ -22,7 +25,7 @@ export const detailFeature = createFeature({
         detailInitialState,
         on(detailActions.filter, (state, props) => ({...state, startDate: props.start, endDate: props.end, isLoading: true }) ),
         on(detailActions.fetchDetails,(state) => ({...state, isLoadingOffice: true}) ),
-        on(detailEffectActions.fetchDataSuccess,(state) => ({...state, isLoadingProjectOptions: true}) ),
+        on(detailEffectActions.fetchDataSuccess,(state, props) => ({...state, isLoadingProjectOptions: true, itemDetail: props.data}) ),
         on(detailEffectActions.fetchDataFailure,(state) => ({...state, isLoadingProjectOptions: false}) ),
     )
 })

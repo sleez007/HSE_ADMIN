@@ -31,15 +31,49 @@ export class DetailEffect {
         filter((r: RouterNavigatedAction) => r.payload.routerState.url.startsWith('/dashboard/detail')),
         map((r: RouterNavigatedAction) =>{
            const d: any = r.payload.routerState;
-           return d['params']['category']
+           return d['params']['category'];
         } ),
-        switchMap((data) => this.networkHelper.get<DetailModel[]>(incidentDetailEndpoints.detail+ '/' + data).pipe(
-            map((response) => detailEffectActions.fetchDataSuccess({data: response})),
+        switchMap((data) => this.networkHelper.get<any[]>(incidentDetailEndpoints.detail+ '/' + data).pipe(
+            map((response) => detailEffectActions.fetchDataSuccess({data: this.formatDetailToCamel(response)})),
             catchError((error) => of(detailEffectActions.fetchDataFailure({message: error['message'], statusCode: 401})))
         ))
-
     ))
+
+    formatDetailToCamel(data: Array<{
+        report_id: string;
+        reported_by: string;
+        assign_to: string;
+        location: string;
+        incident_category: string;
+        description: string;
+        response: string;
+        is_corrective_action_required: string;
+        corrective_action: string;
+        incident_source: string;
+        risk_matrix: string;
+        incident_status: string;
+        incident_remarks: string;
+        due_date: string;
+        createdAt: string
+    }>): DetailModel[]{
+        return data.map(e => ({
+            reportId: e.report_id, 
+            reportedBy: e.reported_by, 
+            assignTo: e.assign_to, 
+            location: e.location, 
+            incidentCategory: e.incident_category, 
+            description: e.description,
+            response: e.response,
+            isCorrectiveActionRequired: e.is_corrective_action_required,
+            correctiveAction: e.corrective_action,
+            incidentSource: e.incident_source,
+            riskMatrix: e.risk_matrix,
+            incidentStatus: e.incident_status,
+            incidentRemarks: e.incident_remarks,
+            dueDate: e.due_date,
+            createdAt: e.createdAt
+        }))
+
+    }
     
 }
-
-// {"near miss":{"target":0,"port harcourt":2,"awka":0,"project":0,"total":2},"unsafe conditions":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"first aid case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"fatality":{"target":0,"port harcourt":1,"awka":1,"project":0,"total":2},"road traffic accident":{"target":0,"port harcourt":0,"awka":0,"project":1,"total":1},"spill prevention, control and counted":{"target":0,"port harcourt":3,"awka":0,"project":1,"total":4},"medical treatment case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"unsafe act":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"lost work day case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"lost time injury":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"safe act":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"property/equip damage":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"theft incident":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"enforcement notice":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"stop work authority":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"restricted work case":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0},"service quality":{"target":0,"port harcourt":0,"awka":0,"project":0,"total":0}}
