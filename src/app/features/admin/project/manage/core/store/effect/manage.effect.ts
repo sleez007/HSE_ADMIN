@@ -21,6 +21,22 @@ export class ManageProjectEffect {
         ) )
     ));
 
+    deleteProject$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectActions.deleteProject),
+        mergeMap((prop) => this.networkHelper.delete<any>(projectEndpoints.all+'/'+prop.id).pipe(
+            map(e => manageProjectApiActions.deleteProjectSuccess({id: prop.id})),
+            catchError((error: HttpErrorResponse) => of(manageProjectApiActions.deleteProjectFailure({message: error.error['message'], statusCode: error.status })))
+        ))
+    ));
+
+    editProject$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectActions.editProject),
+        mergeMap((prop) => this.networkHelper.put<any, ProjectModel>(projectEndpoints.all+'/'+prop.projectId, prop).pipe(
+            map(e => manageProjectApiActions.editProjectSuccess({projectId: e.id, projectTitle: e.title, startDuration: DateFormatter.stringToDate(e.start) , endDuration: e.end != null ? DateFormatter.stringToDate(e.end): null, isCompleted: e.is_completed}) ),
+            catchError((error: HttpErrorResponse) => of(manageProjectApiActions.editProjectFailure({message: error.error['message'], statusCode: error.status })))
+        ))
+    ));
+
     private formatProject(projects: any[]): ProjectModel[]{
         return projects.map(e => ({projectId: e.id, projectTitle: e.title, startDuration: DateFormatter.stringToDate(e.start) , endDuration: e.end != null ? DateFormatter.stringToDate(e.end): null, isCompleted: e.is_completed}))
     }

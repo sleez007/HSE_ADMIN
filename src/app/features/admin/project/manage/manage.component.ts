@@ -5,6 +5,7 @@ import { ProjectModel } from '../core/model';
 import { manageProjectActions, manageProjectFeature } from './core/store';
 import { OptionModel } from '../../core/model';
 import { DateFormatter } from 'src/app/core/util';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-manage',
@@ -19,7 +20,7 @@ export class ManageComponent implements OnInit {
   projects$: Observable<ProjectModel[]>
   status$: Observable<OptionModel[]>
 
-  constructor(private readonly store: Store) { 
+  constructor(private readonly store: Store, private confirmationService: ConfirmationService, ) { 
     this.isLoading$ = store.select(manageProjectFeature.selectIsLoading);
     this.isEditingLoading$ = store.select(manageProjectFeature.selectIsLoadingEdit);
     this.isDeletingLoading$ = store.select(manageProjectFeature.selectIsLoadingDelete);
@@ -34,6 +35,20 @@ export class ManageComponent implements OnInit {
   format(dateString?: Date){
     if(!dateString) return 'Nill';
     return DateFormatter.dateToString(dateString)
+  }
+
+  deletePopUp(project: ProjectModel){
+    this.confirmationService.confirm({
+      message: `Confirm you want to delete the project titled '${project.projectTitle}'?`,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.store.dispatch(manageProjectActions.deleteProject({id: project.projectId!}))
+      },
+      reject: (type: any) => {
+       
+      }
+  });
   }
 
 

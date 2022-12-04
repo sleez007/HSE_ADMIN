@@ -28,12 +28,12 @@ export const manageProjectFeature = createFeature({
         manageInitialState,
         on(manageProjectActions.getAllProject, (state) => ({...state, isLoading: true})),
         on(manageProjectActions.editProject, (state)=> ({...state, isLoading: true})),
-        on(manageProjectActions.deleteProject, (state) => ({...state, isLoginLoading: true})),
+        on(manageProjectActions.deleteProject, (state) => ({...state, isLoading: true})),
         on(manageProjectApiActions.getAllProjectSuccess, (state, props) => ({...state, isLoading: false, projects: props.projects})),
         on(manageProjectApiActions.getAllProjectFailure, (state) => ({...state, isLoading: false})),
         on(manageProjectApiActions.editProjectSuccess, (state, props) => ({...state, isLoading: false, projects: updateProjectsAfterEdit(state.projects, props)})),
         on(manageProjectApiActions.editProjectFailure, (state) => ({...state, isLoading: false})),
-        on(manageProjectApiActions.deleteProjectSuccess, (state, props) => ({...state, isLoading: false, projects: deleteProject(state.projects,props)})),
+        on(manageProjectApiActions.deleteProjectSuccess, (state, props) => ({...state, isLoading: false, projects: deleteProject(state.projects,props.id)})),
         on(manageProjectApiActions.deleteProjectFailure, (state) => ({...state, isLoading: false})),
     )
 })
@@ -43,7 +43,6 @@ function updateProjectsAfterEdit(projects: ProjectModel[], project: ProjectModel
     return projects.map(p => p.projectId == project.projectId ? project : p)
 }
 
-function deleteProject(projects: ProjectModel[], project: ProjectModel){
-    delete (project as any).type
-    return projects.filter(p => p.projectId != project.projectId)
+function deleteProject(projects: ProjectModel[], id:  number | string){
+    return projects.filter(p => p.projectId != id)
 }

@@ -17,7 +17,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthEffect } from './features/authentication/core/store';
 import { API_ENDPOINT, AuthTokenInterceptor, LoggingInterceptor, REST_ENDPOINT } from './core/service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -38,10 +39,13 @@ import { MessageService } from 'primeng/api';
       serializer: CustomSerializer
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   providers: [
     MessageService,
+    ConfirmationService,
+    
     { provide: API_ENDPOINT, useValue: REST_ENDPOINT },
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}

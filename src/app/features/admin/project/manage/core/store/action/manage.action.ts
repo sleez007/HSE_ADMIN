@@ -7,7 +7,7 @@ export const manageProjectActions = createActionGroup({
     events: {
         'get all project': emptyProps(),
         'delete project': props<{id: string | number}>(),
-        'edit project': props<ProjectModel>
+        'edit project': props<ProjectModel>()
     }
 });
 
@@ -18,7 +18,7 @@ export const manageProjectApiActions = createActionGroup({
         'get all project failure': props<ErrorResponse>(),
         'edit project success': props<ProjectModel>(),
         'edit project failure': props<ErrorResponse>(),
-        'delete project success': props<ProjectModel>(),
+        'delete project success': props<{id: number | string}>(),
         'delete project failure': props<ErrorResponse>(),
     }
 });
