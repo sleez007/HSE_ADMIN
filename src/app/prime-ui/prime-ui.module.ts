@@ -8,6 +8,7 @@ import {TableModule} from 'primeng/table';
 import {StepsModule} from 'primeng/steps';
 import {DropdownModule} from 'primeng/dropdown';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {MenuModule} from 'primeng/menu';
 
 @NgModule({
   declarations: [],
@@ -19,6 +20,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     CalendarModule,
     TableModule
   ],
-  exports: [InputTextModule, PasswordModule, ButtonModule, CalendarModule, TableModule, StepsModule, DropdownModule, ProgressSpinnerModule]
+  exports: [InputTextModule, PasswordModule, ButtonModule, CalendarModule, TableModule, StepsModule, DropdownModule, ProgressSpinnerModule, MenuModule]
 })
 export class PrimeUiModule { }

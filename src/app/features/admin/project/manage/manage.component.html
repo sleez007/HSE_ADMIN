@@ -1,1 +1,91 @@
-<div class="card-bg">Manage Projects</div>
+<div class="card-bg">
+    <div class="tb-wrap">
+        <div *ngIf="isLoading$ | async">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+        <div *ngIf="!(isLoading$ | async) && ((projects$ | async) ?? []).length > 0 ">
+            <p-table [value]="(projects$ | async) ?? []" dataKey="projectId" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:8%">ID</th>
+                        <th style="width:20%">Project Title</th>
+                        <th style="width:20%">Start</th>
+                        <th style="width:20%">End</th>
+                        <th style="width:20%">Completed?</th>
+                        <th style="width:20%"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-project let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="project">
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" disabled [(ngModel)]="project.projectId">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.projectId}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="project.projectTitle">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.projectTitle}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-calendar appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.startDuration"></p-calendar>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{format(project.startDuration)}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-calendar appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.endDuration"></p-calendar>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{format(project.endDuration)}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-dropdown [style]="{'width':'100%'}" [(ngModel)]="project.isCompleted"  [autoDisplayFirst]="false" optionValue="code" [options]="(status$ | async) ?? []"   optionLabel="name"></p-dropdown>
+                                    <!-- <input pInputText type="text" [(ngModel)]="project.isCompleted"> -->
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.isCompleted ? 'Completed' : 'Ongoing'}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                        
+                            <div class="flex align-items-center justify-content-center gap-2">
+                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+                                <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-trash" class="p-button-rounded p-button-text"></button>
+                                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="nothing" *ngIf="!(isLoading$ | async) && ((projects$ | async) ?? []).length == 0 ">
+            <h1>Nothing to display</h1>
+        </div>
+        
+    </div>
+</div>
+
+<!-- pi-spin pi-spinner -->

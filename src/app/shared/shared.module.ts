@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectFilterComponent } from './component/project-filter/project-filter.component';
 import { PrimeUiModule } from '../prime-ui/prime-ui.module';
 import { IncidentOverviewTableComponent } from './component/incident-overview-table/incident-overview-table.component';
@@ -16,7 +16,8 @@ import { LoadingIndicatorComponent } from './component/loading-indicator/loading
     CommonModule,
     PrimeUiModule,
     ReactiveFormsModule,
+    FormsModule
   ],
-  exports: [ReactiveFormsModule, ProjectFilterComponent, IncidentOverviewTableComponent, LoadingIndicatorComponent]
+  exports: [ReactiveFormsModule, ProjectFilterComponent, IncidentOverviewTableComponent, LoadingIndicatorComponent, FormsModule]
 })
 export class SharedModule { }

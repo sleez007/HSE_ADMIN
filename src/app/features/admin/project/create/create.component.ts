@@ -48,7 +48,7 @@ export class CreateComponent implements OnInit {
   private validateEndDateConditionally(formControl: AbstractControl) {
     if(!formControl.parent) return null;
     console.log(formControl.parent.get('isCompleted')!.value)
-    if (formControl.parent.get('isCompleted')!.value == false) {
+    if (formControl.parent.get('isCompleted')!.value == true) {
       return Validators.required(formControl); 
     }
     return null;
