@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, switchMap, take } from "rxjs";
+import { BehaviorSubject, exhaustMap, filter, finalize, map, Observable, retry, switchMap, take } from "rxjs";
 import { authEndpoints } from "src/app/features/authentication/core/constants";
 import { authFeature, rehydrateUserInterceptorAction } from "src/app/features/authentication/core/store";
 import { NetworkHelperService } from "../network";
@@ -49,6 +49,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                             this.refreshTokenInProgress = true;
                             this.refreshSubject.next(null);
                             return this.networkHelper.post<RefreshData, {refreshToken: string}>(authEndpoints.refresh, {refreshToken: user.tokens.refreshToken!}).pipe(
+                                retry(3),
                                 switchMap((data)=> {
                                     const person = {...user, tokens: {accessToken: data.token.token, refreshToken:  data.token.refreshToken,refreshExpiry:data.refresh_expires  }};
                                     this.clientSession.addUserToLocalStorage(person);
@@ -57,6 +58,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
                                     const modifiedReq = this.modifyReq(req, person.tokens.accessToken ?? '' );
                                     return next.handle(modifiedReq);
                                 }),
+                            
                                 finalize(() => (this.refreshTokenInProgress = false))
                             );
                         }

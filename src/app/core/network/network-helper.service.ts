@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ErrorResponse } from "../model";
 import { API_ENDPOINT } from "../service";
 
 
@@ -9,9 +10,7 @@ import { API_ENDPOINT } from "../service";
   })
 export class NetworkHelperService  {
     
-    constructor(@Inject(API_ENDPOINT) private readonly baseUrl: string, private readonly httpClient: HttpClient) {
-        console.log(baseUrl);
-    }
+    constructor(@Inject(API_ENDPOINT) private readonly baseUrl: string, private readonly httpClient: HttpClient) {}
 
     get<T>(path: string): Observable<T> {
         const url = this.baseUrl + path;
@@ -31,6 +30,17 @@ export class NetworkHelperService  {
     delete<T>(path: string): Observable<T> {
         const url = this.baseUrl + path;
         return this.httpClient.delete<T>(url);
+    }
+
+    static handleError(error: HttpErrorResponse, ): ErrorResponse{
+        switch(error.status){
+            case 0: {
+                return {message: 'Please ensure you are connected to the Internet', statusCode: error.status}
+            }
+            default: {
+                return {message: error.message, statusCode: error.status}
+            }
+        }
     }
 
 }

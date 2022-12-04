@@ -6,8 +6,6 @@ import { PrimeUiModule } from '../prime-ui/prime-ui.module';
 import { IncidentOverviewTableComponent } from './component/incident-overview-table/incident-overview-table.component';
 import { LoadingIndicatorComponent } from './component/loading-indicator/loading-indicator.component';
 
-
-
 @NgModule({
   declarations: [
     ProjectFilterComponent,

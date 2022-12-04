@@ -5,7 +5,7 @@
             <div class="field pp">
                 <label for="projectTitle" class="block">Project Title</label>
                 <input [style]="{'width':'100%'}" formControlName="projectTitle"  id="projectTitle" type="text" aria-describedby="projectTitle-help"   pInputText />
-                <small *ngIf="projectForm.controls.projectTitle.touched && projectForm.controls.projectTitle.errors?.['required']" id="isComplete-help" class="p-error block">Project Status is required.</small>
+                <small *ngIf="projectForm.controls.projectTitle.touched && projectForm.controls.projectTitle.errors?.['required']" id="isComplete-help" class="p-error block">Project title is required.</small>
             </div>
             <div class="field pp">
                 <label for="isCompleted" class="block">Project Status</label>
@@ -15,13 +15,15 @@
             <div class="field pp">
                 <label for="startDuration" class="block">Start Duration</label>
                 <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="startDuration" formControlName="startDuration"></p-calendar>
+                <small *ngIf="projectForm.controls.startDuration.touched && projectForm.controls.startDuration.errors?.['required']" id="startDuration-help" class="p-error block">Start Date is required.</small>
             </div>
-            <div class="field pp">
+            <div class="field pp" *ngIf="projectForm.value.isCompleted == '0'|| projectForm.value.isCompleted === '' || projectForm.value.isCompleted === null">
                 <label for="endDuration" class="block">End Duration</label>
                 <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="endDuration" formControlName="endDuration"></p-calendar>
+                <small *ngIf="projectForm.controls.endDuration.touched && projectForm.controls.endDuration.errors?.['required']" id="endDuration-help" class="p-error block">End Date is required.</small>
             </div>
         </div>
-        <button type="submit" [disabled]="projectForm.invalid" class="btn">Save</button>
+        <button type="submit" [disabled]="projectForm.invalid || (isLoading$ | async)== true" class="btn">Save</button>
     </form>
     
 </div>

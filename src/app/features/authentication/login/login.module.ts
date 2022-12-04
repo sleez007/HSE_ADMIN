@@ -7,6 +7,7 @@ import { PrimeUiModule } from 'src/app/prime-ui/prime-ui.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     LoginComponent
@@ -15,7 +16,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     LoginRoutingModule,
     PrimeUiModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class LoginModule { }

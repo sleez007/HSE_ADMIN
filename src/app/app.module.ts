@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
+import {ToastModule} from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthEffect } from './features/authentication/core/store';
 import { API_ENDPOINT, AuthTokenInterceptor, LoggingInterceptor, REST_ENDPOINT } from './core/service';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -36,8 +38,10 @@ import { API_ENDPOINT, AuthTokenInterceptor, LoggingInterceptor, REST_ENDPOINT }
       serializer: CustomSerializer
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    ToastModule
   ],
   providers: [
+    MessageService,
     { provide: API_ENDPOINT, useValue: REST_ENDPOINT },
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}

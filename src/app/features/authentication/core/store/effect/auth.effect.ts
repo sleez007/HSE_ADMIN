@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
+import { catchError, exhaustMap, map, mergeMap, of, tap } from "rxjs";
+import { ErrorResponse } from "src/app/core/model";
 import { NetworkHelperService } from "src/app/core/network";
-import { ClientSessionService, TokenValidatorService } from "src/app/core/service";
+import { ClientSessionService, ToastService, TokenValidatorService } from "src/app/core/service";
 import { authEndpoints } from "../../constants";
 import { Auth, AuthResponse } from "../../model";
 import { loginActions, loginEffectActions, logoutAction, logoutSuccessAction, rehydrateUserAction, rehydrateUserFailureAction, rehydrateUserInterceptorAction, rehydrateUserSuccessAction } from "../action/auth.action";
@@ -28,7 +30,8 @@ export class AuthEffect {
         private readonly networkHelper: NetworkHelperService, 
         private readonly router: Router, 
         private readonly clientSessionService: ClientSessionService,
-        private readonly tokenValidator: TokenValidatorService
+        private readonly tokenValidator: TokenValidatorService,
+        private readonly toaster: ToastService
     ) {}
     
     loginUser$ = createEffect(() => this.action$.pipe(
@@ -39,7 +42,7 @@ export class AuthEffect {
                 jwt: {accessToken: response.jwt.token, refreshToken: response.jwt.refreshToken, refreshExpiry: response.refresh_expires},
                 message: 'Login was successful'
             })),
-            catchError((error) => of(loginEffectActions.loginError({message: error['message'], statusCode: 401 })))
+            catchError((error: HttpErrorResponse) => of(loginEffectActions.loginError(this.handleError(error))))
         ) )
     ));
 
@@ -52,7 +55,8 @@ export class AuthEffect {
 
     loginError$ = createEffect(() => this.action$.pipe(
         ofType(loginEffectActions.loginError),
-        tap((e) => console.log(e))
+        tap((e) => console.log(e)),
+        tap(e => this.toaster.showError('Login Error', e['message']))
     ), {dispatch: false});
 
 
@@ -85,5 +89,19 @@ export class AuthEffect {
         }),
         catchError(()=> of(rehydrateUserFailureAction()))
     ))
+
+    handleError(error: HttpErrorResponse ): ErrorResponse{
+        switch(error.status){
+            case 0: {
+                return {message: 'Please ensure you are connected to the Internet', statusCode: error.status}
+            }
+            case 404: {
+                return {message: 'Invalid email or password', statusCode: error.status}
+            }
+            default: {
+                return {message: error.error['message'], statusCode: error.status}
+            }
+        }
+    }
 
 }

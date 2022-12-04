@@ -7,6 +7,7 @@ export  interface CreateProjectState {
     project: ProjectModel | null;
     isLoading: boolean;
     status: OptionModel[];
+    isSaved: boolean;
 };
 
 export const projectInitialState: CreateProjectState = {
@@ -15,7 +16,8 @@ export const projectInitialState: CreateProjectState = {
     status: [
         { name: 'Ongoing', code: true},
         { name: 'Completed', code: false},
-    ]
+    ],
+    isSaved: false,
 } 
 
 
@@ -23,11 +25,11 @@ export const projectFeature = createFeature({
     name: 'add project',
     reducer: createReducer(
         projectInitialState,
-        on(createProjectActions.addProject, (state) => ({...state, isLoading: true})),
+        on(createProjectActions.addProject, (state) => ({...state, isLoading: true, isSaved: false})),
         on(createProjectActions.editProject, (state, props)=> ({...state, isLoading: true})),
         on(createProjectApiActions.editProjectFailure, (state) => ({...state, isLoginLoading: false})),
         on(createProjectApiActions.createProjectFailure, (state) => ({...state, isLoginLoading: false})),
-        on(createProjectApiActions.editProjectSuccess, (state) => ({...state, isLoginLoading: false})),
-        on(createProjectApiActions.createProjectSuccess, (state) => ({...state, isLoginLoading: false}))
+        on(createProjectApiActions.editProjectSuccess, (state) => ({...state, isLoginLoading: false,  isSaved: true})),
+        on(createProjectApiActions.createProjectSuccess, (state) => ({...state, isLoginLoading: false, isSaved: true}))
     )
 })

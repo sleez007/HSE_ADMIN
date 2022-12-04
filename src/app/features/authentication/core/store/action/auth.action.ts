@@ -1,4 +1,5 @@
 import { createAction, createActionGroup, props } from "@ngrx/store";
+import { ErrorResponse } from "src/app/core/model";
 import { Auth, AuthenticatedData, AuthErrorResponse, AuthResponse } from "../../model";
 
 export const loginActions = createActionGroup({
@@ -12,7 +13,7 @@ export const loginEffectActions = createActionGroup({
     source: 'LOGIN Effect',
     events: {
         'login success': props<AuthResponse>(),
-        'login error': props<AuthErrorResponse>()
+        'login error': props<ErrorResponse>()
     }
 });
 
