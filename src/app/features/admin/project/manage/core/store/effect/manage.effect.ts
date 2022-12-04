@@ -32,7 +32,7 @@ export class ManageProjectEffect {
     editProject$ = createEffect(() => this.action$.pipe(
         ofType(manageProjectActions.editProject),
         mergeMap((prop) => this.networkHelper.put<any, ProjectModel>(projectEndpoints.all+'/'+prop.projectId, prop).pipe(
-            map(e => manageProjectApiActions.editProjectSuccess({projectId: e.id, projectTitle: e.title, startDuration: DateFormatter.stringToDate(e.start) , endDuration: e.end != null ? DateFormatter.stringToDate(e.end): null, isCompleted: e.is_completed}) ),
+            map(e => manageProjectApiActions.editProjectSuccess({projectId: e.project.id, projectTitle: e.project.title, startDuration: DateFormatter.stringToDate(e.project.start) , endDuration: e.project.end != null ? DateFormatter.stringToDate(e.project.end): null, isCompleted: e.project.is_completed}) ),
             catchError((error: HttpErrorResponse) => of(manageProjectApiActions.editProjectFailure({message: error.error['message'], statusCode: error.status })))
         ))
     ));
@@ -48,6 +48,26 @@ export class ManageProjectEffect {
 
     projectCreationError$ = createEffect(() => this.action$.pipe(
         ofType(manageProjectApiActions.getAllProjectFailure),
+        tap((e) => this.toaster.showError('Error', e.message))
+    ), {dispatch: false})
+    
+    projectEditSuccess$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectApiActions.editProjectSuccess),
+        tap(() => this.toaster.showSuccess('Updated', 'Project updated successfully!'))
+    ),{dispatch: false})
+
+    projectEditError$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectApiActions.editProjectFailure),
+        tap((e) => this.toaster.showError('Error', e.message))
+    ), {dispatch: false})
+
+    projectDeleteSuccess$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectApiActions.deleteProjectSuccess),
+        tap(() => this.toaster.showSuccess('Updated', 'Project deleted successfully!'))
+    ),{dispatch: false})
+
+    projectDeleteError$ = createEffect(() => this.action$.pipe(
+        ofType(manageProjectApiActions.deleteProjectFailure),
         tap((e) => this.toaster.showError('Error', e.message))
     ), {dispatch: false})
 

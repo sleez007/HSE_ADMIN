@@ -14,22 +14,26 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class ManageComponent implements OnInit {
 
+  clonedProjects: ProjectModel[] = [];
   isLoading$: Observable<boolean>
   isEditingLoading$: Observable<boolean>
   isDeletingLoading$: Observable<boolean>
   projects$: Observable<ProjectModel[]>
   status$: Observable<OptionModel[]>
+  currentId$: Observable<number | string>
 
   constructor(private readonly store: Store, private confirmationService: ConfirmationService, ) { 
     this.isLoading$ = store.select(manageProjectFeature.selectIsLoading);
     this.isEditingLoading$ = store.select(manageProjectFeature.selectIsLoadingEdit);
     this.isDeletingLoading$ = store.select(manageProjectFeature.selectIsLoadingDelete);
     this.projects$ = store.select(manageProjectFeature.selectProjects);
-    this.status$ = store.select(manageProjectFeature.selectStatus)
+    this.status$ = store.select(manageProjectFeature.selectStatus);
+    this.currentId$ = store.select(manageProjectFeature.selectSelectedId)
   }
 
   ngOnInit(): void {
     this.store.dispatch(manageProjectActions.getAllProject());
+    this.projects$.subscribe({next: p => (this.clonedProjects = [...p.map(i => ({...i}))])})
   }
 
   format(dateString?: Date){
@@ -45,11 +49,12 @@ export class ManageComponent implements OnInit {
       accept: () => {
         this.store.dispatch(manageProjectActions.deleteProject({id: project.projectId!}))
       },
-      reject: (type: any) => {
-       
-      }
-  });
+      reject: (type: any) => {}
+    });
   }
 
+  editRow(project: ProjectModel) {
+    this.store.dispatch(manageProjectActions.editProject({...project}))
+  }
 
 }
