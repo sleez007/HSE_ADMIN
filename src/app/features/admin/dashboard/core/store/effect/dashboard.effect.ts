@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, delay, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
+import { catchError, concat, delay, exhaustMap, map, mergeMap, of, single, switchMap, take, tap, withLatestFrom } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { DateFormatter } from "src/app/core/util";
 import { OptionModel } from "src/app/features/admin/core/model";
@@ -44,13 +44,10 @@ export class DashboardEffect {
 
     filterSelection$ = createEffect(() => this.action$.pipe(
         ofType(dashboardActions.filter),
-        switchMap((props) => this.store.select(dashboardFeature.selectDashboardState).pipe(map((staff) => ({
-            start: props.start, end: props.end,lastSwitch: staff.selectedSwitch, projectId: staff.selectedProjectOption
-        })))),
-        
-        switchMap(info => this.networkHelper.get<Object>(info.lastSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`: `${incidentEndpoints.project}/${info.projectId}/${DateFormatter.dateToString(info.start as Date)}/${DateFormatter.dateToString(info.end as Date) }`).pipe(
+        withLatestFrom(this.store.select(dashboardFeature.selectDashboardState)),
+        switchMap(([prop, staff]) => this.networkHelper.get<Object>(staff.selectedSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`: `${incidentEndpoints.project}/${staff.selectedProjectOption}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`).pipe(
             map(response => {
-                if(info.lastSwitch == SwitchState.OFFICE){
+                if(staff.selectedSwitch == SwitchState.OFFICE){
                     const reformatedArray = this.formatDataForOffice(response)
                     return dashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})
                 }else{
@@ -60,7 +57,6 @@ export class DashboardEffect {
             }),
             catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
-
     ))
 
     getProjects$ = createEffect(() => this.action$.pipe(
