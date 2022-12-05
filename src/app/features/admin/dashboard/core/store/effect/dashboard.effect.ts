@@ -47,6 +47,7 @@ export class DashboardEffect {
         withLatestFrom(this.store.select(dashboardFeature.selectDashboardState)),
         switchMap(([prop, staff]) => this.networkHelper.get<Object>(staff.selectedSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`: `${incidentEndpoints.project}/${staff.selectedProjectOption}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`).pipe(
             map(response => {
+                console.log(staff.selectedSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`: `${incidentEndpoints.project}/${staff.selectedProjectOption}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`)
                 if(staff.selectedSwitch == SwitchState.OFFICE){
                     const reformatedArray = this.formatDataForOffice(response)
                     return dashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})

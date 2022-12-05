@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DateFormatter } from 'src/app/core/util';
 import { OptionModel } from 'src/app/features/admin/core/model';
 import { SwitchState } from 'src/app/features/admin/dashboard/core/model';
 
@@ -16,9 +17,7 @@ export class ProjectFilterComponent implements OnInit {
   @Output() filter : EventEmitter<{start: string | Date , end: string | Date}> = new EventEmitter();
   @Output() filterDropDown : EventEmitter<string| number> = new EventEmitter();
 
-  //maxDate = new Date();
-
-  filterForm = this.fb.group({
+  filterForm = this.fb.group<{start: any, end: any}>({
     start: ['', [Validators.required]],
     end: ['', [Validators.required]],
   })
@@ -29,7 +28,7 @@ export class ProjectFilterComponent implements OnInit {
 
   submit() {
     if(this.filterForm.valid){
-      const data = { start: this.filterForm.value.start ?? '', end: this.filterForm.value.start ?? '' };
+      const data = { start:DateFormatter.increaseDateByOne(this.filterForm.value.start as Date) ?? '', end: DateFormatter.increaseDateByOne(this.filterForm.value.end as Date) ?? '' };
       this.filter.emit(data);
     }else{
       alert("Kindly fill out the form properly")

@@ -7,4 +7,10 @@ export class DateFormatter {
     static stringToDate(dateString: string) {
         return new Date(dateString)
     }
+
+    static increaseDateByOne(date: Date): Date{
+        const d = new Date();
+        d.setDate(date.getDate());
+        return d
+    }
 }
