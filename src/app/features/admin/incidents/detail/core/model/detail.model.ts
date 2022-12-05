@@ -14,4 +14,5 @@ export interface DetailModel{
     incidentRemarks: string;
     dueDate: string;
     createdAt: string
+    id: number | string;
 }

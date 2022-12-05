@@ -18,6 +18,8 @@ export  interface StaffCreationState {
     yesNo: OptionModel[];
     fitness: OptionModel[];
     hivScreen: OptionModel[];
+    hasFilledInitialCorrectly: boolean;
+    isLoading: boolean;
 };
 
 export const staffInitialState: StaffCreationState = {
@@ -25,6 +27,8 @@ export const staffInitialState: StaffCreationState = {
         {label: 'Basic Information', routerLink: './'},
         {label: 'Medical Information', routerLink: './medical'}
     ],
+    hasFilledInitialCorrectly: false,
+    isLoading: false,
     staffData: {
         firstName: '',
         lastName: '',
@@ -123,8 +127,10 @@ export const staffFeature = createFeature({
     name: 'staffs',
     reducer: createReducer(
         staffInitialState,
-        on(createStaffActions.storeStaffData, (state,props ) => ({...state, staffData: {...props}})),
-        on(createStaffMedicalActions.storeStaffData, (state, props) => ({...state, staffMedicalData: props})),
-        on(staffEffectAction.retrievedSupervisorSuccess, (state, props) => ({...state, supervisor: props.data}))
+        on(createStaffActions.storeStaffData, (state,props ) => ({...state, staffData: {...props}, hasFilledInitialCorrectly: true})),
+        on(createStaffMedicalActions.storeStaffData, (state, props) => ({...state, staffMedicalData: props, isLoading: true})),
+        on(staffEffectAction.retrievedSupervisorSuccess, (state, props) => ({...state, supervisor: props.data})),
+        on(staffEffectAction.createStaffFailure, (state, props) => ({...state, isLoading: false})),
+        on(staffEffectAction.createStaffSuccess, (state, props) => ({...state, isLoading: false, staffData: staffInitialState.staffData, staffMedicalData: staffInitialState.staffMedicalData}))
     )
 })

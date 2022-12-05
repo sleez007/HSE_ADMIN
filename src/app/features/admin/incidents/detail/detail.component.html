@@ -1,1 +1,164 @@
-<p>{{projectData$ | async | json}}xp</p>
+<div class="card-bg">
+    <div class="tb-wrap">
+        <div *ngIf="isLoading$ | async">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+        <div *ngIf="!(isLoading$ | async ) && clonedProjects.length > 0 ">
+            <p-table [value]="clonedProjects" dataKey="projectId" [scrollable]="true" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width:200px">Report ID</th>
+                        <th style="min-width:200px">Incident Category</th>
+                        <th style="min-width:200px">Date</th>
+                        <th style="min-width:200px">Incident Description</th>
+                        <th style="min-width:200px">Immediate Response</th>
+                        <th style="min-width:200px">Corrective Action</th>
+                        <th style="min-width:200px">Assigned To</th>
+                        <th style="min-width:200px">Due Date</th>
+                        <th style="min-width:200px">Status</th>
+                        <th style="min-width:200px">Date Completed</th>
+                        <th style="min-width:200px">Risk</th>
+                        <th style="min-width:200px">Reported By</th>
+                        <th style="min-width:200px"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-project let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="project">
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" disabled [(ngModel)]="project.reportId">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.reportId}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="project.incidentCategory">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.incidentCategory}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" disabled [(ngModel)]="project.createdAt">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.createdAt}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.description">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.description}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.response">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.response}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.isCorrectiveActionRequired">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.isCorrectiveActionRequired}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.assignTo">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.assignTo}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.dueDate">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.dueDate}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.incidentStatus">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.incidentStatus}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.dueDate">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    Nil
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text"  [(ngModel)]="project.riskMatrix">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.riskMatrix}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" disabled="" [(ngModel)]="project.reportedBy">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{project.reportedBy}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <div class="flex align-items-center justify-content-center gap-2">
+                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" pInitEditableRow  class="p-button-rounded p-button-text" [icon]="(isEditingLoading$ | async) && (currentId$ | async) == project.projectId ? 'pi pi-spin pi-spinner' :'pi pi-pencil'"></button>
+                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" type="button" (click)="deletePopUp(project)" pButton pRipple type="button"  [icon]="(isDeletingLoading$ | async) && (currentId$ | async) == project.projectId ? 'pi pi-spin pi-spinner' :'pi pi-trash'" class="p-button-rounded p-button-text"></button>
+                                <button *ngIf="editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" (click)="editRow(project)" pSaveEditableRow icon="pi pi-check" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                <button *ngIf="editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="nothing" *ngIf="!(isLoading$ | async) && clonedProjects.length == 0 ">
+            <h1>Nothing to display</h1>
+        </div>
+        
+    </div>
+</div>

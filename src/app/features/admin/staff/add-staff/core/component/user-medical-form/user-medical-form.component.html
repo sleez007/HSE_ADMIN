@@ -37,7 +37,7 @@
         </div>
         <div class="field pp">
             <label for="hasUsedTyphoidVaccine" class="block">Typhoid Vaccine?</label>
-           <p-dropdown id="hasUsedTyphoidVaccine" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(bloodOptions$ | async) ?? []" optionValue="code" formControlName="hasUsedTyphoidVaccine"  optionLabel="name"></p-dropdown>
+           <p-dropdown id="hasUsedTyphoidVaccine" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(yesNo$ | async) ?? []" optionValue="code" formControlName="hasUsedTyphoidVaccine"  optionLabel="name"></p-dropdown>
         </div>
         <hr>
         <p class="pp">KEY MEDICAL INFORMATION</p>
@@ -119,6 +119,6 @@
                 <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="remindMe" formControlName="remindMe"></p-calendar>
             </div>
         </div>
-        <button type="submit" [disabled]="medicalForm.invalid" class="btn">Submit</button>
+        <button type="submit" [disabled]="medicalForm.invalid ||  (isLoading$ | async)" class="btn">Submit</button>
     </form>
 </div>

@@ -13,11 +13,12 @@ import { createStaffMedicalActions, staffFeature } from '../../store';
 })
 export class UserMedicalFormComponent implements OnInit {
 
-  bloodOptions$ : Observable<OptionModel[]>
-  yesNo$: Observable<OptionModel[]>
-  fitness$: Observable<OptionModel[]>
-  genoType$: Observable<OptionModel[]>
-  hivStat$: Observable<OptionModel[]>
+  bloodOptions$ : Observable<OptionModel[]>;
+  yesNo$: Observable<OptionModel[]>;
+  fitness$: Observable<OptionModel[]>;
+  genoType$: Observable<OptionModel[]>;
+  hivStat$: Observable<OptionModel[]>;
+  isLoading$: Observable<boolean>;
 
   medicalForm = this.fb.group({
     dob: [''],
@@ -54,7 +55,8 @@ export class UserMedicalFormComponent implements OnInit {
     this.yesNo$ = store.select(staffFeature.selectYesNo);
     this.fitness$ = store.select(staffFeature.selectFitness);
     this.genoType$ = store.select(staffFeature.selectGenoType);
-    this.hivStat$ = store.select(staffFeature.selectHivScreen)
+    this.hivStat$ = store.select(staffFeature.selectHivScreen);
+    this.isLoading$ = store.select(staffFeature.selectIsLoading)
   }
 
   ngOnInit(): void {
