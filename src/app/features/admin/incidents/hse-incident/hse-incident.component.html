@@ -1,2 +1,31 @@
-<div class="card-bg">HSE</div>
-
+<div class="card-bg">
+    <app-project-filter 
+        [projectValue] = "(projectValue$ | async) ?? ''"
+        [projectOptions] = "(projectOptions$ | async) ?? []"
+        (filter)="onFilterHandler($event)" 
+        (toggleSwitch)="onToggleSwitchHandler($event)" 
+        (filterDropDown)="onFilterProject($event)"
+        [switchState]="(selectedSwitch$ | async) ?? 1" >
+    </app-project-filter>
+    <div *ngIf="(selectedSwitch$ | async) == 1 ; let selected" class="tb-wrap">
+        <div *ngIf="isLoadingOffice$ | async; let isLoading">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+        <div *ngIf="!(isLoadingOffice$ | async)">
+            <app-incident-overview-table [headerList]="(officeHead$ | async) ?? []" [tableContent]="(officeData$ | async) ?? []" ></app-incident-overview-table>
+        </div>
+        
+    </div>
+    <div *ngIf="(selectedSwitch$ | async) == 0" class="tb-wrap">
+        <div *ngIf="((projectOptions$ | async )?? []).length > 0">
+            <div *ngIf="isLoadingProject$ | async;">
+                <app-loading-indicator></app-loading-indicator>
+            </div>
+            <div *ngIf="!(isLoadingProject$ | async) && ((projectData$ | async) ?? []).length > 0">
+                <app-incident-overview-table [headerList]="(projectHead$ | async) ?? []" [tableContent]="(projectData$ | async ) ?? []"></app-incident-overview-table>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>

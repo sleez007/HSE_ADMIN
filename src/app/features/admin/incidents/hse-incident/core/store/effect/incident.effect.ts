@@ -1,70 +1,69 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { DateFormatter } from "src/app/core/util";
 import { OptionModel } from "src/app/features/admin/core/model";
-import { incidentEndpoints } from "../../constants";
-import { OfficeModel, ProjectModel, SwitchState } from "../../model";
-import { dashboardActions, dashboardEffectActions } from "../actions/dashboard.action";
-import { dashboardFeature } from "../reducer/dashboard.reducer";
+import { incidentEndpoints } from "src/app/features/admin/dashboard/core/constants";
+import { SwitchState, OfficeModel, ProjectModel } from "src/app/features/admin/dashboard/core/model";
+
+import { incidentActions, incidentEffectActions } from "../actions/incident.actions";
+import { incidentFeature } from "../reducer/incident.reducer";
 
 @Injectable()
-export class DashboardEffect {
+export class IncidentEffect {
     constructor(
         private readonly action$: Actions, 
         private readonly networkHelper: NetworkHelperService, 
-        private readonly router: Router,
         private readonly store: Store,
     ) {}
 
     getOffice$ = createEffect(() => this.action$.pipe(
-        ofType(dashboardActions.fetchOffice),
+        ofType(incidentActions.fetchOffice),
         switchMap(() => this.networkHelper.get<Object>(incidentEndpoints.office).pipe(
             map((response) => {
                 const reformatedArray = this.formatDataForOffice(response)
-                return dashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})
+                return incidentEffectActions.fetchOfficeSuccess({data: reformatedArray})
             }),
-            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+            catchError((error) => of(incidentEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
     ))
 
     getProjectsById$ = createEffect(() => this.action$.pipe(
-        ofType(dashboardActions.toggleProject),
+        ofType(incidentActions.toggleProject),
         switchMap((p) => this.networkHelper.get<Object>(incidentEndpoints.project+'/'+p.id).pipe(
             map((response) => {
                 const reformatedArray = this.formatDataForProject(response)
-                return dashboardEffectActions.fetchProjectByIdSuccess({data: reformatedArray})
+                return incidentEffectActions.fetchProjectByIdSuccess({data: reformatedArray})
             }),
-            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+            catchError((error) => of(incidentEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
     ))
 
     filterSelection$ = createEffect(() => this.action$.pipe(
-        ofType(dashboardActions.filter),
-        withLatestFrom(this.store.select(dashboardFeature.selectDashboardState)),
+        ofType(incidentActions.filter),
+        withLatestFrom(this.store.select(incidentFeature.selectIncidentsState)),
         switchMap(([prop, staff]) => this.networkHelper.get<Object>(staff.selectedSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`: `${incidentEndpoints.project}/${staff.selectedProjectOption}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`).pipe(
             map(response => {
                 console.log(staff.selectedSwitch == SwitchState.OFFICE ? `${incidentEndpoints.office}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`: `${incidentEndpoints.project}/${staff.selectedProjectOption}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`)
                 if(staff.selectedSwitch == SwitchState.OFFICE){
                     const reformatedArray = this.formatDataForOffice(response)
-                    return dashboardEffectActions.fetchOfficeSuccess({data: reformatedArray})
+                    return incidentEffectActions.fetchOfficeSuccess({data: reformatedArray})
                 }else{
                     const reformatedArray = this.formatDataForProject(response)
-                    return dashboardEffectActions.fetchProjectByIdSuccess({data: reformatedArray})
+                    return incidentEffectActions.fetchProjectByIdSuccess({data: reformatedArray})
                 }
             }),
-            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+            catchError((error) => of(incidentEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
     ))
 
     getProjects$ = createEffect(() => this.action$.pipe(
-        ofType(dashboardActions.fetchProject),
+        ofType(incidentActions.fetchProject),
         switchMap(info => this.networkHelper.get<{id: number, title: string}[]>(incidentEndpoints.allProjects).pipe(
-            map((resp => dashboardEffectActions.fetchProjectSuccess({data: this.formatProjects(resp)}))),
-            catchError((error) => of(dashboardEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
+            map((resp => incidentEffectActions.fetchProjectSuccess({data: this.formatProjects(resp)}))),
+            catchError((error) => of(incidentEffectActions.fetchFailure({message: error['message'], statusCode: 401})))
         ))
     ))
 
