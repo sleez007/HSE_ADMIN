@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { RouterNavigatedAction, ROUTER_NAVIGATION } from "@ngrx/router-store";
 import { Store } from "@ngrx/store";
-import { catchError, delay, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from "rxjs";
+import { catchError, filter, map, mergeMap, of, retry, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { ToastService } from "src/app/core/service";
 import { staffEndpoints } from "src/app/features/admin/staff/core/constants";
@@ -47,19 +47,38 @@ export class DetailEffect {
 
     fetchUsers$ = createEffect(() => this.action$.pipe(
         ofType(detailActions.fetchUsers),
-        mergeMap((prop) => this.networkHelper.get<{id: number, first_name: string, last_name: string}[]>(staffEndpoints.all_user).pipe(
+        mergeMap(() => this.networkHelper.get<{id: number, first_name: string, last_name: string}[]>(staffEndpoints.all_user).pipe(
             map(e => detailEffectActions.fetchUserSuccess({data: e.map(i => ({code: i['id'], name: i.first_name + ' '+ i.last_name}))})),
+            retry(5),
             catchError((error: HttpErrorResponse) => of(detailEffectActions.fetchDataFailure({message: error.error['message'], statusCode: error.status })))
         ))
     ));
 
-    // editProject$ = createEffect(() => this.action$.pipe(
-    //     ofType(detailActions.editIncident),
-    //     mergeMap((prop) => this.networkHelper.put<any, DetailModel>(incidentDetailEndpoints.update+'/'+prop.reportId, prop).pipe(
-    //         map(e => detailEffectActions.editIncidentSuccess({reportId: e.project.id, projectTitle: e.project.title, startDuration: DateFormatter.stringToDate(e.project.start) , endDuration: e.project.end != null ? DateFormatter.stringToDate(e.project.end): null, isCompleted: e.project.is_completed}) ),
-    //         catchError((error: HttpErrorResponse) => of(detailEffectActions.editIncidentFailure({message: error.error['message'], statusCode: error.status })))
-    //     ))
-    // ));
+    editProject$ = createEffect(() => this.action$.pipe(
+        ofType(detailActions.editIncident),
+        switchMap((props) => this.networkHelper.post<any, any>(incidentDetailEndpoints.update, {
+            "incident_id": ' '+ props.id,
+            "project_id": "",
+            "user_id": ' '+ props.assignedToId,
+            "location": props.location,
+            "incident_category": props.incidentCategory,
+            "description": props.description,
+            "response": props.response,
+            "is_corrective_action_required": props.isCorrectiveActionRequired,
+            "corrective_action": props.correctiveAction,
+            "assign_to":props.assignedToId,
+            "incident_source": props.incidentSource,
+            "risk_matrix": props.riskMatrix,
+            "incident_status":props.incidentStatus,
+            "incident_remarks": props.incidentRemarks,
+            "due_date": props.dueDate,
+            "assign_to_id": props.assignedToId
+        }).pipe(
+            map(e => detailEffectActions.editIncidentSuccess(props) ),
+            catchError((error: HttpErrorResponse) => of(detailEffectActions.editIncidentFailure({message: error.error['message'], statusCode: error.status })))
+        ))
+    ));
+
 
     formatDetailToCamel(data: Array<{
         report_id: string;
@@ -77,7 +96,8 @@ export class DetailEffect {
         incident_remarks: string;
         due_date: string;
         created_at: string
-        id: number
+        id: number,
+        assign_to_id: number
     }>): DetailModel[]{
         return data.map(e => ({
             reportId: e.report_id, 
@@ -95,7 +115,8 @@ export class DetailEffect {
             incidentRemarks: e.incident_remarks,
             dueDate: e.due_date,
             createdAt: e.created_at,
-            id: e.id
+            id: e.id,
+            assignedToId: e.assign_to_id
         }))
 
     }

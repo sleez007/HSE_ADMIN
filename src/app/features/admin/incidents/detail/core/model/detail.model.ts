@@ -2,6 +2,7 @@ export interface DetailModel{
     reportId: string;
     reportedBy: string;
     assignTo: string;
+    assignedToId: number;
     location: string;
     incidentCategory: string;
     description: string;

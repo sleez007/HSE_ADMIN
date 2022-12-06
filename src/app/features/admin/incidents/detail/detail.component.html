@@ -37,7 +37,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="project.incidentCategory">
+                                    <input pInputText type="text" disabled [(ngModel)]="project.incidentCategory">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.incidentCategory}}
@@ -57,7 +57,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.description">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.description">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.description}}
@@ -67,7 +67,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.response">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.response">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.response}}
@@ -77,7 +77,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.isCorrectiveActionRequired">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.isCorrectiveActionRequired">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.isCorrectiveActionRequired}}
@@ -87,7 +87,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.assignTo">
+                                    <p-dropdown appendTo="body" [style]="{'width':'100%'}" id="users" [(ngModel)]="project.assignedToId"  [autoDisplayFirst]="false" optionValue="code" [options]="(users$ | async) ?? []"  optionLabel="name"></p-dropdown>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.assignTo}}
@@ -97,7 +97,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.dueDate">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.dueDate">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.dueDate}}
@@ -107,10 +107,10 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.incidentStatus">
+                                    <p-dropdown appendTo="body" [style]="{'width':'100%'}" id="status" [(ngModel)]="project.incidentStatus"  [autoDisplayFirst]="false" optionValue="code" [options]="(status$ | async) ?? []"  optionLabel="name"></p-dropdown>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    <span [ngClass]="project.incidentStatus =='closed' ? 'closed': 'open'">{{project.incidentStatus}}</span>
+                                    <span [ngClass]="project.incidentStatus =='Close' ? 'closed': 'open'">{{project.incidentStatus}}</span>
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -127,7 +127,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text"  [(ngModel)]="project.riskMatrix">
+                                    <p-dropdown appendTo="body" [style]="{'width':'100%'}" id="status" [(ngModel)]="project.riskMatrix"  [autoDisplayFirst]="false" optionValue="code" [options]="(priority$ | async) ?? []"  optionLabel="name"></p-dropdown>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.riskMatrix}}

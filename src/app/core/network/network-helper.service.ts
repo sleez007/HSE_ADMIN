@@ -27,6 +27,11 @@ export class NetworkHelperService  {
         return this.httpClient.put<R>(url, body);
     }
 
+    patch<R,B>(path: string, body: B): Observable<R> {
+        const url = this.baseUrl + path;
+        return this.httpClient.patch<R>(url, body);
+    }
+
     delete<T>(path: string): Observable<T> {
         const url = this.baseUrl + path;
         return this.httpClient.delete<T>(url);

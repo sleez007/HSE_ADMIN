@@ -13,21 +13,29 @@ export interface DetailState {
     status: OptionModel[];
     selectedId: number | string;
     isError: boolean;
+    users: OptionModel[],
+    priority: OptionModel[]
 };
 
 export const detailInitialState: DetailState = {
     itemDetail: [],
     startDate: '' ,
     endDate: '',
+    users: [],
     isLoading: true,
     isError: false,
     isLoadingDelete: false,
     isLoadingEdit: false,
     status: [
-        {name: 'Open', code: 'open'},
-        {name: 'Closed', code: 'closed'}
+        {name: 'Open', code: 'Open'},
+        {name: 'Closed', code: 'Close'}
     ],
     selectedId: -1,
+    priority: [
+        {name: 'High', code: 'High'},
+        {name: 'Medium', code: 'Medium'},
+        {name: 'Low', code: 'Low'},
+    ]
 }
 
 export const detailFeature = createFeature({
@@ -43,7 +51,7 @@ export const detailFeature = createFeature({
         on(detailEffectActions.editIncidentFailure, (state) => ({...state, isLoadingEdit: false, selectedId: -1})),
         on(detailEffectActions.deleteIncidentSuccess, (state, props) => ({...state, isLoadingDelete: false, itemDetail: deleteProject(state.itemDetail,props.id), selectedId: -1})),
         on(detailEffectActions.deleteIncidentFailure, (state) => ({...state, isLoadingDelete: false, selectedId: -1})),
-        //on(detailEffectActions.fetchUserSuccess, (state) => ({...state, state}))
+        on(detailEffectActions.fetchUserSuccess, (state, props ) => ({...state, users: props.data})),
     )
 })
 
