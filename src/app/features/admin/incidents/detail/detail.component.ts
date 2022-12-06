@@ -44,6 +44,6 @@ export class DetailComponent implements OnInit {
   }
 
   editRow(project: DetailModel) {
-   // this.store.dispatch(manageProjectActions.editProject({...project}))
+    this.store.dispatch(detailActions.editIncident({...project}))
   }
 }

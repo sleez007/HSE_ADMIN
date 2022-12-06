@@ -7,6 +7,7 @@ import { Store } from "@ngrx/store";
 import { catchError, delay, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { ToastService } from "src/app/core/service";
+import { staffEndpoints } from "src/app/features/admin/staff/core/constants";
 import { incidentDetailEndpoints } from "../../constants";
 import { DetailModel } from "../../model/detail.model";
 import { detailActions, detailEffectActions } from "../action/detail.action";
@@ -32,7 +33,7 @@ export class DetailEffect {
         } ),
         switchMap((data) => this.networkHelper.get<any[]>(incidentDetailEndpoints.detail+ '/' + data).pipe(
             map((response) => detailEffectActions.fetchDataSuccess({data: this.formatDetailToCamel(response)})),
-            catchError((error) => of(detailEffectActions.fetchDataFailure({message: error['message'], statusCode: 401})))
+            catchError((error: HttpErrorResponse) => of(detailEffectActions.fetchDataFailure({message: error.error['message'], statusCode: error.status })))
         ))
     ))
 
@@ -41,6 +42,14 @@ export class DetailEffect {
         mergeMap((prop) => this.networkHelper.delete<any>(incidentDetailEndpoints.delete+'/'+prop.id).pipe(
             map(e => detailEffectActions.deleteIncidentSuccess({id: prop.id})),
             catchError((error: HttpErrorResponse) => of(detailEffectActions.deleteIncidentFailure({message: error.error['message'], statusCode: error.status })))
+        ))
+    ));
+
+    fetchUsers$ = createEffect(() => this.action$.pipe(
+        ofType(detailActions.fetchUsers),
+        mergeMap((prop) => this.networkHelper.get<{id: number, first_name: string, last_name: string}[]>(staffEndpoints.all_user).pipe(
+            map(e => detailEffectActions.fetchUserSuccess({data: e.map(i => ({code: i['id'], name: i.first_name + ' '+ i.last_name}))})),
+            catchError((error: HttpErrorResponse) => of(detailEffectActions.fetchDataFailure({message: error.error['message'], statusCode: error.status })))
         ))
     ));
 

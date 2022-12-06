@@ -110,7 +110,7 @@
                                     <input pInputText type="text"  [(ngModel)]="project.incidentStatus">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{project.incidentStatus}}
+                                    <span [ngClass]="project.incidentStatus =='closed' ? 'closed': 'open'">{{project.incidentStatus}}</span>
                                 </ng-template>
                             </p-cellEditor>
                         </td>

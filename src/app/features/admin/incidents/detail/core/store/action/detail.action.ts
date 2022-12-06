@@ -1,5 +1,6 @@
 import { createAction, createActionGroup, emptyProps, props } from "@ngrx/store";
 import { ErrorResponse } from "src/app/core/model";
+import { OptionModel } from "src/app/features/admin/core/model";
 import { DetailModel } from "../../model/detail.model";
 
 export const detailActions = createActionGroup({
@@ -7,7 +8,8 @@ export const detailActions = createActionGroup({
     events: {
         'filter': props<{start: string | Date, end: string | Date}>(),
         'delete incident': props<{id: string | number}>(),
-        'edit incident': props<DetailModel>()
+        'edit incident': props<DetailModel>(),
+        'fetch users': emptyProps()
     }
 });
 
@@ -22,5 +24,7 @@ export const detailEffectActions = createActionGroup({
         'edit incident failure': props<ErrorResponse>(),
         'delete incident success': props<{id: number | string}>(),
         'delete incident failure': props<ErrorResponse>(),
+        'fetch user success': props<{data: OptionModel[]}>(),
+        'fetch user failure': props<ErrorResponse>()
     }
 });

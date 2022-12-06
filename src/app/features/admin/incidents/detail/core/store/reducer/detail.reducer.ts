@@ -43,6 +43,7 @@ export const detailFeature = createFeature({
         on(detailEffectActions.editIncidentFailure, (state) => ({...state, isLoadingEdit: false, selectedId: -1})),
         on(detailEffectActions.deleteIncidentSuccess, (state, props) => ({...state, isLoadingDelete: false, itemDetail: deleteProject(state.itemDetail,props.id), selectedId: -1})),
         on(detailEffectActions.deleteIncidentFailure, (state) => ({...state, isLoadingDelete: false, selectedId: -1})),
+        //on(detailEffectActions.fetchUserSuccess, (state) => ({...state, state}))
     )
 })
 
