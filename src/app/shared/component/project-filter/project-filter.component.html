@@ -1,6 +1,6 @@
 <div class="filter-menu">
     <div class="menu flex">
-        <div class="menu__controls flex">
+        <div *ngIf="showToggle" class="menu__controls flex">
             <button (click)="changeSwitchState(false)" type="button" class="btn--outline" [ngClass]="switchState == 1 ? 'btn--primary': ''">Offices</button>
             <button (click)="changeSwitchState(true)" type="button" class="btn--outline" [ngClass]="switchState == 0 ? 'btn--primary': ''">Project</button>
         </div>

@@ -5,3 +5,6 @@
 .up{
     margin-top:1em;
 }
+td:not(:first-child){
+    padding-left: 2.5rem !important;
+}

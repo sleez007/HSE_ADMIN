@@ -7,6 +7,7 @@ import { Store } from "@ngrx/store";
 import { catchError, filter, map, mergeMap, of, retry, switchMap, tap } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { ToastService } from "src/app/core/service";
+import { DateFormatter } from "src/app/core/util";
 import { staffEndpoints } from "src/app/features/admin/staff/core/constants";
 import { incidentDetailEndpoints } from "../../constants";
 import { DetailModel } from "../../model/detail.model";
@@ -34,6 +35,14 @@ export class DetailEffect {
         switchMap((data) => this.networkHelper.get<any[]>(incidentDetailEndpoints.detail+ '/' + data).pipe(
             map((response) => detailEffectActions.fetchDataSuccess({data: this.formatDetailToCamel(response)})),
             catchError((error: HttpErrorResponse) => of(detailEffectActions.fetchDataFailure({message: error.error['message'], statusCode: error.status })))
+        ))
+    ))
+
+    filterSelection$ = createEffect(() => this.action$.pipe(
+        ofType(detailActions.filter),
+        switchMap((prop) => this.networkHelper.get<any[]>(`${incidentDetailEndpoints.detail}/${prop.category}/${DateFormatter.dateToString(prop.start as Date)}/${DateFormatter.dateToString(prop.end as Date) }`).pipe(
+            map((response) => detailEffectActions.fetchDataSuccess({data: this.formatDetailToCamel(response)})),
+            catchError((error: HttpErrorResponse) => of(detailEffectActions.filterFailure({message: error.error['message'], statusCode: error.status})))
         ))
     ))
 

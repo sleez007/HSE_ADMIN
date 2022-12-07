@@ -6,17 +6,17 @@ import { DetailModel } from "../../model/detail.model";
 export const detailActions = createActionGroup({
     source: 'incident detail',
     events: {
-        'filter': props<{start: string | Date, end: string | Date}>(),
+        'filter': props<{start: string | Date, end: string | Date, category: string}>(),
         'delete incident': props<{id: string | number}>(),
         'edit incident': props<DetailModel>(),
-        'fetch users': emptyProps()
+        'fetch users': emptyProps(),
     }
 });
 
 export const detailEffectActions = createActionGroup({
     source: 'Incident Detail Effect',
     events: {
-        'filter success': props<any>(),
+        'filter success': props<{data: DetailModel[]}>(),
         'filter failure': props<ErrorResponse>(),
         'fetch data success': props<{data: DetailModel[]}>(),
         'fetch data failure': props<ErrorResponse>(),

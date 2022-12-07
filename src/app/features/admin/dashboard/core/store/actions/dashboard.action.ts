@@ -23,4 +23,4 @@ export const dashboardEffectActions = createActionGroup({
         'fetch project by id success': props<{data: ProjectModel[]}>(),
         'fetch failure': props<any>(),
     }
-});
+}); 

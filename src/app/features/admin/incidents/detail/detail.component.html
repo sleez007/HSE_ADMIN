@@ -1,5 +1,9 @@
 <app-nav-bar [pageTitle]="pgTitle"></app-nav-bar>
 <div class="card-bg">
+    <app-project-filter 
+        [showToggle]="false"
+        (filter)="onFilterHandler($event)" >
+    </app-project-filter>
     <div class="tb-wrap">
         <div *ngIf="isLoading$ | async">
             <app-loading-indicator></app-loading-indicator>

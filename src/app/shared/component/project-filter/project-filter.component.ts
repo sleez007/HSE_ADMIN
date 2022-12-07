@@ -13,6 +13,7 @@ export class ProjectFilterComponent implements OnInit {
   @Input() switchState: SwitchState = SwitchState.OFFICE;
   @Input() projectValue: string | number = ''
   @Input() projectOptions: OptionModel[] = []
+  @Input() showToggle: boolean = true;
   @Output() toggleSwitch : EventEmitter<SwitchState> = new EventEmitter();
   @Output() filter : EventEmitter<{start: string | Date , end: string | Date}> = new EventEmitter();
   @Output() filterDropDown : EventEmitter<string| number> = new EventEmitter();

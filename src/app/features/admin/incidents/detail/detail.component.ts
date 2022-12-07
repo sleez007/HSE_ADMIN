@@ -58,4 +58,8 @@ export class DetailComponent implements OnInit {
   editRow(project: DetailModel) {
     this.store.dispatch(detailActions.editIncident({...project}))
   }
+
+  onFilterHandler(data: {start: string | Date, end: string | Date, }){
+    this.store.dispatch(detailActions.filter({...data, category: this.route.snapshot.paramMap.get('category') ?? ''}))
+  }
 }
