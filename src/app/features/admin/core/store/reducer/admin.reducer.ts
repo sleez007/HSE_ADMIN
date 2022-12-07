@@ -23,10 +23,10 @@ export const adminInitialState: AdminState = {
           link: null,
           isOpen: false,
           subMenu :[
-            {
-              name: 'All Staff',
-              link: './all-staffs'
-            },
+            // {
+            //   name: 'All Staff',
+            //   link: './all-staffs'
+            // },
             {
               name: 'Add New Staffs',
               link: './create-staff'
@@ -44,10 +44,10 @@ export const adminInitialState: AdminState = {
               name: 'HSE Incidents',
               link: './hse-incident'
             },
-            {
-              name: 'CPA Incidents',
-              link: './cpa-incident'
-            },
+            // {
+            //   name: 'CPA Incidents',
+            //   link: './cpa-incident'
+            // },
           ]
         },
         {

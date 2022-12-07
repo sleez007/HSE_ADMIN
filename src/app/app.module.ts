@@ -4,7 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
-import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import {ToastModule} from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
