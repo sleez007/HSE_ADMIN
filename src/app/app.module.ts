@@ -16,7 +16,7 @@ import { CustomSerializer, rootReducers } from './core/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthEffect } from './features/authentication/core/store';
-import { API_ENDPOINT, AuthTokenInterceptor, LoggingInterceptor, REST_ENDPOINT } from './core/service';
+import { API_ENDPOINT, AuthTokenInterceptor, LoaderInterceptor, LoggingInterceptor, REST_ENDPOINT } from './core/service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
@@ -32,7 +32,6 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     AppRoutingModule,
     NgProgressModule,
     NgProgressRouterModule,
-    NgProgressHttpModule,
     StoreModule.forRoot(rootReducers, {}),
     EffectsModule.forRoot([AuthEffect]),
     StoreRouterConnectingModule.forRoot({
@@ -48,7 +47,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     
     { provide: API_ENDPOINT, useValue: REST_ENDPOINT },
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

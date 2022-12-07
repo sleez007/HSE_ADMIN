@@ -24,6 +24,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     constructor(private readonly store: Store, private readonly tokenValidator: TokenValidatorService, private networkHelper: NetworkHelperService, private readonly clientSession: ClientSessionService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log(req.headers);
         if(req.url.includes(authEndpoints.login) || req.url.includes(authEndpoints.refresh)) return next.handle(req);
         return this.store.select(authFeature.selectUser).pipe(exhaustMap(user => {
             if(!user){
@@ -80,6 +81,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
         })
         // console.log(modifiedReq.headers.has("Authorization"))
         // console.log(modifiedReq.headers.keys())
+        console.log(modifiedReq.headers);
         return modifiedReq;
     }
 }
