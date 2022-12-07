@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ConfirmationService } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -13,6 +14,7 @@ import { detailActions, detailFeature } from './core/store';
 })
 export class DetailComponent implements OnInit {
 
+  pgTitle: string = '';
   clonedProjects: DetailModel[] = [];
   projectData$ : Observable<DetailModel[]>;
   isLoading$: Observable<boolean>;
@@ -24,7 +26,7 @@ export class DetailComponent implements OnInit {
   status$: Observable<OptionModel[]>;
 
 
-  constructor(private readonly store: Store, private confirmationService: ConfirmationService,) { 
+  constructor(private readonly store: Store, private readonly confirmationService: ConfirmationService, private readonly route: ActivatedRoute) { 
     this.projectData$ = this.store.select(detailFeature.selectItemDetail);
     this.isLoading$ = this.store.select(detailFeature.selectIsLoading)
     this.isEditingLoading$ = store.select(detailFeature.selectIsLoadingEdit);
@@ -36,6 +38,7 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pgTitle = this.route.snapshot.paramMap.get('category')?.split('-').join(' ') ?? 'Unknown Category';
     this.store.dispatch(detailActions.fetchUsers());
     this.projectData$.subscribe({next: p => (this.clonedProjects = [...p.map(i => ({...i}))])});
   }
