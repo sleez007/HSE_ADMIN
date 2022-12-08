@@ -11,7 +11,7 @@
                 <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="dot" formControlName="dot"></p-calendar>
             </div>
             <div class="field">
-                <label for="blood" class="block">Blood Group</label>
+                <label for="blood" class="block">Blood Group(mmHg)</label>
                <p-dropdown id="blood" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(bloodOptions$ | async) ?? []" optionValue="code" formControlName="bloodGroup"  optionLabel="name"></p-dropdown>
             </div>
             <div class="field">
@@ -19,11 +19,11 @@
                 <p-calendar appendTo="body" [style]="{'width':'100%'}" inputId="expiryDate" formControlName="expiryDate"></p-calendar>
             </div>
             <div class="field">
-                <label for="weight" class="block">Weight</label>
+                <label for="weight" class="block">Weight(kg)</label>
                 <input [style]="{'width':'100%'}" formControlName="weight"  id="weight" type="text" pInputText />
             </div>
             <div class="field">
-                <label for="height" class="block">Height</label>
+                <label for="height" class="block">Height(mmHg)</label>
                 <input [style]="{'width':'100%'}" formControlName="height"  id="height" type="text" pInputText />
             </div>
             <div class="field">
@@ -31,7 +31,7 @@
                 <p-dropdown id="genoType" [style]="{'width':'100%'}" [autoDisplayFirst]="false" [options]="(genoType$ | async) ?? []" optionValue="code" formControlName="genoType"  optionLabel="name"></p-dropdown>
             </div>
             <div class="field">
-                <label for="calculatedBMI" class="block">Calculated BMI</label>
+                <label for="calculatedBMI" class="block">Calculated BMI(m)</label>
                 <input [style]="{'width':'100%'}" formControlName="calculatedBMI"  id="calculatedBMI" type="text" pInputText />
             </div>
         </div>
