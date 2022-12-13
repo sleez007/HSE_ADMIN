@@ -81,13 +81,19 @@ export const staffInitialState: StaffCreationState = {
         {name: 'Director', code: 'director'},
     ],
     entityOptions: [
-        { name: 'BMS', code: 'bms'},
-        { name: 'BICT', code: 'bict'},
-        { name: 'Energy', code: 'energy'}
+        { name: 'Bonitas Media', code: 'bms'},
+        { name: 'Bonitas ICT', code: 'bict'},
+        { name: 'Bonitas Energy', code: 'bes'},
+        { name: 'Bonitas Investment', code: 'bil'},
+        { name: 'Bonitas Agro', code: 'ba'},
+        { name: 'Bonitas Construction', code: 'bcl'},
+        { name: 'Bonitas Property', code: 'bpl'},
+        { name: 'Bonitas Marketing', code: 'bmt'},
     ],
     location: [
         {name: 'Port Harcourt', code: 'ph'},
-        {name: 'Awka', code: 'awka'}
+        {name: 'Awka', code: 'awka'},
+        {name: 'Remote', code: 'remote'},
     ],
     supervisor: [],
     blood: [
