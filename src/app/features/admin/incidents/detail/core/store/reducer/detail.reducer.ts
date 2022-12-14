@@ -14,7 +14,8 @@ export interface DetailState {
     selectedId: number | string;
     isError: boolean;
     users: OptionModel[],
-    priority: OptionModel[]
+    priority: OptionModel[],
+    categoryOption: OptionModel[]
 };
 
 export const detailInitialState: DetailState = {
@@ -35,6 +36,25 @@ export const detailInitialState: DetailState = {
         {name: 'High', code: 'High'},
         {name: 'Medium', code: 'Medium'},
         {name: 'Low', code: 'Low'},
+    ],
+    categoryOption: [
+        {name: 'Near Miss', code: 'Near Miss'},
+        {name: 'Unsafe Condition', code: 'Unsafe Condition'},
+        {name: 'Unsafe Act', code: 'Unsafe Act'},
+        {name: 'Enforcement Notice', code: 'Enforcement Notice'},
+        {name: 'Lost Time Injury', code: 'Lost Time Injury'},
+        {name: 'First Aid Case', code: 'First Aid Case'},
+        {name: 'Road Traffic Accident', code: 'Road Traffic Accident'},
+        {name: 'Medical Treatment Case', code: 'Medical Treatment Case'},
+        {name: 'Lost Work Day Case', code: 'Lost Work Day Case'},
+        {name: 'Fatality', code: 'Fatality'},
+        {name: 'Property/equip Damage', code: 'Property/equip Damage'},
+        {name: 'Theft Incident', code: 'Theft Incident'},
+        {name: 'Service Quality', code: 'Service Quality'},
+        {name: 'Stop Work Authority', code: 'Stop Work Authority'},
+        {name: 'Restricted Work Case', code: 'Restricted Work Case'},
+        {name: 'Safe Act', code: 'Safe Act'},
+        {name: 'Spill Prevention, Control and Counted', code: 'Spill Prevention, Control and Counted'},
     ]
 }
 

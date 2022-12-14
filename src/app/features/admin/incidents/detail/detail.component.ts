@@ -24,6 +24,7 @@ export class DetailComponent implements OnInit {
   users$: Observable<OptionModel[]>;
   priority$: Observable<OptionModel[]>;
   status$: Observable<OptionModel[]>;
+  categories$ : Observable<OptionModel[]>;
 
 
   constructor(private readonly store: Store, private readonly confirmationService: ConfirmationService, private readonly route: ActivatedRoute) { 
@@ -35,6 +36,7 @@ export class DetailComponent implements OnInit {
     this.users$ = store.select(detailFeature.selectUsers);
     this.priority$ = store.select(detailFeature.selectPriority);
     this.status$ = store.select(detailFeature.selectStatus)
+    this.categories$ = store.select(detailFeature.selectCategoryOption)
   }
 
   ngOnInit(): void {

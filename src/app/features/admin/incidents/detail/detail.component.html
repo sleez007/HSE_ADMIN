@@ -9,7 +9,7 @@
             <app-loading-indicator></app-loading-indicator>
         </div>
         <div *ngIf="!(isLoading$ | async ) && clonedProjects.length > 0 ">
-            <p-table [value]="clonedProjects" dataKey="projectId" [scrollable]="true" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+            <p-table [value]="clonedProjects" dataKey="reportId" [scrollable]="true" editMode="row" [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width:200px">Report ID</th>
@@ -42,6 +42,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
+                                    <p-dropdown appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.incidentCategory"  [autoDisplayFirst]="false" optionValue="code" [options]="(categories$ | async) ?? []"  optionLabel="name"></p-dropdown>
                                     <input pInputText type="text" disabled [(ngModel)]="project.incidentCategory">
                                 </ng-template>
                                 <ng-template pTemplate="output">
@@ -151,8 +152,8 @@
                         </td>
                         <td>
                             <div class="flex align-items-center justify-content-center gap-2">
-                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" pInitEditableRow  class="p-button-rounded p-button-text" [icon]="(isEditingLoading$ | async) && (currentId$ | async) == project.projectId ? 'pi pi-spin pi-spinner' :'pi pi-pencil'"></button>
-                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" type="button" (click)="deletePopUp(project)" pButton pRipple type="button"  [icon]="(isDeletingLoading$ | async) && (currentId$ | async) == project.projectId ? 'pi pi-spin pi-spinner' :'pi pi-trash'" class="p-button-rounded p-button-text"></button>
+                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" pInitEditableRow  class="p-button-rounded p-button-text" [icon]="(isEditingLoading$ | async) && (currentId$ | async) == project.reportId ? 'pi pi-spin pi-spinner' :'pi pi-pencil'"></button>
+                                <button *ngIf="!editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" type="button" (click)="deletePopUp(project)" pButton pRipple type="button"  [icon]="(isDeletingLoading$ | async) && (currentId$ | async) == project.reportId ? 'pi pi-spin pi-spinner' :'pi pi-trash'" class="p-button-rounded p-button-text"></button>
                                 <button *ngIf="editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" (click)="editRow(project)" pSaveEditableRow icon="pi pi-check" class="p-button-rounded p-button-text p-button-success mr-2"></button>
                                 <button *ngIf="editing" [disabled]="(isDeletingLoading$ | async) || (isEditingLoading$ | async)" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger"></button>
                             </div>
