@@ -1,1 +1,12 @@
-<div class="card-bg">ALL STAFFS</div>
+<div class="mm">
+    <div *ngIf="isLoading$ | async">
+        <app-loading-indicator></app-loading-indicator>
+    </div>
+    <div *ngIf="!(isLoading$ | async)">
+        <div *ngIf="((staffs$ | async) ?? []).length > 0">
+            <div  class="grid grid--4">
+                <app-staff-card *ngFor="let staff of staffs$ | async; let i = index" [staff]="staff" [index]="i" ></app-staff-card>
+            </div>
+        </div>
+    </div> 
+</div>

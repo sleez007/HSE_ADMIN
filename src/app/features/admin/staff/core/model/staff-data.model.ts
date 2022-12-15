@@ -8,5 +8,6 @@ export interface StaffData {
     entity: string;
     location: string;
     role: string;
-    supervisor: string | null
+    supervisor: string | null,
+    id?: number
 }

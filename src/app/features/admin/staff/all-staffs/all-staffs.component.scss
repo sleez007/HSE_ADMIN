@@ -1,0 +1,8 @@
+.grid--4{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2em;
+    width: 100%;
+}
+.mm{
+    width: 100%;
+}

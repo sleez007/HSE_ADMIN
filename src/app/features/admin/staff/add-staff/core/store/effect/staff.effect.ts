@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router} from "@angular/router";
-import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, map, mergeMap, of, retry, switchMap, tap, withLatestFrom } from "rxjs";
+import { catchError, map, mergeMap, of, retry, switchMap, tap, withLatestFrom } from "rxjs";
 import { NetworkHelperService } from "src/app/core/network";
 import { ToastService } from "src/app/core/service";
 import { OptionModel } from "src/app/features/admin/core/model";
@@ -28,15 +28,6 @@ export class StaffEffect {
         tap(() => console.log(this.route)),
         tap(() => this.router.navigate(['/dashboard/create-staff/medical'], {relativeTo: this.route}))
     ),{dispatch: false});
-
-    // saveUserToServer$ = createEffect(() => this.action$.pipe(
-    //     ofType(createStaffMedicalActions.storeStaffData),
-    //     switchMap((medicals)=> this.store.select(staffFeature.selectStaffData).pipe(map((staffInfo)=> ({...medicals, ...staffInfo})))),
-    //     exhaustMap(staffRecord => this.networkHelper.post<any, StaffData & StaffMedical>(staffEndpoints.create_user, staffRecord).pipe(
-    //         map((data)=> staffEffectAction.createStaffSuccess(data)),
-    //         catchError((error: HttpErrorResponse) => of(staffEffectAction.createStaffFailure({message: error.error['message'], statusCode: error.status})))
-    //     ))) 
-    // );
 
     saveUserToServer$ = createEffect(() => this.action$.pipe(
         ofType(createStaffMedicalActions.storeStaffData),

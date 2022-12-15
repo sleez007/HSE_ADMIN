@@ -14,8 +14,7 @@
         </div>
         <div *ngIf="!(isLoadingOffice$ | async)">
             <app-incident-overview-table [headerList]="(officeHead$ | async) ?? []" [tableContent]="(officeData$ | async) ?? []" ></app-incident-overview-table>
-        </div>
-        
+        </div> 
     </div>
     <div *ngIf="(selectedSwitch$ | async) == 0" class="tb-wrap">
         <div *ngIf="((projectOptions$ | async )?? []).length > 0">
