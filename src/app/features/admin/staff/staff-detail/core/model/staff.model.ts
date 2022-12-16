@@ -1,6 +1,6 @@
 export interface StaffDetail{
-    firstKey: string;
-    secondKey: string;
+    firstKey: string | null;
+    secondKey: string | null;
     thirdKey: string | null;
     fourthKey: String | null;
     fifthKey: string | null;

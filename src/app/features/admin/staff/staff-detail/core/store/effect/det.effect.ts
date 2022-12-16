@@ -11,7 +11,7 @@ import { staffEndpoints } from "../../../../core/constants";
 import { StaffDetail } from "../../model";
 import { StaffDetailEffectAction } from "../action/det.action";
 
-type bag = {ui: StaffDetail[], bm: StaffDetail[], km: StaffDetail[],ps: StaffDetail[]};
+type bag = {ui: StaffDetail[], bm: StaffDetail[], km: StaffDetail[],ps: StaffDetail[], firstName: string, lastName: string};
 
 @Injectable()
 export class StaffDetailEffect {
@@ -47,24 +47,26 @@ export class StaffDetailEffect {
                 {firstKey: 'Position', secondKey: data.last_name, thirdKey: 'Supervisor', fourthKey : data.gender, fifthKey: null, sixthKey: null},
             ],
             bm: [
-                {firstKey: 'Date of Birth', secondKey: data.first_name, thirdKey: 'Weight', fourthKey : data.email, fifthKey: null, sixthKey: null},
-                {firstKey: 'Date of Test', secondKey: data.last_name, thirdKey: 'Genotype', fourthKey : data.gender, fifthKey: null, sixthKey: null},
-                {firstKey: 'Blood Group', secondKey: data.last_name, thirdKey: 'Typhoid Vaccine', fourthKey : data.gender, fifthKey: null, sixthKey: null},
-                {firstKey: 'Expiry Date', secondKey: data.last_name, thirdKey: 'Calculated BMI', fourthKey : data.gender, fifthKey: null, sixthKey: null},
+                {firstKey: 'Date of Birth', secondKey: null, thirdKey: 'Weight', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Date of Test', secondKey: null, thirdKey: 'Genotype', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Blood Group', secondKey: null, thirdKey: 'Typhoid Vaccine', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Expiry Date', secondKey: null, thirdKey: 'Calculated BMI', fourthKey : null, fifthKey: null, sixthKey: null},
             ],
             km: [
-                {firstKey: 'CNS', secondKey: data.first_name, thirdKey: 'Full Blood Count', fourthKey : data.email, fifthKey: 'Drugs and Alcohol Test', sixthKey: null},
-                {firstKey: 'Chest', secondKey: data.last_name, thirdKey: 'Audiometry', fourthKey : data.gender, fifthKey: 'ABD', sixthKey: null},
-                {firstKey: 'Lipids Profile', secondKey: data.last_name, thirdKey: 'ECG', fourthKey : data.gender, fifthKey: 'Urinalysis', sixthKey: null},
-                {firstKey: 'Chest Xray', secondKey: data.last_name, thirdKey: 'CVS', fourthKey : data.gender, fifthKey: 'Yellow Fever', sixthKey: null},
-                {firstKey: 'Hepatitis Screening', secondKey: data.last_name, thirdKey: '', fourthKey : '', fifthKey: '', sixthKey: ''},
+                {firstKey: 'CNS', secondKey: null, thirdKey: 'Full Blood Count', fourthKey : null, fifthKey: 'Drugs and Alcohol Test', sixthKey: null},
+                {firstKey: 'Chest', secondKey: null, thirdKey: 'Audiometry', fourthKey : null, fifthKey: 'ABD', sixthKey: null},
+                {firstKey: 'Lipids Profile', secondKey: null, thirdKey: 'ECG', fourthKey : null, fifthKey: 'Urinalysis', sixthKey: null},
+                {firstKey: 'Chest Xray', secondKey: null, thirdKey: 'CVS', fourthKey : null, fifthKey: 'Yellow Fever', sixthKey: null},
+                {firstKey: 'Hepatitis Screening', secondKey: null, thirdKey: null, fourthKey : null, fifthKey: null, sixthKey: null},
             ],
             ps: [
-                {firstKey: 'Overall Evaluation', secondKey: data.first_name, thirdKey: 'Weight', fourthKey : data.email, fifthKey: null, sixthKey: null},
-                {firstKey: 'Test Expiration Date', secondKey: data.last_name, thirdKey: 'Genotype', fourthKey : data.gender, fifthKey: null, sixthKey: null},
-                {firstKey: 'Schedule Next Medical', secondKey: data.last_name, thirdKey: 'Typhoid Vaccine', fourthKey : data.gender, fifthKey: null, sixthKey: null},
-                {firstKey: 'Remind Me', secondKey: data.last_name, thirdKey: 'Calculated BMI', fourthKey : data.gender, fifthKey: null, sixthKey: null},
-            ]
+                {firstKey: 'Overall Evaluation', secondKey: null, thirdKey: 'Weight', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Test Expiration Date', secondKey: null, thirdKey: 'Genotype', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Schedule Next Medical', secondKey: null, thirdKey: 'Typhoid Vaccine', fourthKey : null, fifthKey: null, sixthKey: null},
+                {firstKey: 'Remind Me', secondKey: null, thirdKey: 'Calculated BMI', fourthKey : null, fifthKey: null, sixthKey: null},
+            ],
+            firstName: data.first_name,
+            lastName: data.last_name
         }
     }
 

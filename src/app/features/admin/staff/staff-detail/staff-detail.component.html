@@ -1,15 +1,15 @@
 <app-nav-bar pageTitle="All Staffs"></app-nav-bar>
 
 <div class="mm">
-    <!-- <div *ngIf="isLoading$ | async">
+    <div *ngIf="isLoading$ | async">
         <app-loading-indicator></app-loading-indicator>
-    </div> -->
-    <!-- <div *ngIf="!(isLoading$ | async)"> -->
+    </div>
+    <div *ngIf="!(isLoading$ | async)">
         <div class="card-bg">
             <div class="person flex">
                 <div class="staff__initial">
-                    KE
-                    <!-- {{staff.firstName[0]+staff.lastName[0] | uppercase}} -->
+                    
+                    {{((firstName$ | async )?? '')[0]+((lastName$ | async )?? '')[0] | uppercase}}
                 </div>
                 <p>USER INFORMATION</p>
             </div>
@@ -17,9 +17,9 @@
             
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td><span>{{user.firstKey}}</span></td>
-                        <td>{{user.secondKey}}</td>
-                        <td><span>{{user.thirdKey}}</span></td>
+                        <td><span>{{user.firstKey ?? 'Null'}}</span></td>
+                        <td>{{user.secondKey ?? 'Null'}}</td>
+                        <td><span>{{user.thirdKey ?? 'Null'}}</span></td>
                         <td>{{user.fourthKey ?? 'Null'}}</td>
                     </tr>
                     
@@ -31,9 +31,9 @@
             <p-table [value]="(medicalBasic$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td><span>{{user.firstKey}}</span></td>
-                        <td>{{user.secondKey}}</td>
-                        <td><span>{{user.thirdKey}}</span></td>
+                        <td><span>{{user.firstKey ?? 'Null'}}</span></td>
+                        <td>{{user.secondKey ?? 'Null'}}</td>
+                        <td><span>{{user.thirdKey ?? 'Null'}}</span></td>
                         <td>{{user.fourthKey ?? 'Null'}}</td>
                     </tr>
                 </ng-template>
@@ -43,9 +43,9 @@
             <p-table [value]="(keyMedical$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td><span>{{user.firstKey}}</span></td>
-                        <td>{{user.secondKey}}</td>
-                        <td><span>{{user.thirdKey}}</span></td>
+                        <td><span>{{user.firstKey ?? 'Null'}}</span></td>
+                        <td>{{user.secondKey ?? 'Null'}}</td>
+                        <td><span>{{user.thirdKey ?? 'Null'}}</span></td>
                         <td>{{user.fourthKey ?? 'Null'}}</td>
                         <td><span>{{user.fifthKey}}</span></td>
                         <td>{{user.sixthKey ?? 'Null'}}</td>
@@ -57,8 +57,8 @@
             <p-table [value]="(personalData$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td><span>{{user.firstKey}}</span></td>
-                        <td>{{user.secondKey}}</td>
+                        <td><span>{{user.firstKey ?? 'Null'}}</span></td>
+                        <td>{{user.secondKey ?? 'Null'}}</td>
                         <td><span></span></td>
                         <td> </td>
                        
@@ -66,5 +66,5 @@
                 </ng-template>
             </p-table>
         </div>
-    <!-- </div>  -->
+    </div> 
 </div>

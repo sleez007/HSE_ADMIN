@@ -8,6 +8,8 @@ export  interface StaffDetailState {
     keyMedical: StaffDetail[];
     personalData: StaffDetail[]
     isLoading: boolean;
+    firstName: string,
+    lastName: string
 };
 
 export const staffDetailInitialState: StaffDetailState = {
@@ -16,6 +18,8 @@ export const staffDetailInitialState: StaffDetailState = {
     keyMedical: [],
     personalData: [],
     isLoading: true,
+    firstName: '',
+    lastName: '',
 }
 
 export const staffDetailFeature = createFeature({
@@ -23,7 +27,7 @@ export const staffDetailFeature = createFeature({
     reducer: createReducer(
         staffDetailInitialState,
         on(StaffDetailActions.getStaffDetail, (state) => ({...state, isLoading: true})),
-        on(StaffDetailEffectAction.getStaffDetailsSuccess, (state, props) => ({...state, isLoading: false, userBasic: props.ui, medicalBasic: props.bm, keyMedical: props.km, personalData: props.ps})),
+        on(StaffDetailEffectAction.getStaffDetailsSuccess, (state, props) => ({...state, isLoading: false, userBasic: props.ui, medicalBasic: props.bm, keyMedical: props.km, personalData: props.ps, firstName: props.firstName, lastName: props.lastName})),
         on(StaffDetailEffectAction.getStaffDetailFailure, (state, props) => ({...state, isLoading: false})),
     )
 })

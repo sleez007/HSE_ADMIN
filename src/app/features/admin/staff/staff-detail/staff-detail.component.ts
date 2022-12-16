@@ -10,18 +10,22 @@ import { staffDetailFeature } from './core/store';
   styleUrls: ['./staff-detail.component.scss']
 })
 export class StaffDetailComponent implements OnInit {
-  userBasic$ : Observable<StaffDetail[]>
-  medicalBasic$: Observable<StaffDetail[]>
-  keyMedical$: Observable<StaffDetail[]>
-  personalData$: Observable<StaffDetail[]>
-  isLoading$: Observable<boolean>
+  userBasic$ : Observable<StaffDetail[]>;
+  medicalBasic$: Observable<StaffDetail[]>;
+  keyMedical$: Observable<StaffDetail[]>;
+  personalData$: Observable<StaffDetail[]>;
+  isLoading$: Observable<boolean>;
+  firstName$: Observable<string>
+  lastName$: Observable<string>
 
   constructor(private readonly store: Store) { 
     this.userBasic$ = store.select(staffDetailFeature.selectUserBasic);
     this.medicalBasic$ = store.select(staffDetailFeature.selectMedicalBasic);
     this.keyMedical$ = store.select(staffDetailFeature.selectKeyMedical);
     this.personalData$ = store.select(staffDetailFeature.selectPersonalData);
-    this.isLoading$ = store.select(staffDetailFeature.selectIsLoading)
+    this.isLoading$ = store.select(staffDetailFeature.selectIsLoading);
+    this.firstName$ = store.select(staffDetailFeature.selectFirstName);
+    this.lastName$ = store.select(staffDetailFeature.selectLastName)
   }
 
   ngOnInit(): void {}
