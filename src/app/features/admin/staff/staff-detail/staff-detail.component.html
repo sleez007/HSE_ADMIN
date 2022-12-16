@@ -1,1 +1,30 @@
-<div class="card-bg">STAFF DETAILS</div>
+<app-nav-bar pageTitle="All Staffs"></app-nav-bar>
+
+<div class="mm">
+    <!-- <div *ngIf="isLoading$ | async">
+        <app-loading-indicator></app-loading-indicator>
+    </div> -->
+    <!-- <div *ngIf="!(isLoading$ | async)"> -->
+        <div class="card-bg">
+            <p-table [value]="['b','b','d','c']"  [tableStyle]="{'min-width': '50rem'}">
+            
+                <ng-template pTemplate="body" >
+                    <tr>
+                        <td><span>FirstName</span></td>
+                        <td>hcvhjvjhvj</td>
+                        <td><span>Email</span></td>
+                        <td>vccghc</td>
+                    </tr>
+                    
+                </ng-template>
+            </p-table>
+
+        </div>
+        <div class="card-bg">
+            
+        </div>
+        <div class="card-bg">
+            
+        </div>
+    <!-- </div>  -->
+</div>

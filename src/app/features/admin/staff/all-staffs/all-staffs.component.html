@@ -1,9 +1,13 @@
+<app-nav-bar pageTitle="All Staffs"></app-nav-bar>
 <div class="mm">
     <div *ngIf="isLoading$ | async">
         <app-loading-indicator></app-loading-indicator>
     </div>
     <div *ngIf="!(isLoading$ | async)">
-        <div *ngIf="((staffs$ | async) ?? []).length > 0">
+        <div *ngIf="((staffs$ | async) ?? []).length > 0; let ct">
+            <div class="summary">
+                <p>Remote Staff: 0/{{((staffs$ | async) ?? []).length}} &nbsp; | &nbsp; PH Staff: 0/{{((staffs$ | async) ?? []).length}} &nbsp; | &nbsp; Awka Staff: 0/{{((staffs$ | async) ?? []).length}} &nbsp;</p>
+            </div>
             <div  class="grid grid--4">
                 <app-staff-card *ngFor="let staff of staffs$ | async; let i = index" [staff]="staff" [index]="i" ></app-staff-card>
             </div>

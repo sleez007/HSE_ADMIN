@@ -2,8 +2,9 @@
     <div class="staff__initial" [style.backgroundColor]="index % 2 == 0 ? 'hsla(210, 44%, 22%, 1)': '#FAA919'">
         {{staff.firstName[0]+staff.lastName[0] | uppercase}}
     </div>
+    <i class="pi pi-ellipsis-h ico"></i>
     <p class="staff__name">{{staff.firstName + ' '+ staff.lastName | titlecase}}</p>
     <p class="staff__email">{{staff.email}}</p>
     <p class="staff__position">{{staff.position || 'Null' | titlecase}}</p>
-    <a class="btx">View Staff Details</a>
+    <a class="btx" [routerLink]="['../staff-detail', staff.id]">View Staff Details</a>
 </div>

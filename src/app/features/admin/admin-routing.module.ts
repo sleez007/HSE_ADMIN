@@ -9,7 +9,7 @@ const routes: Routes = [
       { path: 'projects', title: 'HSE | MANAGE PROJECTS', loadChildren: () => import('./project/manage/manage.module').then(m => m.ManageModule) },
       { path: 'create-staff', title: 'HSE | ADD STAFFS', loadChildren: () => import('./staff/add-staff/add-staff.module').then(m => m.AddStaffModule) },
       { path: 'all-staffs', title: 'HSE | STAFFS', loadChildren: () => import('./staff/all-staffs/all-staffs.module').then(m => m.AllStaffsModule) },
-      { path: 'staff-detail', title: 'HSE | STAFF DETAIL', loadChildren: () => import('./staff/staff-detail/staff-detail.module').then(m => m.StaffDetailModule) },
+      { path: 'staff-detail/:id', title: 'HSE | STAFF DETAIL', loadChildren: () => import('./staff/staff-detail/staff-detail.module').then(m => m.StaffDetailModule) },
       { path: 'hse-incident', title: 'HSE | HSE INCIDENTS', loadChildren: () => import('./incidents/hse-incident/hse-incident.module').then(m => m.HseIncidentModule) },
       { path: 'cpa-incident', title: 'HSE | CPA INCIDENTS', loadChildren: () => import('./incidents/cpa-incident/cpa-incident.module').then(m => m.CpaIncidentModule) },
       { path: 'detail/:category', loadChildren: () => import('./incidents/detail/detail.module').then(m => m.DetailModule) },
