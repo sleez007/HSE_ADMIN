@@ -5,6 +5,9 @@ import { StaffDetailRoutingModule } from './staff-detail-routing.module';
 import { StaffDetailComponent } from './staff-detail.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeUiModule } from 'src/app/prime-ui/prime-ui.module';
+import { StoreModule } from '@ngrx/store';
+import { StaffDetailEffect, staffDetailFeature } from './core/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -15,7 +18,9 @@ import { PrimeUiModule } from 'src/app/prime-ui/prime-ui.module';
     CommonModule,
     StaffDetailRoutingModule,
     SharedModule,
-    PrimeUiModule
+    PrimeUiModule,
+    StoreModule.forFeature(staffDetailFeature),
+    EffectsModule.forFeature([StaffDetailEffect])
   ]
 })
 export class StaffDetailModule { }

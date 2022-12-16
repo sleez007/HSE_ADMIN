@@ -6,14 +6,21 @@
     </div> -->
     <!-- <div *ngIf="!(isLoading$ | async)"> -->
         <div class="card-bg">
-            <p-table [value]="['b','b','d','c']"  [tableStyle]="{'min-width': '50rem'}">
+            <div class="person flex">
+                <div class="staff__initial">
+                    KE
+                    <!-- {{staff.firstName[0]+staff.lastName[0] | uppercase}} -->
+                </div>
+                <p>USER INFORMATION</p>
+            </div>
+            <p-table [value]="(userBasic$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
             
-                <ng-template pTemplate="body" >
+                <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td><span>FirstName</span></td>
-                        <td>hcvhjvjhvj</td>
-                        <td><span>Email</span></td>
-                        <td>vccghc</td>
+                        <td><span>{{user.firstKey}}</span></td>
+                        <td>{{user.secondKey}}</td>
+                        <td><span>{{user.thirdKey}}</span></td>
+                        <td>{{user.fourthKey ?? 'Null'}}</td>
                     </tr>
                     
                 </ng-template>
@@ -21,10 +28,43 @@
 
         </div>
         <div class="card-bg">
-            
+            <p-table [value]="(medicalBasic$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td><span>{{user.firstKey}}</span></td>
+                        <td>{{user.secondKey}}</td>
+                        <td><span>{{user.thirdKey}}</span></td>
+                        <td>{{user.fourthKey ?? 'Null'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
         <div class="card-bg">
-            
+            <p-table [value]="(keyMedical$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td><span>{{user.firstKey}}</span></td>
+                        <td>{{user.secondKey}}</td>
+                        <td><span>{{user.thirdKey}}</span></td>
+                        <td>{{user.fourthKey ?? 'Null'}}</td>
+                        <td><span>{{user.fifthKey}}</span></td>
+                        <td>{{user.sixthKey ?? 'Null'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="card-bg">
+            <p-table [value]="(personalData$ | async) ?? []"  [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td><span>{{user.firstKey}}</span></td>
+                        <td>{{user.secondKey}}</td>
+                        <td><span></span></td>
+                        <td> </td>
+                       
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     <!-- </div>  -->
 </div>
