@@ -44,7 +44,7 @@ export class DetailEffect {
             map((response) => detailEffectActions.fetchDataSuccess({data: this.formatDetailToCamel(response)})),
             catchError((error: HttpErrorResponse) => of(detailEffectActions.filterFailure({message: error.error['message'], statusCode: error.status})))
         ))
-    ))
+    ));
 
     deleteProject$ = createEffect(() => this.action$.pipe(
         ofType(detailActions.deleteIncident),
@@ -81,7 +81,8 @@ export class DetailEffect {
             "incident_status":props.incidentStatus,
             "incident_remarks": props.incidentRemarks,
             "due_date": props.dueDate,
-            "assign_to_id": props.assignedToId
+            "assign_to_id": props.assignedToId,
+            "completed_at": new Date()
         }).pipe(
             map(e => detailEffectActions.editIncidentSuccess(props) ),
             catchError((error: HttpErrorResponse) => of(detailEffectActions.editIncidentFailure({message: error.error['message'], statusCode: error.status })))
@@ -104,9 +105,10 @@ export class DetailEffect {
         incident_status: string;
         incident_remarks: string;
         due_date: string;
-        created_at: string
-        id: number,
-        assign_to_id: number
+        created_at: string;
+        completed_at: string;
+        id: number;
+        assign_to_id: number;
     }>): DetailModel[]{
         return data.map(e => ({
             reportId: e.report_id, 
@@ -122,10 +124,11 @@ export class DetailEffect {
             riskMatrix: e.risk_matrix,
             incidentStatus: e.incident_status,
             incidentRemarks: e.incident_remarks,
-            dueDate: e.due_date,
-            createdAt: e.created_at,
+            dueDate: DateFormatter.stringToDate(e.due_date),
+            createdAt: DateFormatter.stringToDate(e.created_at),
             id: e.id,
-            assignedToId: e.assign_to_id
+            assignedToId: e.assign_to_id,
+            completed: DateFormatter.stringToDate(e.completed_at)
         }))
 
     }

@@ -43,7 +43,7 @@
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <p-dropdown appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.incidentCategory"  [autoDisplayFirst]="false" optionValue="code" [options]="(categories$ | async) ?? []"  optionLabel="name"></p-dropdown>
-                                    <input pInputText type="text" disabled [(ngModel)]="project.incidentCategory">
+                                    <!-- <input pInputText type="text" disabled [(ngModel)]="project.incidentCategory"> -->
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{project.incidentCategory}}
@@ -53,10 +53,11 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" disabled [(ngModel)]="project.createdAt">
+                                    <p-calendar appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.createdAt"></p-calendar>
+                                    <!-- <input pInputText type="text" disabled [(ngModel)]="project.createdAt"> -->
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{project.createdAt}}
+                                    {{format(project.createdAt)}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -83,10 +84,10 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" disabled  [(ngModel)]="project.isCorrectiveActionRequired">
+                                    <input pInputText type="text" disabled  [(ngModel)]="project.correctiveAction">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{project.isCorrectiveActionRequired}}
+                                    {{project.correctiveAction}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -103,10 +104,11 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" disabled  [(ngModel)]="project.dueDate">
+                                    <p-calendar appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.dueDate"></p-calendar>
+                                    <!-- <input pInputText type="text" disabled  [(ngModel)]="project.dueDate"> -->
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{project.dueDate}}
+                                    {{format(project.dueDate)}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -123,10 +125,11 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" disabled  [(ngModel)]="project.dueDate">
+                                    <p-calendar appendTo="body" [style]="{'width':'100%'}" [(ngModel)]="project.completed"></p-calendar>
+                                    <!-- <input pInputText type="text" disabled  [(ngModel)]="project.completed"> -->
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    Nil
+                                    {{format(project.completed)}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>

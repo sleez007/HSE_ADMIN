@@ -13,7 +13,8 @@ export interface DetailModel{
     riskMatrix: string;
     incidentStatus: string;
     incidentRemarks: string;
-    dueDate: string;
-    createdAt: string
+    dueDate: string | Date;
+    createdAt: string | Date;
     id: number | string;
+    completed: Date | string | null
 }

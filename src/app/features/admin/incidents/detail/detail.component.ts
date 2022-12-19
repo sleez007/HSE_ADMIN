@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ConfirmationService } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { DateFormatter } from 'src/app/core/util';
 import { OptionModel } from '../../core/model';
 import { DetailModel } from './core/model';
 import { detailActions, detailFeature } from './core/store';
@@ -63,5 +64,10 @@ export class DetailComponent implements OnInit {
 
   onFilterHandler(data: {start: string | Date, end: string | Date, }){
     this.store.dispatch(detailActions.filter({...data, category: this.route.snapshot.paramMap.get('category') ?? ''}))
+  }
+
+  format(dateString?: Date){
+    if(!dateString) return 'Nill';
+    return DateFormatter.dateToString(dateString)
   }
 }
