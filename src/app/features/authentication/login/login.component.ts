@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   loginForm  = this.fb.group({
     email: ['', [Validators.required, Validators.email ],],
-    password: ['', [Validators.required, FormValidator.validatePassword()]]
+    password: ['', [Validators.required]]
+    // password: ['', [Validators.required, FormValidator.validatePassword()]]
   })
 
   constructor(private readonly store: Store, private readonly fb: FormBuilder) {
@@ -29,14 +30,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.valid){
-      // this.store.dispatch(loginActions.login({
-      //   email: this.loginForm.value.email!, 
-      //   password: this.loginForm.value.password! 
-      // }));
       this.store.dispatch(loginActions.login({
         email: this.loginForm.value.email!, 
-        password: 'password' 
+        password: this.loginForm.value.password! 
       }));
+      // this.store.dispatch(loginActions.login({
+      //   email: this.loginForm.value.email!, 
+      //   password: 'password' 
+      // }));
     }
   }
 
