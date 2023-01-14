@@ -8,14 +8,14 @@ If you already have generated a project before synchronizing this repository, th
 
 - Remove the existing **.git** folder by running the command ``rm -fr .git`` . This is only necessary if you already have initialized git in the current directory.
 - Initialize git again by running the command ``git init`` in the project directory.
-- Add the remote origin by running the command ``git remote add origin https://github.com/bonitas-ict/hse_admin.git``
+- Add the remote origin by running the command ``git remote add origin https://github.com/sleez007/HSE_ADMIN.git``
 - Sync with the existing online repository by running the command ``git fetch origin`` to pull down the remote repository.
 - Check out the specific branch you want with the command i.e ``git checkout -b branch-name`` where **branch-name** is a placeholder for the specific branch you would want to checkout.
 - At this point, You are good to go 😁
 
 ## Cloning the project for the first time
 
-If you intend to clone the project freshly to your system then, a simple git clone will suffice i.e ``git clone https://github.com/bonitas-ict/hse_admin.git``. The example above assumes you are using HTTPS and not SSH.
+If you intend to clone the project freshly to your system then, a simple git clone will suffice i.e ``git clone hhttps://github.com/sleez007/HSE_ADMIN.git``. The example above assumes you are using HTTPS and not SSH.
 
 ## Important Note
 
@@ -39,4 +39,4 @@ You can go ahead and attach your app screenshots if you wish
 
 ## Live deployment Url
 
-[Live deployment URL](https://main.d3qc8pj9a55dt1.amplifyapp.com/)
+[Live deployment URL](https://hse-admin-two.vercel.app/)
