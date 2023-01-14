@@ -42,4 +42,4 @@ You can go ahead and attach your app screenshots if you wish
 [Live deployment URL](https://hse-admin-two.vercel.app/)
 
 ## DEMO HERE
-<video src='./demo.mov' width=180>
+<video src='demo.mov' width=180>
