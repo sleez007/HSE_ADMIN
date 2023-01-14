@@ -43,8 +43,8 @@ You can go ahead and attach your app screenshots if you wish
 
 ## DEMO HERE
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/sleez007/HSE_ADMIN/blob/main/demo.mov" type="video/mp4">
-</video>
+I have also attached a video demo titled "demo.mov" in the root directory.
 
-<!-- https://github.com/sleez007/HSE_ADMIN/blob/main/demo.mov -->
+<video width="320" height="240" controls>
+  <source src="demo.mov" type="video/mp4">
+</video>
