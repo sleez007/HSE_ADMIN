@@ -43,7 +43,7 @@ You can go ahead and attach your app screenshots if you wish
 
 ## DEMO HERE
 
-I have also attached a video demo titled "demo.mov" in the root directory. This is just incase the heroku server where the backend is depolyed goes down :)
+I have also attached a video demo titled "demo.mov" in the root directory. This is just incase the heroku server where the backend is deployed goes down :)
 
 <video width="320" height="240" controls>
   <source src="demo.mov" type="video/mp4">
