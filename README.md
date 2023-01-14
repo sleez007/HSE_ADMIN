@@ -42,4 +42,6 @@ You can go ahead and attach your app screenshots if you wish
 [Live deployment URL](https://hse-admin-two.vercel.app/)
 
 ## DEMO HERE
-<video src='https://github.com/sleez007/HSE_ADMIN/blob/main/demo.mov' width=180>
+<video src='https://github.com/sleez007/HSE_ADMIN/blob/main/demo.mov' width='180' />
+
+https://github.com/sleez007/HSE_ADMIN/blob/main/demo.mov
